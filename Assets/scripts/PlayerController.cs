@@ -5,7 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public float speed = 2.0f;
-    public float turnspeed = 180;
+    public float turnspeed = 25;
+
+    public WheelCollider F1;
+    public WheelCollider F2;
+    public WheelCollider B1;
+    public WheelCollider B2;
 
     private Rigidbody body;
     private float moveInput;
@@ -45,6 +50,19 @@ public class PlayerController : MonoBehaviour {
         float turnDegrees = turnInput * turnspeed * Time.deltaTime;
         Quaternion rotation = Quaternion.Euler(0.0f, turnDegrees, 0.0f);
         body.MoveRotation(body.rotation * rotation);
+        
 
+        /*
+        float torque = moveInput * speed;
+        B1.motorTorque = torque;
+        B2.motorTorque = torque;
+        F1.motorTorque = torque;
+        F2.motorTorque = torque;
+
+        float steer = turnInput * turnspeed;
+        F1.steerAngle = steer / 3.4f;
+        F2.steerAngle = steer / 3.4f;
+
+    */
     }
 }

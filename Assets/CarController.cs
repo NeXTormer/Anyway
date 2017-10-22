@@ -29,10 +29,6 @@ public class WheelPair
 
     [Tooltip("Modifies the direction and speed of the wheel rotation\n0 -> No rotation\n1 -> Normal rotation\n-1 -> Inverted rotaion\n2 -> Double speed normal rotation")]
     public float wheelRotaionModifier = 1;
-
-
-    [HideInInspector]
-    public float lastSteeringAngle = 0;
 }
 
 
@@ -46,12 +42,25 @@ public class CarController : MonoBehaviour {
     
     public float handbrakeTorqueMax = 2000;
     public float steeringAngleMax = 40;
-    
+
+    [Header("Steering Wheel")]
+    [Tooltip("Mesh of the steering wheel to move it when steering")]
+    public GameObject steeringWheel;
+
+    [Tooltip("Multiplier between the rotation of the wheels and the rotation of the steering wheel")]
+    public float steeringWheelModifier = 10;
+
+    [Header("Info")]
+    public float speed = 0;
+
+    private float steeringAngleOld = 0;
+    private Rigidbody body;
 
 
 	public void Start () {
-		
-	}
+        steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
+        body = GetComponent<Rigidbody>();
+    }
 	
 	public void Update () {
 		
@@ -69,7 +78,6 @@ public class CarController : MonoBehaviour {
 
         foreach (WheelPair wheelpair in axles)
         {
-            wheelpair.lastSteeringAngle = steeringAngle;
             wheelpair.leftWheel.steerAngle = wheelpair.steering * steeringAngle;
             wheelpair.rightWheel.steerAngle = wheelpair.steering * steeringAngle;
             
@@ -94,9 +102,16 @@ public class CarController : MonoBehaviour {
             //steeringrotation
             wheelpair.rightWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.rightWheelMesh.transform.localEulerAngles.x, wheelpair.rightWheel.steerAngle - wheelpair.rightWheelMesh.transform.localEulerAngles.z + 180, wheelpair.rightWheelMesh.transform.localEulerAngles.z);
             wheelpair.leftWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.leftWheelMesh.transform.localEulerAngles.x, wheelpair.leftWheel.steerAngle - wheelpair.leftWheelMesh.transform.localEulerAngles.z + 180, wheelpair.leftWheelMesh.transform.localEulerAngles.z);
-
         }
+
+        //rotate steering wheel
+        steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);
+
+
+        speed = Mathf.Sqrt(body.velocity.x * body.velocity.x + body.velocity.y * body.velocity.y + body.velocity.z * body.velocity.z);
+
     }
 
-    
+
+
 }

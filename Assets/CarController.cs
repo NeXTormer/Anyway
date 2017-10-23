@@ -43,6 +43,12 @@ public class CarController : MonoBehaviour {
     public float handbrakeTorqueMax = 2000;
     public float steeringAngleMax = 40;
 
+    [Tooltip("The force applied to the vehicle while moving. Protortional to the speed")]
+    public float downwardsForce = 100;
+
+    [Tooltip("A lower center of mass makes the vehicle more stable")]
+    public Vector3 centerOfMass = new Vector3(0, 0, 0);
+
     [Header("Steering Wheel")]
     [Tooltip("Mesh of the steering wheel to move it when steering")]
     public GameObject steeringWheel;
@@ -60,6 +66,7 @@ public class CarController : MonoBehaviour {
 	public void Start () {
         steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
         body = GetComponent<Rigidbody>();
+        axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass;
     }
 	
 	public void Update () {
@@ -107,9 +114,11 @@ public class CarController : MonoBehaviour {
         //rotate steering wheel
         steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);
 
+        //speed variable for display in the inspector
+        speed = body.velocity.magnitude;
 
-        speed = Mathf.Sqrt(body.velocity.x * body.velocity.x + body.velocity.y * body.velocity.y + body.velocity.z * body.velocity.z);
 
+        axles[0].rightWheel.attachedRigidbody.AddForce(this.transform.up * -1 * downwardsForce * speed);
     }
 
 

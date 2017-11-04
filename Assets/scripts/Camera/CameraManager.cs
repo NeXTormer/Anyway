@@ -4,52 +4,26 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("Settings")]
-    public CameraPosition[] cameraPositions;
 
-    [Tooltip("The player on which the camera should act")]
-    public GameObject player;
+    public GameObject[] cameraPositions;
 
-    [Header("Debug")]
-    public bool debug = false;
+    public int currentCamera = 0;
 
-    private int currentCameraIndex = 0;
-    private int numberOfCameras = 0;
-
-	public void Awake()
+    public void Start()
     {
-        numberOfCameras = cameraPositions.Length;
-        SetCameraControllers();
-        foreach(CameraPosition pos in cameraPositions)
+		
+	}
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            pos.controller.Configure();
+            ChangeCamera();
         }
 	}
 
-    private void SwitchCamera()
+    private void ChangeCamera()
     {
-        currentCameraIndex = (currentCameraIndex + 1) % numberOfCameras;
-    }
-
-    private void SetCameraControllers()
-    {
-        foreach (CameraPosition pos in cameraPositions) {
-            if (pos.cameraType == CameraType.Static) pos.controller = new StaticCamera(this, player, pos);
-        }
-    }
-
-	
-	public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchCamera();
-        }
-    }
-
-    //Move the camera after all other calculations have finished
-    public void LateUpdate()
-    {
-        cameraPositions[currentCameraIndex].controller.Update();
+        currentCamera = (currentCamera + 1) % cameraPositions.Length;
     }
 }

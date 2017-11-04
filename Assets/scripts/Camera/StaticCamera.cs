@@ -2,26 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticCamera : CameraController
+public class StaticCamera : MonoBehaviour
 {
 
-    private Vector3 offset;
+    public GameObject camera;
 
-    public StaticCamera(CameraManager manager, GameObject p, CameraPosition origin)
-        : base(manager, p, origin)
-    { }
+    public bool isActive;
 
-    public override void Configure()
+
+	void Start()
     {
-        base.Configure();
-        offset = player.transform.position - cameraOrigin.transform.position;
-    }
-
-    public override void Update()
+		
+	}
+	
+	void Update()
     {
-        base.Update();
-
-        transform.position = player.transform.position + offset;
-
-    }
+		
+	}
 }

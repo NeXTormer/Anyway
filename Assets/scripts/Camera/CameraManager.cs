@@ -11,16 +11,23 @@ public class CameraManager : MonoBehaviour
 
     public void Start()
     {
-		
+		foreach(GameObject gobj in cameraPositions)
+        {
+            gobj.GetComponent<CameraInfo>().isActive = false;
+        }
+
+        cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = true;
 	}
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.V))
         {
+            cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = false;
             ChangeCamera();
+            cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = true;
         }
-	}
+    }
 
     private void ChangeCamera()
     {

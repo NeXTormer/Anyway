@@ -21,12 +21,11 @@ public class Waypoint : MonoBehaviour
 
     public RaceManager raceManager;
 
-    private BoxCollider collider;
 
 	void Start()
     {
-        collider = GetComponent<BoxCollider>();
-	}
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {

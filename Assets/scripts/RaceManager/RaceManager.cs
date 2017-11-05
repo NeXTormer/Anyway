@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct PlayerData
+public class PlayerData
 {
     public PlayerData(GameObject ob)
     {
@@ -31,7 +31,7 @@ public class RaceManager : MonoBehaviour
     [ReadOnly]
     public PlayerData[] playerdataView;
 
-    private Dictionary<string, PlayerData> playerData;
+    public Dictionary<string, PlayerData> playerData;
 
     void Start()
     {
@@ -39,12 +39,12 @@ public class RaceManager : MonoBehaviour
 
         foreach(GameObject pl in players)
         {
+            Debug.Log("addplayer: " + pl.name);
             AddPlayer(pl);
         }
-        playerdataView = new PlayerData[playerData.Values.Count];
-
 
         //add playerdata references to the playerdataview array in order to display them in the inspector
+        playerdataView = new PlayerData[playerData.Values.Count];
         int count = 0;
         foreach(KeyValuePair<string, PlayerData> pair in playerData)
         {
@@ -62,8 +62,11 @@ public class RaceManager : MonoBehaviour
 
     public void OnWaypointHit(GameObject player, GameObject waypoint)
     {
-        if(playerData.ContainsKey(player.name))
+
+       
+        if (playerData.ContainsKey(player.name))
         {
+
             PlayerData data = playerData[player.name];
             Waypoint wp = waypoint.GetComponent<Waypoint>();
 
@@ -97,9 +100,11 @@ public class RaceManager : MonoBehaviour
             }
             else if(wp.type == WaypointType.Start)
             {
-                if(data.currentLap == 0)
+                if (data.currentLap == 0)
                 {
+                    Debug.Log("Started Race (Lap 0 -> Lap 1)");
                     data.currentLap = 1;
+
                     //player started the first lap
                 }
             }
@@ -109,7 +114,6 @@ public class RaceManager : MonoBehaviour
 
     public void StartRace()
     {
-        Debug.Log("Start Race");
         
     }
 
@@ -120,6 +124,6 @@ public class RaceManager : MonoBehaviour
 	
 	void Update()
     {
-		
-	}
+
+    }
 }

@@ -9,8 +9,8 @@ public class PlayerData
     {
         player = ob;
 
-        //0 -> race hasn't begun yet, 1 -> first lap (directly after start)
-        currentLap = 0;
+        //-1 -> race hasn't begun yet, 0 -> first lap (directly after start), 1 -> first lap finished -> started second lap
+        currentLap = -1;
         currentWaypoint = 0;
     }
 
@@ -84,9 +84,10 @@ public class RaceManager : MonoBehaviour
             }
             else if(wp.type == WaypointType.Finish)
             {
-                if ((data.currentWaypoint + 1) == waypoints.Length)
+                if ((data.currentWaypoint + 1) == (waypoints.Length - 1))
                 {
                     //right waypoint
+                    
                     data.currentLap++;
                     if(data.currentLap == numberOfLaps)
                     {
@@ -100,10 +101,10 @@ public class RaceManager : MonoBehaviour
             }
             else if(wp.type == WaypointType.Start)
             {
-                if (data.currentLap == 0)
+                if (data.currentLap == -1)
                 {
-                    Debug.Log("Started Race (Lap 0 -> Lap 1)");
-                    data.currentLap = 1;
+                    Debug.Log("Started Race (Lap -1 -> Lap 0)");
+                    data.currentLap = 0;
 
                     //player started the first lap
                 }

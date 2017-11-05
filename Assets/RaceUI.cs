@@ -27,7 +27,9 @@ public class RaceUI : MonoBehaviour {
     {
         int currentlap = racemanager.playerData[player.name].currentLap;
         int currentwaypoint = racemanager.playerData[player.name].currentWaypoint;
-        int maxwp = racemanager.waypoints.Length;
+
+        //Start and finish are also in the waypoints array, but they don't count as 'real' waypoints
+        int maxwp = racemanager.waypoints.Length - 2;
         int nol = racemanager.numberOfLaps;
 
         //TODO: performance?

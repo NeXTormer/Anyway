@@ -22,7 +22,6 @@ public class PlayerData
 public class RaceManager : MonoBehaviour
 {
     [Header("Settings")]
-    public GameObject[] waypoints;
     public GameObject[] players;
 
     public int numberOfLaps = 1;
@@ -31,10 +30,27 @@ public class RaceManager : MonoBehaviour
     [ReadOnly]
     public PlayerData[] playerdataView;
 
+    [ReadOnly]
+    public float raceTime = 0;
+
+    [ReadOnly]
+    public bool raceActive = false;
+
+
     public Dictionary<string, PlayerData> playerData;
+
+    [HideInInspector]
+    public GameObject[] waypoints;
 
     void Start()
     {
+        Waypoint[] tempwaypoints = GetComponentsInChildren<Waypoint>();
+        
+        for(int i = 0; i < tempwaypoints.Length; i++)
+        {
+            waypoints[i] = tempwaypoints[i].gameObject;
+        }
+
         playerData = new Dictionary<string, PlayerData>();
 
         foreach(GameObject pl in players)
@@ -62,69 +78,84 @@ public class RaceManager : MonoBehaviour
 
     public void OnWaypointHit(GameObject player, GameObject waypoint)
     {
-
-       
-        if (playerData.ContainsKey(player.name))
+        if(raceActive)
         {
-
-            PlayerData data = playerData[player.name];
-            Waypoint wp = waypoint.GetComponent<Waypoint>();
-
-            if(wp.type == WaypointType.Waypoint)
+            if (playerData.ContainsKey(player.name))
             {
-                if ((data.currentWaypoint + 1) == wp.waypointID)
+
+                PlayerData data = playerData[player.name];
+                Waypoint wp = waypoint.GetComponent<Waypoint>();
+
+                if (wp.type == WaypointType.Waypoint)
                 {
-                    //right waypoint
-                    data.currentWaypoint++;
-                }
-                else
-                {
-                    //wrong waypoint
-                }
-            }
-            else if(wp.type == WaypointType.Finish)
-            {
-                if ((data.currentWaypoint + 1) == (waypoints.Length - 1))
-                {
-                    //right waypoint
-                    
-                    data.currentLap++;
-                    if(data.currentLap == numberOfLaps)
+                    if ((data.currentWaypoint + 1) == wp.waypointID)
                     {
-                        //player has finished the race
+                        //right waypoint
+                        data.currentWaypoint++;
+                    }
+                    else
+                    {
+                        //wrong waypoint
                     }
                 }
-                else
+                else if (wp.type == WaypointType.Finish)
                 {
-                    //wrong waypoint
+                    if ((data.currentWaypoint + 1) == (waypoints.Length - 1))
+                    {
+                        data.currentLap++;
+                        if (data.currentLap == numberOfLaps)
+                        {
+                            //player has finished the race
+                            StopRace();
+                            return;
+                        }
+                        //right waypoint, player has finished one lap
+                        data.currentWaypoint = 0;
+
+                    }
+                    else
+                    {
+                        //wrong waypoint
+                    }
                 }
-            }
-            else if(wp.type == WaypointType.Start)
-            {
-                if (data.currentLap == -1)
+                else if (wp.type == WaypointType.Start)
                 {
-                    Debug.Log("Started Race (Lap -1 -> Lap 0)");
-                    data.currentLap = 0;
+                    if (data.currentLap == -1)
+                    {
+                        Debug.Log("Started Race (Lap -1 -> Lap 0)");
+                        data.currentLap = 0;
 
-                    //player started the first lap
+                        //player started the first lap
+                    }
                 }
-            }
 
+            }
         }
+       
+        
     }
 
     public void StartRace()
     {
-        
+        raceActive = true;
+        raceTime = 0;
+
     }
 
+    public void StopRace()
+    {
+        raceActive = false;
+    }
     
 
 
 	
 	
-	void Update()
+	void FixedUpdate()
     {
-
+        if(raceActive)
+        {
+            raceTime += Time.deltaTime;
+        }
     }
 }

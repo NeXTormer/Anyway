@@ -18,6 +18,10 @@ public class RaceManagerEditor : Editor
         {
             script.StartRace();
         }
+        if(GUILayout.Button("End Race"))
+        {
+            script.StopRace();
+        }
 
     }
 

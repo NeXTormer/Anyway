@@ -32,8 +32,10 @@ public class RaceUI : MonoBehaviour {
         int maxwp = racemanager.waypoints.Length - 2;
         int nol = racemanager.numberOfLaps;
 
+        float racetime = racemanager.raceTime;
+
         //TODO: performance?
-        sb = new StringBuilder(60);
+        sb = new StringBuilder(70);
         sb.Append("Name: ");
         sb.AppendLine(player.name);
         sb.Append("Waypoint: ");
@@ -45,6 +47,9 @@ public class RaceUI : MonoBehaviour {
         sb.Append(" / ");
         sb.Append(nol);
         sb.Append("\n");
+        sb.Append("Time: ");
+        sb.Append(racetime.ToString("0.00"));
+
 
         racetext.text = sb.ToString();
     }

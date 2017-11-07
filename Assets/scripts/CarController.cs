@@ -48,7 +48,7 @@ public class CarController : MonoBehaviour
     public float downwardsForce = 100;
 
     [Tooltip("A lower center of mass makes the vehicle more stable")]
-    public Vector3 centerOfMass = new Vector3(0, 0, 0);
+    public Transform centerOfMass;
 
     [Header("Steering Wheel")]
     [Tooltip("Mesh of the steering wheel to move it when steering")]
@@ -68,7 +68,7 @@ public class CarController : MonoBehaviour
     {
         steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
         body = GetComponent<Rigidbody>();
-        axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass;
+        axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
     }
 	
 	public void Update ()
@@ -84,7 +84,31 @@ public class CarController : MonoBehaviour
         float steeringAngle = steeringAngleMax * Input.GetAxis("Horizontal");
         float handBrakeTorque = handbrakeTorqueMax * Input.GetAxis("Jump");
 
-        
+        if(speed > 100)
+        {
+            motorTorque *= 3;
+        }
+        else if(speed > 80)
+        {
+            motorTorque *= 2.6f;
+        }
+        else if (speed > 60)
+        {
+            motorTorque *= 2.2f;
+        }
+        else if (speed > 50)
+        {
+            motorTorque *= 1.6f;
+        }
+        else if (speed > 40)
+        {
+            motorTorque *= 1.4f;
+        }
+        else if (speed > 20)
+        {
+            motorTorque *= 1.2f;
+        }
+
 
         foreach (WheelPair wheelpair in axles)
         {

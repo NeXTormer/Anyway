@@ -65,7 +65,8 @@ public class RaceManager : MonoBehaviour
             count++;
         }
 
-
+        //start race
+        StartRace();
     }
     
     public void AddPlayer(GameObject player)
@@ -73,14 +74,17 @@ public class RaceManager : MonoBehaviour
         playerData.Add(player.name, new PlayerData(player));
     }
 
-    public void OnWaypointHit(GameObject player, GameObject waypoint)
+    public void OnWaypointHit(GameObject collider, GameObject waypoint)
     {
+
         if(raceActive)
         {
-            if (playerData.ContainsKey(player.name))
+
+            if (playerData.ContainsKey(collider.transform.root.gameObject.name))
             {
 
-                PlayerData data = playerData[player.name];
+                PlayerData data = playerData[collider.transform.root.gameObject.name];
+                Debug.Log(collider.transform.root.gameObject.name);
                 Waypoint wp = waypoint.GetComponent<Waypoint>();
 
                 if (wp.type == WaypointType.Waypoint)

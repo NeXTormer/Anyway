@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour {
 
     public float speed = 2.0f;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     private float moveInput;
     private float turnInput;
 
+    
 	// Use this for initialization
 	void Awake () {
         body = GetComponent<Rigidbody>();

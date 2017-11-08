@@ -27,14 +27,11 @@ public class RaceManager : MonoBehaviour
     public int numberOfLaps = 1;
 
     [Header("Data")]
-    [ReadOnly]
     public PlayerData[] playerdataView;
 
-    [ReadOnly]
     public float raceTime = 0;
 
-    [ReadOnly]
-    public bool raceActive = false;
+    private bool raceActive = false;
 
 
     public Dictionary<string, PlayerData> playerData;

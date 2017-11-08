@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
 
 [CustomEditor(typeof(RaceManager))]
 public class RaceManagerEditor : Editor
@@ -26,3 +29,5 @@ public class RaceManagerEditor : Editor
     }
 
 }
+
+#endif

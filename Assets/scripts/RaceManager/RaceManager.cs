@@ -41,11 +41,18 @@ public class RaceManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Initializing RaceManager");
+
         Waypoint[] tempwaypoints = GetComponentsInChildren<Waypoint>();
-        
-        for(int i = 0; i < tempwaypoints.Length; i++)
+
+
+        //TODO: not working in level 1 for some reason
+        int counter = 0;
+        foreach(Waypoint wp in tempwaypoints)
         {
-            waypoints[i] = tempwaypoints[i].gameObject;
+            waypoints[counter] = wp.gameObject;
+
+            counter++;
         }
 
         playerData = new Dictionary<string, PlayerData>();

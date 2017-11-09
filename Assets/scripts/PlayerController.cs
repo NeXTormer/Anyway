@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//Deprecated
 public class PlayerController : MonoBehaviour {
 
     public float speed = 2.0f;

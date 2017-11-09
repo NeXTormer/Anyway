@@ -755,47 +755,6 @@ Transform:
   m_Father: {fileID: 1762527664}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 36.420002, y: -156.45901, z: -141.64}
---- !u!1 &1076449898
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1076449899}
-  - component: {fileID: 1076449900}
-  m_Layer: 0
-  m_Name: Collider1
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1076449899
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1076449898}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.54}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1450187611}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1076449900
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1076449898}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.9126441, y: 6.248686, z: 1}
-  m_Center: {x: 0.01011848, y: 0.048932303, z: -0.0000000058331873}
 --- !u!1 &1104524559
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1201363137
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,11 +1051,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295910553}
   m_Mesh: {fileID: 4300008, guid: 0aa581e2f09ba5142a535c9710cc7229, type: 3}
---- !u!4 &1450187611 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4685031090096930, guid: 016261d3af59a8646816c79285f1ec80,
-    type: 2}
-  m_PrefabInternal: {fileID: 1995417040}
 --- !u!1 &1544923309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,47 +1457,6 @@ MonoBehaviour:
   - {fileID: 1959599403}
   - {fileID: 1064609647}
   - {fileID: 241214994}
---- !u!1 &1914994087
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1914994088}
-  - component: {fileID: 1914994089}
-  m_Layer: 0
-  m_Name: Collider2
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1914994088
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1914994087}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.433, z: 1.41}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1450187611}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1914994089
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1914994087}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.6129117, y: 2.559359, z: 0.7802798}
-  m_Center: {x: -0.022875054, y: 0.18017732, z: -0.10986015}
 --- !u!1 &1934498840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,10 +1622,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_Name
-      value: Player1
-      objectReference: {fileID: 0}
     - target: {fileID: 114555955857776876, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
       propertyPath: cameraContainer
@@ -1723,59 +1632,9 @@ Prefab:
       propertyPath: cameraContainer
       value: 
       objectReference: {fileID: 946315028}
-    - target: {fileID: 146986982772974114, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.spring
-      value: 70000
-      objectReference: {fileID: 0}
-    - target: {fileID: 146883063182847560, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.spring
-      value: 70000
-      objectReference: {fileID: 0}
-    - target: {fileID: 146754604018436460, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.spring
-      value: 70000
-      objectReference: {fileID: 0}
-    - target: {fileID: 146285891747063644, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.spring
-      value: 70000
-      objectReference: {fileID: 0}
-    - target: {fileID: 146986982772974114, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 146883063182847560, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 146754604018436460, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 146285891747063644, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 64815949493455936, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: motorTorqueMax
-      value: -3500
+      propertyPath: m_Name
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

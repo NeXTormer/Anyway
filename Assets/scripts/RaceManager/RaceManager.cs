@@ -129,11 +129,8 @@ public class RaceManager : MonoBehaviour
                         //player started the first lap
                     }
                 }
-
             }
-        }
-       
-        
+        }    
     }
 
     public void StartRace()

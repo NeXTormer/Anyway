@@ -39,16 +39,32 @@ public class CarController : MonoBehaviour
     public List<WheelPair> axles;
 
     [Header("Settings")]
-    public float motorTorqueMax = 500;
-    
-    public float handbrakeTorqueMax = 2000;
-    public float steeringAngleMax = 40;
+    public float motorTorqueMax = 3000;
+    public float motorDirectionModifier = 1;
+    public float maxSpeed = 55;
+
+    public float handbrakeTorqueMax = 100000000;
+    public float steeringAngleMax = 30;
 
     [Tooltip("The force applied to the vehicle while moving. Protortional to the speed")]
     public float downwardsForce = 100;
 
     [Tooltip("A lower center of mass makes the vehicle more stable")]
     public Transform centerOfMass;
+
+    [Header("Car Assists")]
+    [Range(0, 1)]
+    public float steerHelper = 0.6f;
+
+    [Range(0, 1)]
+    public float tractionControl = 0.5f;
+
+    [Range(0, 1)]
+    public float slipLimit = 0.3f;
+
+    [Range(0, 1)]
+    public float hardSlipLimit = 0.87f;
+    public float hardSlipTorqueModifier = 25;
 
     [Header("Steering Wheel")]
     [Tooltip("Mesh of the steering wheel to move it when steering")]
@@ -59,9 +75,13 @@ public class CarController : MonoBehaviour
 
     [Header("Info")]
     public float speed = 0;
+    public float forwardSlip = 0;
+
+    public float currentTorque = 0;
 
     private float steeringAngleOld = 0;
     private Rigidbody body;
+    private float oldRotationY = 0;
 
 
 	public void Start ()
@@ -69,46 +89,20 @@ public class CarController : MonoBehaviour
         steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
         body = GetComponent<Rigidbody>();
         axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
+
+        currentTorque = motorTorqueMax;
     }
 	
-	public void Update ()
-    {
-		
-	}
 
-
-    //Physics updates
     public void FixedUpdate()
-    {
-        float motorTorque = motorTorqueMax * Input.GetAxis("Vertical");
+    { 
+        float motorTorque = currentTorque * Input.GetAxis("Vertical");
         float steeringAngle = steeringAngleMax * Input.GetAxis("Horizontal");
         float handBrakeTorque = handbrakeTorqueMax * Input.GetAxis("Jump");
 
-        if(speed > 100)
-        {
-            motorTorque *= 3;
-        }
-        else if(speed > 80)
-        {
-            motorTorque *= 2.6f;
-        }
-        else if (speed > 60)
-        {
-            motorTorque *= 2.2f;
-        }
-        else if (speed > 50)
-        {
-            motorTorque *= 1.6f;
-        }
-        else if (speed > 40)
-        {
-            motorTorque *= 1.4f;
-        }
-        else if (speed > 20)
-        {
-            motorTorque *= 1.2f;
-        }
+        motorTorque *= motorDirectionModifier;
 
+        SteerHelper();
 
         foreach (WheelPair wheelpair in axles)
         {
@@ -145,9 +139,108 @@ public class CarController : MonoBehaviour
         speed = body.velocity.magnitude;
 
 
+        //add downforce relative to speed
         axles[0].rightWheel.attachedRigidbody.AddForce(this.transform.up * -1 * downwardsForce * speed);
+        TractionControl();
+
+        if(body.velocity.magnitude > maxSpeed)
+        {
+            body.velocity = maxSpeed * body.velocity.normalized;
+        }
+
     }
 
+    //TODO: add support for more than two axles
+    private void SteerHelper()
+    {
+        WheelHit wheelhit;
+        axles[0].rightWheel.GetGroundHit(out wheelhit);
+        if(wheelhit.normal == Vector3.zero)
+        {
+            return;
+        }
 
+        axles[0].leftWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return;
+        }
 
+        axles[1].rightWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return;
+        }
+
+        axles[1].leftWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return;
+        }
+
+        //avoid gimbal lock
+        if(Mathf.Abs(oldRotationY - transform.eulerAngles.y) < 10.0f)
+        {
+            float adjust = ((transform.eulerAngles.y - oldRotationY)) * steerHelper;
+            Quaternion rotation = Quaternion.AngleAxis(adjust, Vector3.up);
+            body.velocity = rotation * body.velocity;
+        }
+        oldRotationY = transform.eulerAngles.y;
+    }
+
+    //TODO: add support for more than two axles
+    private void TractionControl()
+    {
+        WheelHit wheelhit;
+
+        if(axles[0].motorAttached)
+        {
+            axles[0].rightWheel.GetGroundHit(out wheelhit);
+            AdjustTorque(wheelhit.forwardSlip);
+
+            axles[0].leftWheel.GetGroundHit(out wheelhit);
+            AdjustTorque(wheelhit.forwardSlip);
+        }
+        if (axles[1].motorAttached)
+        {
+            axles[1].rightWheel.GetGroundHit(out wheelhit);
+            AdjustTorque(wheelhit.forwardSlip);
+
+            axles[1].leftWheel.GetGroundHit(out wheelhit);
+            AdjustTorque(wheelhit.forwardSlip);
+        }
+    }
+
+    private void AdjustTorque(float slip)
+    {
+        slip *= motorDirectionModifier;
+        forwardSlip = slip;
+
+        if(slip >= slipLimit && currentTorque >= 0)
+        {
+            if(slip >= hardSlipLimit)
+            {
+                currentTorque -= hardSlipTorqueModifier * tractionControl;
+            }
+            else
+            {
+                currentTorque -= 10 * tractionControl;
+            }
+
+            if(currentTorque < 0)
+            {
+                currentTorque = 0;
+            }
+            
+        }
+        else
+        {
+            currentTorque += 10 * tractionControl;
+
+            if(currentTorque > motorTorqueMax)
+            {
+                currentTorque = motorTorqueMax;
+            }
+        }
+    }
 }

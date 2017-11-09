@@ -19,12 +19,11 @@ public class Waypoint : MonoBehaviour
     [Tooltip("Incrementing ID of the waypoint starting at 1. Start and finish waypoints don't need an id.")]
     public int waypointID = 1;
 
-    public RaceManager raceManager;
-
+    private RaceManager raceManager;
 
 	void Start()
     {
-
+        raceManager = GetComponentInParent<RaceManager>();
     }
 
     private void OnTriggerEnter(Collider other)

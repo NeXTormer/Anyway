@@ -215,7 +215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   waypointID: 4
-  raceManager: {fileID: 1804899988}
 --- !u!4 &241214997
 Transform:
   m_ObjectHideFlags: 0
@@ -689,7 +688,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   waypointID: 3
-  raceManager: {fileID: 1804899988}
 --- !u!1 &1070242580
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +879,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   waypointID: 1
-  raceManager: {fileID: 1804899988}
 --- !u!1 &1201363136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   waypointID: 0
-  raceManager: {fileID: 1804899988}
 --- !u!65 &1592301138
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1295,7 +1291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   waypointID: 0
-  raceManager: {fileID: 1804899988}
 --- !u!1 &1638033272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1572,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   waypointID: 2
-  raceManager: {fileID: 1804899988}
 --- !u!1 &1959949746 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1156715994785744, guid: 016261d3af59a8646816c79285f1ec80,
@@ -1596,7 +1590,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.27
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1635,6 +1629,14 @@ Prefab:
     - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565922844418578, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565922844418578, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

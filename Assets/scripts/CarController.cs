@@ -6,7 +6,6 @@ using UnityEngine;
 public class WheelPair
 {
     public string name;
-
     [Header("WheelColliders")]
     public WheelCollider rightWheel;
     public WheelCollider leftWheel;
@@ -31,6 +30,29 @@ public class WheelPair
     public float wheelRotaionModifier = 1;
 }
 
+[System.Serializable]
+public struct AccelerationHelperSpeeds
+{
+    public float acceleration0;
+
+    public float speed1;
+    public float acceleration1;
+
+    public float speed2;
+    public float acceleration2;
+
+    public float speed3;
+    public float acceleration3;
+
+    public float speed4;
+    public float acceleration4;
+
+    public float speed5;
+    public float acceleration5;
+
+    public float speed6;
+    public float acceleration6;
+}
 
 
 public class CarController : MonoBehaviour
@@ -65,6 +87,9 @@ public class CarController : MonoBehaviour
     [Range(0, 1)]
     public float hardSlipLimit = 0.87f;
     public float hardSlipTorqueModifier = 25;
+
+
+    public AccelerationHelperSpeeds accelerationHelperSettings;
 
     [Header("Steering Wheel")]
     [Tooltip("Mesh of the steering wheel to move it when steering")]
@@ -141,7 +166,9 @@ public class CarController : MonoBehaviour
 
         //add downforce relative to speed
         axles[0].rightWheel.attachedRigidbody.AddForce(this.transform.up * -1 * downwardsForce * speed);
+
         TractionControl();
+        AccelerationHelper();
 
         if(body.velocity.magnitude > maxSpeed)
         {
@@ -184,6 +211,9 @@ public class CarController : MonoBehaviour
             float adjust = ((transform.eulerAngles.y - oldRotationY)) * steerHelper;
             Quaternion rotation = Quaternion.AngleAxis(adjust, Vector3.up);
             body.velocity = rotation * body.velocity;
+            
+            
+
         }
         oldRotationY = transform.eulerAngles.y;
     }
@@ -208,6 +238,49 @@ public class CarController : MonoBehaviour
 
             axles[1].leftWheel.GetGroundHit(out wheelhit);
             AdjustTorque(wheelhit.forwardSlip);
+        }
+    }
+
+    //when the forward slip nears 1 when accelerating the car moves very slowly. this adds some exta acceleration force for faster acceleration
+    private void AccelerationHelper()
+    {
+        if (Input.GetAxis("Vertical") > 0.5)
+        {
+            if (speed > accelerationHelperSettings.speed6)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration6);
+                Debug.Log(Time.time + "| " + "Speed6");
+            }
+            else if (speed > accelerationHelperSettings.speed5)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration5);
+                Debug.Log(Time.time + "| " + "Speed5");
+            }
+            else if (speed > accelerationHelperSettings.speed4)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration4);
+                Debug.Log(Time.time + "| " + "Speed4");
+            }
+            else if (speed > accelerationHelperSettings.speed3)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration3);
+                Debug.Log(Time.time + "| " + "Speed3");
+            }
+            else if (speed > accelerationHelperSettings.speed2)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration2);
+                Debug.Log(Time.time + "| " + "Speed2");
+            }
+            else if (speed > accelerationHelperSettings.speed1)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration1);
+                Debug.Log(Time.time + "| " + "Speed1");
+            }
+            else if (speed < accelerationHelperSettings.speed1)
+            {
+                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration0);
+                Debug.Log(Time.time + "| " + "Speed0");
+            }
         }
     }
 

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
 [CustomEditor(typeof(RaceManager))]
 public class RaceManagerEditor : Editor
 {

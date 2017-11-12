@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 
+[AddComponentMenu("RaceManager/RaceUI")]
 public class RaceUI : MonoBehaviour {
 
     public Text racetext;

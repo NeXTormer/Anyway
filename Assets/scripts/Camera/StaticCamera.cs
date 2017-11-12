@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Camera Control/Static Camera")]
 [RequireComponent(typeof(CameraInfo))]
 public class StaticCamera : MonoBehaviour
 {

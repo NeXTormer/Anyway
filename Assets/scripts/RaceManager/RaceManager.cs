@@ -19,6 +19,7 @@ public class PlayerData
     public int currentWaypoint;
 }
 
+[AddComponentMenu("RaceManager/RaceManager")]
 public class RaceManager : MonoBehaviour
 {
     [Header("Settings")]

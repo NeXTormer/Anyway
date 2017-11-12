@@ -9,6 +9,7 @@ public enum WaypointType
     Waypoint
 }
 
+[AddComponentMenu("RaceManager/Waypoint")]
 [RequireComponent(typeof(BoxCollider))]
 public class Waypoint : MonoBehaviour
 {

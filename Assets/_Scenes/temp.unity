@@ -157,6 +157,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2075962888}
+    - target: {fileID: 1931188715641190, guid: 1ef529be340fb4d429fa6b4edb924ea7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ef529be340fb4d429fa6b4edb924ea7, type: 2}
   m_IsPrefabParent: 0
@@ -1071,12 +1075,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114056296261776116, guid: 016261d3af59a8646816c79285f1ec80,
+    - target: {fileID: 114555955857776876, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
       propertyPath: cameraContainer
       value: 
       objectReference: {fileID: 946315028}
-    - target: {fileID: 114555955857776876, guid: 016261d3af59a8646816c79285f1ec80,
+    - target: {fileID: 114056296261776116, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
       propertyPath: cameraContainer
       value: 
@@ -1090,75 +1094,33 @@ Prefab:
       propertyPath: cameraContainer
       value: 
       objectReference: {fileID: 946315028}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accHelperSpeed
-      value: 40
+    - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed6
-      value: 50
+    - target: {fileID: 1215338420472468, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed5
-      value: 45
+    - target: {fileID: 1085975842536222, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed4
-      value: 35
+    - target: {fileID: 1392110641008728, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed3
-      value: 25
+    - target: {fileID: 1340895177454022, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed2
-      value: 17
+    - target: {fileID: 1837253322626668, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.speed1
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration1
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration2
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration3
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration4
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration5
-      value: 0.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration6
-      value: 0.004
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910146126768658, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: accelerationHelperSettings.acceleration0
-      value: 0.1
+    - target: {fileID: 1751163294270428, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

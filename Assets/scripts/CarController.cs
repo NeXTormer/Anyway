@@ -30,6 +30,7 @@ public class WheelPair
     public float wheelRotaionModifier = 1;
 }
 
+//TODO: add curve field instead of class (https://docs.unity3d.com/ScriptReference/EditorGUILayout.CurveField.html)
 [System.Serializable]
 public struct AccelerationHelperSpeeds
 {
@@ -54,7 +55,7 @@ public struct AccelerationHelperSpeeds
     public float acceleration6;
 }
 
-
+[AddComponentMenu("Player/CarController")]
 public class CarController : MonoBehaviour
 {
 
@@ -249,37 +250,30 @@ public class CarController : MonoBehaviour
             if (speed > accelerationHelperSettings.speed6)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration6);
-                Debug.Log(Time.time + "| " + "Speed6");
             }
             else if (speed > accelerationHelperSettings.speed5)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration5);
-                Debug.Log(Time.time + "| " + "Speed5");
             }
             else if (speed > accelerationHelperSettings.speed4)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration4);
-                Debug.Log(Time.time + "| " + "Speed4");
             }
             else if (speed > accelerationHelperSettings.speed3)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration3);
-                Debug.Log(Time.time + "| " + "Speed3");
             }
             else if (speed > accelerationHelperSettings.speed2)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration2);
-                Debug.Log(Time.time + "| " + "Speed2");
             }
             else if (speed > accelerationHelperSettings.speed1)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration1);
-                Debug.Log(Time.time + "| " + "Speed1");
             }
             else if (speed < accelerationHelperSettings.speed1)
             {
                 body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration0);
-                Debug.Log(Time.time + "| " + "Speed0");
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Camera Control/CameraManager")]
 public class CameraManager : MonoBehaviour
 {
 

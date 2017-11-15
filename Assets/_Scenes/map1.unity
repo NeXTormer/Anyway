@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 320332932}
   - component: {fileID: 320332931}
   m_Layer: 0
-  m_Name: waypoint2 (1)
+  m_Name: waypoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9704,6 +9704,61 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1368819923}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1371516922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1371516923}
+  - component: {fileID: 1371516925}
+  - component: {fileID: 1371516924}
+  m_Layer: 0
+  m_Name: waypoint4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1371516923
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1371516922}
+  m_LocalRotation: {x: -0, y: -0.32507786, z: -0, w: 0.94568735}
+  m_LocalPosition: {x: -68.7, y: 45.1, z: 92.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2133969567}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -37.941, z: 0}
+--- !u!114 &1371516924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1371516922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd273ad3c692b143b805ae0fa38c40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  waypointID: 4
+--- !u!65 &1371516925
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1371516922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6414566, y: 43.436615, z: 85.09098}
+  m_Center: {x: 0.820693, y: 1.2387848, z: -17.752003}
 --- !u!1 &1377202723
 GameObject:
   m_ObjectHideFlags: 0
@@ -14237,6 +14292,7 @@ Transform:
   - {fileID: 811892510}
   - {fileID: 189458220}
   - {fileID: 320332930}
+  - {fileID: 1371516923}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -40,6 +40,12 @@ public class RaceManager : MonoBehaviour
     [HideInInspector]
     public GameObject[] waypoints;
 
+    private void Awake()
+    {
+        playerData = new Dictionary<string, PlayerData>();
+
+    }
+
     void Start()
     {
         Debug.Log("Initializing RaceManager");
@@ -54,7 +60,6 @@ public class RaceManager : MonoBehaviour
         }
 
 
-        playerData = new Dictionary<string, PlayerData>();
 
         foreach(GameObject pl in players)
         {
@@ -90,7 +95,6 @@ public class RaceManager : MonoBehaviour
             {
 
                 PlayerData data = playerData[collider.transform.root.gameObject.name];
-                Debug.Log(collider.transform.root.gameObject.name);
                 Waypoint wp = waypoint.GetComponent<Waypoint>();
 
                 if (wp.type == WaypointType.Waypoint)
@@ -151,9 +155,6 @@ public class RaceManager : MonoBehaviour
         raceActive = false;
     }
     
-
-
-	
 	
 	void FixedUpdate()
     {

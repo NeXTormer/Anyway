@@ -13,6 +13,10 @@ public class RaceUI : MonoBehaviour {
 
     private StringBuilder sb;
 
+    //Temp vars
+    int t_CurrentLap;
+    int t_CurrentWaypoint;
+
 	void Start()
     {
         sb = new StringBuilder(60);
@@ -26,8 +30,17 @@ public class RaceUI : MonoBehaviour {
 
     public void UpdateText()
     {
-        int currentlap = racemanager.playerData[player.name].currentLap;
-        int currentwaypoint = racemanager.playerData[player.name].currentWaypoint;
+
+        try
+        {
+            t_CurrentLap = racemanager.playerData[player.name].currentLap;
+            t_CurrentWaypoint = racemanager.playerData[player.name].currentWaypoint;
+        } 
+        catch(KeyNotFoundException e)
+        {
+            Debug.LogWarning("Key not found (" + player.name + ") because the dictionary hasn't been fully built yet. Not a big problem.");
+        }
+        
 
         //Start and finish are also in the waypoints array, but they don't count as 'real' waypoints
         int maxwp = racemanager.waypoints.Length - 2;
@@ -40,11 +53,11 @@ public class RaceUI : MonoBehaviour {
         sb.Append("Name: ");
         sb.AppendLine(player.name);
         sb.Append("Waypoint: ");
-        sb.Append(currentwaypoint);
+        sb.Append(t_CurrentWaypoint);
         sb.Append(" / ");
         sb.Append(maxwp);
         sb.Append("\nLap: ");
-        sb.Append(currentlap);
+        sb.Append(t_CurrentLap);
         sb.Append(" / ");
         sb.Append(nol);
         sb.Append("\n");

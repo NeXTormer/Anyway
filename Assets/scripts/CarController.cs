@@ -89,6 +89,9 @@ public class CarController : MonoBehaviour
     public float hardSlipLimit = 0.87f;
     public float hardSlipTorqueModifier = 25;
 
+    [Range(0, 1)]
+    [Tooltip("A higher value means less brake helping.")]
+    public float brakeHelper = 0.94f;
 
     public AccelerationHelperSpeeds accelerationHelperSettings;
 
@@ -101,6 +104,7 @@ public class CarController : MonoBehaviour
 
     [Header("Info")]
     public float speed = 0;
+    public Vector3 speedDirection = new Vector3();
     public float forwardSlip = 0;
 
     public float currentTorque = 0;
@@ -115,7 +119,7 @@ public class CarController : MonoBehaviour
         steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
         body = GetComponent<Rigidbody>();
         axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
-
+        
         currentTorque = motorTorqueMax;
     }
 	
@@ -125,6 +129,28 @@ public class CarController : MonoBehaviour
         float motorTorque = currentTorque * Input.GetAxis("Vertical");
         float steeringAngle = steeringAngleMax * Input.GetAxis("Horizontal");
         float handBrakeTorque = handbrakeTorqueMax * Input.GetAxis("Jump");
+
+        speedDirection = this.transform.InverseTransformDirection(body.velocity.normalized);
+
+
+        //apply an extra brake force when driving backwards with a forward velocity
+        if (motorTorque < -1)
+        {
+            if (speedDirection.z < -0.1)
+            {
+                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                handBrakeTorque = handbrakeTorqueMax;
+            }
+        }
+        else if (motorTorque > 1)
+        {
+            if (speedDirection.z > 0.1)
+            {
+                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                handBrakeTorque = handbrakeTorqueMax;
+            }
+        }
+
 
         motorTorque *= motorDirectionModifier;
 
@@ -166,10 +192,17 @@ public class CarController : MonoBehaviour
 
 
         //add downforce relative to speed
-        axles[0].rightWheel.attachedRigidbody.AddForce(this.transform.up * -1 * downwardsForce * speed);
+        body.AddForce(this.transform.up * -1 * downwardsForce * speed);
 
         TractionControl();
         AccelerationHelper();
+
+        if(handBrakeTorque > 10)
+        {
+            body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+        }
+
+       
 
         if(body.velocity.magnitude > maxSpeed)
         {
@@ -213,8 +246,6 @@ public class CarController : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(adjust, Vector3.up);
             body.velocity = rotation * body.velocity;
             
-            
-
         }
         oldRotationY = transform.eulerAngles.y;
     }

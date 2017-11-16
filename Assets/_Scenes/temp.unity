@@ -1075,7 +1075,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114555955857776876, guid: 016261d3af59a8646816c79285f1ec80,
+    - target: {fileID: 114192642386409264, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
       propertyPath: cameraContainer
       value: 
@@ -1085,39 +1085,14 @@ Prefab:
       propertyPath: cameraContainer
       value: 
       objectReference: {fileID: 946315028}
-    - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_Name
-      value: Player1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114192642386409264, guid: 016261d3af59a8646816c79285f1ec80,
+    - target: {fileID: 114555955857776876, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
       propertyPath: cameraContainer
       value: 
       objectReference: {fileID: 946315028}
-    - target: {fileID: 4565922844418578, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4565922844418578, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 13.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 8.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
-        type: 2}
-      propertyPath: damping
-      value: 8
+    - target: {fileID: 1203374686921954, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_Name
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

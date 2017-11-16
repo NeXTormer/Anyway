@@ -53,8 +53,8 @@ public class RaceManager : MonoBehaviour
         Waypoint[] tempwaypoints = GetComponentsInChildren<Waypoint>();
 
         waypoints = new GameObject[tempwaypoints.Length];
-        //TODO: not working in level 1 for some reason
-        for(int i = 0; i < tempwaypoints.Length; i++)
+
+        for (int i = 0; i < tempwaypoints.Length; i++)
         {
             waypoints[i] = tempwaypoints[i].gameObject;
         }

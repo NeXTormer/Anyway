@@ -653,8 +653,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1203374686921954}
-  m_LocalRotation: {x: -0, y: -0.9997753, z: -0, w: -0.021202147}
-  m_LocalPosition: {x: 114.68052, y: 6.9, z: 92.75773}
+  m_LocalRotation: {x: -0, y: 0.7104396, z: -0, w: -0.70375824}
+  m_LocalPosition: {x: -23.3, y: 396.95, z: 44.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4819780257396456}
@@ -836,7 +836,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1392110641008728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 0, z: 0.93}
+  m_LocalPosition: {x: 0.05, y: 0, z: 1.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4358218174877690}
@@ -1878,7 +1878,7 @@ MonoBehaviour:
     rightWheelMesh: {fileID: 1014089395382384}
     leftWheelMesh: {fileID: 1387498477649704}
     motorAttached: 1
-    handBrakeAttached: 0
+    handBrakeAttached: 1
     steering: 1
     wheelRotaionModifier: -1
   - name: Back
@@ -1886,7 +1886,7 @@ MonoBehaviour:
     leftWheel: {fileID: 146986982772974114}
     rightWheelMesh: {fileID: 1594745739747618}
     leftWheelMesh: {fileID: 1225925279051186}
-    motorAttached: 0
+    motorAttached: 1
     handBrakeAttached: 1
     steering: 0
     wheelRotaionModifier: -1
@@ -1902,6 +1902,7 @@ MonoBehaviour:
   slipLimit: 0.3
   hardSlipLimit: 0.997
   hardSlipTorqueModifier: 20
+  brakeHelper: 0.937
   accelerationHelperSettings:
     acceleration0: 0.1
     speed1: 11
@@ -1919,6 +1920,7 @@ MonoBehaviour:
   steeringWheel: {fileID: 1705763941336230}
   steeringWheelModifier: 8
   speed: 0.53119963
+  speedDirection: {x: 0, y: 0, z: 0}
   forwardSlip: 0
   currentTorque: 0
 --- !u!124 &124826979900608974

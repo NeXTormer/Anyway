@@ -451,7 +451,7 @@ MonoBehaviour:
   - {fileID: 1959949746}
   - {fileID: 1007913392}
   - {fileID: 2107564985}
-  currentCamera: 0
+  currentCamera: 2
 --- !u!4 &946315030
 Transform:
   m_ObjectHideFlags: 0
@@ -1101,6 +1101,23 @@ Prefab:
     - target: {fileID: 4565922844418578, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 13.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441256720656764, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 8.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
+        type: 2}
+      propertyPath: damping
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

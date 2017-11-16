@@ -17,42 +17,26 @@ class SmoothFollow : MonoBehaviour
     [Tooltip("Vertical distance to the target")]
     public float height = 5;
 
-    public float heightDamping = 2;
-    public float rotationDamping = 3;
+    public float damping = 2;
 
 
     private CameraInfo caminfo;
-    private Transform cameraTransform;
-    private Transform targetTransform;
+
 
     public void Start()
     {
         caminfo = GetComponent<CameraInfo>();
-        cameraTransform = caminfo.cameraContainer.transform;
-        targetTransform = player.transform;
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         if(caminfo.isActive)
-        {
-            float targetRotation = targetTransform.eulerAngles.y;
-            float targetHeight = targetTransform.position.y + height;
+        { 
+            Vector3 targetPos = this.transform.position;
+            
+            caminfo.cameraContainer.transform.position = Vector3.Lerp(caminfo.cameraContainer.transform.position, this.transform.position, Time.deltaTime * damping);
 
-            float currentRotation = cameraTransform.eulerAngles.y;
-            float currentHeight = targetTransform.position.y;
-
-            currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, rotationDamping * Time.deltaTime);
-            currentHeight = Mathf.Lerp(currentHeight, targetHeight, heightDamping * Time.deltaTime);
-
-            Quaternion currentRotationQ = Quaternion.Euler(0, currentRotation, 0);
-
-            cameraTransform.position = targetTransform.position;
-            cameraTransform.position -= currentRotationQ * -Vector3.forward * distance;
-
-            cameraTransform.position = new Vector3(cameraTransform.position.x, currentHeight, cameraTransform.position.z);
-
-            cameraTransform.LookAt(targetTransform);
+            caminfo.cameraContainer.transform.LookAt(player.transform);
 
         }
     }

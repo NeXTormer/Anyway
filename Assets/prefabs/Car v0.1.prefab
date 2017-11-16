@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 4358218174877690}
   - component: {fileID: 54865564346836378}
   - component: {fileID: 114910146126768658}
+  - component: {fileID: 114048553250591344}
   m_Layer: 0
   m_Name: Car v0.1
   m_TagString: Player
@@ -1781,6 +1782,38 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114048553250591344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203374686921954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 1
+    i1: 98
+    i2: 97
+    i3: 211
+    i4: 175
+    i5: 89
+    i6: 168
+    i7: 100
+    i8: 104
+    i9: 22
+    i10: 199
+    i11: 146
+    i12: 133
+    i13: 241
+    i14: 236
+    i15: 128
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114056296261776116
 MonoBehaviour:
   m_ObjectHideFlags: 1

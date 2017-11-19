@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class WheelPair
 {
     public string name;
+
     [Header("WheelColliders")]
+
     public WheelCollider rightWheel;
     public WheelCollider leftWheel;
 
     [Header("Meshes")]
+
     public GameObject rightWheelMesh;
     public GameObject leftWheelMesh;
 
     [Header("Settings")]
+
     [Tooltip("Checked if this axle should be powered by a motor")]
     public bool motorAttached;
 
@@ -56,7 +61,7 @@ public struct AccelerationHelperSpeeds
 }
 
 [AddComponentMenu("Player/CarController")]
-public class CarController : MonoBehaviour
+public class CarController : NetworkBehaviour
 {
 
     public List<WheelPair> axles;
@@ -76,6 +81,7 @@ public class CarController : MonoBehaviour
     public Transform centerOfMass;
 
     [Header("Car Assists")]
+
     [Range(0, 1)]
     public float steerHelper = 0.6f;
 
@@ -96,6 +102,7 @@ public class CarController : MonoBehaviour
     public AccelerationHelperSpeeds accelerationHelperSettings;
 
     [Header("Steering Wheel")]
+
     [Tooltip("Mesh of the steering wheel to move it when steering")]
     public GameObject steeringWheel;
 

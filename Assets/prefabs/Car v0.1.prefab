@@ -2034,7 +2034,7 @@ MonoBehaviour:
   steeringAngleMax: 35
   downwardsForce: 100
   centerOfMass: {fileID: 4565922844418578}
-  steerHelper: 0.5
+  steerHelper: 0.302
   tractionControl: 1
   slipLimit: 0.3
   hardSlipLimit: 0.997
@@ -2094,7 +2094,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 3
   m_Enabled: 1
 --- !u!146 &146754604018436460
 WheelCollider:
@@ -2123,7 +2123,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 5
   m_Enabled: 1
 --- !u!146 &146883063182847560
 WheelCollider:
@@ -2152,7 +2152,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 3
   m_Enabled: 1
 --- !u!146 &146986982772974114
 WheelCollider:
@@ -2181,5 +2181,5 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 5
   m_Enabled: 1

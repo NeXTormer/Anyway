@@ -57,6 +57,7 @@ public class MainMenu : MonoBehaviour
     public void HostAndPlay()
     {
         Debug.Log("Host and Play");
+        manager.ServerChangeScene("temp");
         manager.StartHost();
         
     }
@@ -75,12 +76,19 @@ public class MainMenu : MonoBehaviour
         else
         {
             string[] temp = input.Split(':');
-            ip = temp[0];
-            port = int.Parse(temp[1]);
+            if (temp.Length == 1)
+            {
+                ip = temp[0];
+                port = 7777;
+            }
+            else
+            {
+                ip = temp[0];
+                port = int.Parse(temp[1]);
+            }
         }
-        manager.networkAddress = ip;
-        manager.networkPort = port;
-
+        manager.networkAddress = "localhost";
+        manager.networkPort = 7777;
         manager.StartClient();
     }
 

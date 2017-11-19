@@ -17,6 +17,9 @@ class SmoothFollow : MonoBehaviour
     [Tooltip("Vertical distance to the target")]
     public float height = 5;
 
+    public float minHeight = 1;
+    public float maxHeight = 50;
+
     public float damping = 2;
 
 
@@ -35,6 +38,7 @@ class SmoothFollow : MonoBehaviour
             Vector3 targetPos = this.transform.position;
             
             caminfo.cameraContainer.transform.position = Vector3.Lerp(caminfo.cameraContainer.transform.position, this.transform.position, Time.deltaTime * damping);
+            caminfo.cameraContainer.transform.position = new Vector3(caminfo.cameraContainer.transform.position.x, player.transform.position.y + height, caminfo.cameraContainer.transform.position.z);
 
             caminfo.cameraContainer.transform.LookAt(player.transform);
 

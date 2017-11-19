@@ -1260,7 +1260,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.9997753
+      value: -0.9252743
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1268,7 +1268,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.021202147
+      value: 0.37929857
       objectReference: {fileID: 0}
     - target: {fileID: 4358218174877690, guid: 016261d3af59a8646816c79285f1ec80, type: 2}
       propertyPath: m_RootOrder
@@ -1276,13 +1276,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
-      propertyPath: damping
-      value: 5
+      propertyPath: minDistance
+      value: 5.29
       objectReference: {fileID: 0}
     - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
         type: 2}
-      propertyPath: height
-      value: 10
+      propertyPath: minHeight
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
+        type: 2}
+      propertyPath: maxDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114284301638799912, guid: 016261d3af59a8646816c79285f1ec80,
+        type: 2}
+      propertyPath: maxHeight
+      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 016261d3af59a8646816c79285f1ec80, type: 2}

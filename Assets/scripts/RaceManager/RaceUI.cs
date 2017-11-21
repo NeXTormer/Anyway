@@ -12,6 +12,7 @@ public class RaceUI : MonoBehaviour {
 
     private GameObject player;
     private StringBuilder sb;
+    private RaceManager racemanager;
 
     private int t_CurrentLap;
     private int t_CurrentWaypoint;
@@ -20,12 +21,13 @@ public class RaceUI : MonoBehaviour {
     {
         sb = new StringBuilder(60);
         player = this.transform.root.gameObject;
+        racemanager = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
     }
 
 
     void LateUpdate()
     {
-        if(RaceManager.instance.raceActive)
+        if(racemanager.raceActive)
         {
             UpdateText();
         }
@@ -35,8 +37,8 @@ public class RaceUI : MonoBehaviour {
     {
         try
         {
-            t_CurrentLap = RaceManager.instance.PlayerData[player.GetInstanceID()].currentLap;
-            t_CurrentWaypoint = RaceManager.instance.PlayerData[player.GetInstanceID()].currentWaypoint;
+            t_CurrentLap = racemanager.PlayerData[player.GetInstanceID()].currentLap;
+            t_CurrentWaypoint = racemanager.PlayerData[player.GetInstanceID()].currentWaypoint;
         } 
         catch(KeyNotFoundException e)
         {
@@ -51,10 +53,10 @@ public class RaceUI : MonoBehaviour {
         }
 
         //Start and finish are also in the waypoints array, but they don't count as 'real' waypoints
-        int maxwp = RaceManager.instance.Waypoints.Length - 2;
-        int nol = RaceManager.instance.numberOfLaps;
+        int maxwp = racemanager.Waypoints.Length - 2;
+        int nol = racemanager.numberOfLaps;
 
-        float racetime = RaceManager.instance.raceTime;
+        float racetime = racemanager.raceTime;
 
         //TODO: performance?
         sb = new StringBuilder(70);

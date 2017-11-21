@@ -7,6 +7,7 @@ TagManager:
   - CameraPosition
   - Waypoint
   - PlayerChild
+  - RaceManager
   layers:
   - Default
   - TransparentFX

@@ -23,19 +23,17 @@ public class PlayerData
     public int currentWaypoint;
 }
 
-//Singleton
 [AddComponentMenu("RaceManager/RaceManager")]
 public class RaceManager : NetworkBehaviour
 {
-    //Public
-    public static RaceManager instance;
 
     [Header("Settings")]
     public int numberOfLaps = 1;
 
     [Header("Data")]
-    public PlayerData[] playerdataView;
 
+    public PlayerData[] playerdataView;
+    
     public bool raceActive = false;
     public float raceTime = 0;
 
@@ -64,17 +62,6 @@ public class RaceManager : NetworkBehaviour
 
     private void Awake()
     {
-        //Singleton
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-
         m_PlayerData = new Dictionary<int, PlayerData>();
     }
 

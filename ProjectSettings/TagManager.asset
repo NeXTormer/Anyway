@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraPosition
   - Waypoint
+  - PlayerChild
   layers:
   - Default
   - TransparentFX

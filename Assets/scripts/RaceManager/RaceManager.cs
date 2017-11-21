@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class PlayerData
@@ -12,89 +14,125 @@ public class PlayerData
         //-1 -> race hasn't begun yet, 0 -> first lap (directly after start), 1 -> first lap finished -> started second lap
         currentLap = -1;
         currentWaypoint = 0;
+        name = player.name;
     }
 
+    public string name;
     public GameObject player;
     public int currentLap;
     public int currentWaypoint;
 }
 
+//Singleton
 [AddComponentMenu("RaceManager/RaceManager")]
-public class RaceManager : MonoBehaviour
+public class RaceManager : NetworkBehaviour
 {
-    [Header("Settings")]
-    public GameObject[] players;
+    //Public
+    public static RaceManager instance;
 
+    [Header("Settings")]
     public int numberOfLaps = 1;
 
     [Header("Data")]
     public PlayerData[] playerdataView;
 
+    public bool raceActive = false;
     public float raceTime = 0;
 
-    private bool raceActive = false;
-
-
-    public Dictionary<string, PlayerData> playerData;
-
     [HideInInspector]
-    public GameObject[] waypoints;
+
+    public GameObject[] Waypoints
+    {
+        get
+        {
+            return m_Waypoints;
+        }
+    }
+
+    public Dictionary<int, PlayerData> PlayerData
+    {
+        get
+        {
+            return m_PlayerData;
+        }
+    }
+
+    private GameObject[] m_Players;
+    private GameObject[] m_Waypoints;
+    private Dictionary<int, PlayerData> m_PlayerData;
+
 
     private void Awake()
     {
-        playerData = new Dictionary<string, PlayerData>();
+        //Singleton
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
 
+
+        m_PlayerData = new Dictionary<int, PlayerData>();
     }
 
     void Start()
+    {
+      
+    }
+
+    //Should be called before the game start, but after adding all players
+    public void InitializeRace()
     {
         Debug.Log("Initializing RaceManager");
 
         Waypoint[] tempwaypoints = GetComponentsInChildren<Waypoint>();
 
-        waypoints = new GameObject[tempwaypoints.Length];
+        m_Waypoints = new GameObject[tempwaypoints.Length];
 
         for (int i = 0; i < tempwaypoints.Length; i++)
         {
-            waypoints[i] = tempwaypoints[i].gameObject;
+            m_Waypoints[i] = tempwaypoints[i].gameObject;
         }
 
-
-
-        foreach(GameObject pl in players)
+        foreach (GameObject pl in m_Players)
         {
-            Debug.Log("addplayer: " + pl.name);
+            Debug.Log("Add player to race: " + pl.name);
             AddPlayer(pl);
         }
 
         //add playerdata references to the playerdataview array in order to display them in the inspector
-        playerdataView = new PlayerData[playerData.Values.Count];
+        playerdataView = new PlayerData[m_PlayerData.Values.Count];
         int count = 0;
-        foreach(KeyValuePair<string, PlayerData> pair in playerData)
+        foreach (KeyValuePair<int, PlayerData> pair in m_PlayerData)
         {
             playerdataView[count] = pair.Value;
             count++;
         }
-
-        //start race
-        StartRace();
     }
-    
+
+    public void AddAllPlayers()
+    {
+        m_Players = GameObject.FindGameObjectsWithTag("Player");
+    }
+
     public void AddPlayer(GameObject player)
     {
-        playerData.Add(player.name, new PlayerData(player));
+        m_PlayerData.Add(player.GetInstanceID(), new PlayerData(player));
     }
 
-    public void OnWaypointHit(GameObject collider, GameObject waypoint)
+    public void OnWaypointHit(GameObject player, GameObject waypoint)
     {
 
         if(raceActive)
         {
 
-            if (playerData.ContainsKey(collider.transform.root.gameObject.name))
+            if (m_PlayerData.ContainsKey(player.GetInstanceID()))
             {
-
-                PlayerData data = playerData[collider.transform.root.gameObject.name];
+                
+                PlayerData data = m_PlayerData[player.GetInstanceID()];
                 Waypoint wp = waypoint.GetComponent<Waypoint>();
 
                 if (wp.type == WaypointType.Waypoint)
@@ -111,7 +149,7 @@ public class RaceManager : MonoBehaviour
                 }
                 else if (wp.type == WaypointType.Finish)
                 {
-                    if ((data.currentWaypoint + 1) == (waypoints.Length - 1))
+                    if ((data.currentWaypoint + 1) == (m_Waypoints.Length - 1))
                     {
                         data.currentLap++;
                         if (data.currentLap == numberOfLaps)
@@ -147,7 +185,6 @@ public class RaceManager : MonoBehaviour
     {
         raceActive = true;
         raceTime = 0;
-
     }
 
     public void StopRace()
@@ -163,4 +200,6 @@ public class RaceManager : MonoBehaviour
             raceTime += Time.deltaTime;
         }
     }
+
+
 }

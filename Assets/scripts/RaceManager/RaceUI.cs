@@ -3,50 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
+using System;
 
 [AddComponentMenu("RaceManager/RaceUI")]
 public class RaceUI : MonoBehaviour {
 
     public Text racetext;
-    public RaceManager racemanager;
-    public GameObject player;
 
+    private GameObject player;
     private StringBuilder sb;
 
-    //Temp vars
-    int t_CurrentLap;
-    int t_CurrentWaypoint;
+    private int t_CurrentLap;
+    private int t_CurrentWaypoint;
 
-	void Start()
+    void Awake()
     {
         sb = new StringBuilder(60);
-        UpdateText();
+        player = this.transform.root.gameObject;
     }
+
 
     void LateUpdate()
     {
-        UpdateText();   
+        if(RaceManager.instance.raceActive)
+        {
+            UpdateText();
+        }
     }
 
     public void UpdateText()
     {
-
         try
         {
-            t_CurrentLap = racemanager.playerData[player.name].currentLap;
-            t_CurrentWaypoint = racemanager.playerData[player.name].currentWaypoint;
+            t_CurrentLap = RaceManager.instance.PlayerData[player.GetInstanceID()].currentLap;
+            t_CurrentWaypoint = RaceManager.instance.PlayerData[player.GetInstanceID()].currentWaypoint;
         } 
         catch(KeyNotFoundException e)
         {
-            Debug.LogWarning("Key not found (" + player.name + ") because the dictionary hasn't been fully built yet. Not a big problem.");
+            try
+            {
+                Debug.LogWarning("Key not found (" + player.name + ") because the dictionary hasn't been fully built yet. Not a big problem if it only occurs once.");
+            }
+            catch (NullReferenceException ex)
+            {
+                Debug.LogWarning("Key not found ( NULL ) because the dictionary hasn't been fully built yet. Not a big problem if it only occurs once.");
+            }
         }
-        
 
         //Start and finish are also in the waypoints array, but they don't count as 'real' waypoints
-        int maxwp = racemanager.waypoints.Length - 2;
-        int nol = racemanager.numberOfLaps;
+        int maxwp = RaceManager.instance.Waypoints.Length - 2;
+        int nol = RaceManager.instance.numberOfLaps;
 
-        float racetime = racemanager.raceTime;
+        float racetime = RaceManager.instance.raceTime;
 
         //TODO: performance?
         sb = new StringBuilder(70);
@@ -63,7 +71,6 @@ public class RaceUI : MonoBehaviour {
         sb.Append("\n");
         sb.Append("Time: ");
         sb.Append(racetime.ToString("0.00"));
-
 
         racetext.text = sb.ToString();
     }

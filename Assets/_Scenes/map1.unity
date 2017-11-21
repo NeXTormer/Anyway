@@ -15426,12 +15426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e475f1490f14e5344a7ff87e0f273687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 1126514081}
   numberOfLaps: 2
   playerdataView: []
   raceTime: 0
-  waypoints: []
+  m_Players:
+  - {fileID: 1126514081}
 --- !u!1001 &2137502617
 Prefab:
   m_ObjectHideFlags: 0

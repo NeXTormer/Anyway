@@ -29,9 +29,9 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.transform.root.gameObject.CompareTag("Player"))
         {
-            raceManager.OnWaypointHit(other.gameObject, this.gameObject);
+            raceManager.OnWaypointHit(other.transform.root.gameObject, this.gameObject);
         }
     }
 

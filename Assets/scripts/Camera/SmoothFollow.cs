@@ -21,8 +21,6 @@ class SmoothFollow : MonoBehaviour
     public float minDistance = 4;
     public float maxDistance = 50;
 
-    
-
     public float minHeight = 1;
     public float maxHeight = 50;
 
@@ -51,11 +49,9 @@ class SmoothFollow : MonoBehaviour
 
             if (distance < minDistance) distance = minDistance;
             if (distance > maxDistance) distance = maxDistance;
-            
-            
 
-            this.transform.localPosition = new Vector3(0, height, distance);
-            this.transform.position = new Vector3(this.transform.position.x, height, this.transform.position.z);
+            this.transform.localPosition = new Vector3(Mathf.Lerp(this.transform.localPosition.x, 0, Time.deltaTime * damping), player.transform.position.y + height, distance);
+            this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + height, this.transform.position.z);
 
             Vector3 targetPos = this.transform.position;
             

@@ -15,12 +15,15 @@ public class PlayerData
         currentLap = -1;
         currentWaypoint = 0;
         name = player.name;
+        raceui = player.GetComponentInChildren<RaceUI>();
     }
 
     public string name;
     public GameObject player;
     public int currentLap;
     public int currentWaypoint;
+    public RaceUI raceui;
+    
 }
 
 [AddComponentMenu("RaceManager/RaceManager")]
@@ -67,7 +70,7 @@ public class RaceManager : NetworkBehaviour
 
     void Start()
     {
-      
+        
     }
 
     //Should be called before the game start, but after adding all players
@@ -97,6 +100,25 @@ public class RaceManager : NetworkBehaviour
         {
             playerdataView[count] = pair.Value;
             count++;
+        }
+    }
+
+    private void OnUpdateRaceState()
+    {
+        Debug.Log("OnUpdateRaceState");
+
+        foreach (KeyValuePair<int, PlayerData> pair in m_PlayerData)
+        {
+            int t_CurrentLap = pair.Value.currentLap;
+            int t_CurrentWaypoint = pair.Value.currentWaypoint;
+            int t_MaxLap = numberOfLaps;
+            int t_MaxWaypoint = m_Waypoints.Length - 2;
+            string t_Playername = pair.Value.name;
+            bool t_RaceActive = raceActive;
+            float t_RaceStartTime = 42.42f;
+
+            pair.Value.raceui.RpcUpdateValues(t_CurrentLap, t_CurrentWaypoint, t_MaxLap, t_MaxWaypoint, t_Playername, t_RaceActive, t_RaceStartTime);
+
         }
     }
 
@@ -165,6 +187,7 @@ public class RaceManager : NetworkBehaviour
                     }
                 }
             }
+            OnUpdateRaceState();
         }    
     }
 
@@ -172,11 +195,13 @@ public class RaceManager : NetworkBehaviour
     {
         raceActive = true;
         raceTime = 0;
+        OnUpdateRaceState();
     }
 
     public void StopRace()
     {
         raceActive = false;
+        OnUpdateRaceState();
     }
     
 	

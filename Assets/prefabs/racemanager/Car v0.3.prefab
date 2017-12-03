@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 114516989814438442}
   - component: {fileID: 114152737910492928}
   m_Layer: 0
-  m_Name: Car v0.2 (MP)
+  m_Name: Car v0.3
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

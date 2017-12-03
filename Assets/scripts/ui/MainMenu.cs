@@ -98,7 +98,7 @@ public class MainMenu : MonoBehaviour
         playerInfoText.text = "Logged in as " + m_Username;
     }
 
-    public void btnSettings()
+    public void BtnSettings()
     {
         MultiplayerCanvas.SetActive(false);
         SettingsCanvas.SetActive(true);
@@ -114,40 +114,57 @@ public class MainMenu : MonoBehaviour
 
     public void HostAndPlay()
     {
-        Debug.Log("Host and Play");
-        manager.ServerChangeScene("temp");
-        manager.StartHost();
+
+        if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+        {
+            manager.StartHost();
+            manager.ServerChangeScene("map1");
+        }
         
     }
 
-    public void ConnectToServer()
+    public void JoinGame()
     {
-        string input = iphostname.text;
-        string ip;
-        int port;
+        bool noConnection = (manager.client == null || manager.client.connection == null ||
+                             manager.client.connection.connectionId == -1);
 
-        if (input == "")
+        if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
         {
-            ip = "localhost";
-            port = 7777;
-        }
-        else
-        {
-            string[] temp = input.Split(':');
-            if (temp.Length == 1)
+            if (noConnection)
             {
-                ip = temp[0];
-                port = 7777;
-            }
-            else
-            {
-                ip = temp[0];
-                port = int.Parse(temp[1]);
+                if (UnityEngine.Application.platform != RuntimePlatform.WebGLPlayer)
+                {
+
+                    string input = iphostname.text;
+                    string ip;
+                    int port;
+
+                    if (input == "")
+                    {
+                        ip = "localhost";
+                        port = 7777;
+                    }
+                    else
+                    {
+                        string[] temp = input.Split(':');
+                        if (temp.Length == 1)
+                        {
+                            ip = temp[0];
+                            port = 7777;
+                        }
+                        else
+                        {
+                            ip = temp[0];
+                            port = int.Parse(temp[1]);
+                        }
+                    }
+                    manager.networkAddress = "localhost";
+                    manager.networkPort = 7777;
+
+                    manager.StartClient();
+                }
             }
         }
-        manager.networkAddress = "localhost";
-        manager.networkPort = 7777;
-        manager.StartClient();
     }
 
     public void OnFailedToConnect(NetworkConnectionError error)

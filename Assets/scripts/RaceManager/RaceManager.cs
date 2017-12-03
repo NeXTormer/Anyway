@@ -37,24 +37,6 @@ public class RaceManager : NetworkBehaviour
     public bool raceActive = false;
     public float raceTime = 0;
 
-    [HideInInspector]
-
-    public GameObject[] Waypoints
-    {
-        get
-        {
-            return m_Waypoints;
-        }
-    }
-
-    public Dictionary<int, PlayerData> PlayerData
-    {
-        get
-        {
-            return m_PlayerData;
-        }
-    }
-
     private GameObject[] m_Players;
     private GameObject[] m_Waypoints;
     private Dictionary<int, PlayerData> m_PlayerData;
@@ -65,10 +47,22 @@ public class RaceManager : NetworkBehaviour
         m_PlayerData = new Dictionary<int, PlayerData>();
     }
 
-    void Start()
+    private void InitializeNetworkPlayerData()
     {
-      
-    }
+        foreach(KeyValuePair<int, PlayerData> pair in m_PlayerData)
+        {
+            PlayerData data = pair.Value;
+            NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
+            networkData.playerName = data.name;
+            networkData.currentLap = data.currentLap;
+            networkData.currentWaypoint = data.currentWaypoint;
+            networkData.raceActive = raceActive;
+            networkData.numberOfLaps = numberOfLaps;
+            networkData.numberOfWaypoints = m_Waypoints.Length - 2;
+            networkData.raceTime = raceTime;
+            networkData.uniqueID = data.player.GetInstanceID();
+        }
+}
 
     //Should be called before the game start, but after adding all players
     public void InitializeRace()
@@ -98,13 +92,18 @@ public class RaceManager : NetworkBehaviour
             playerdataView[count] = pair.Value;
             count++;
         }
+
+        /* Initialize NetworkPlayerData on all players in dictionary */
+        InitializeNetworkPlayerData();
     }
 
+    /* Adds players to array of potential players, but not the race */
     public void AddAllPlayers()
     {
         m_Players = GameObject.FindGameObjectsWithTag("Player");
     }
 
+    /* Adds player to race */
     public void AddPlayer(GameObject player)
     {
         m_PlayerData.Add(player.GetInstanceID(), new PlayerData(player));
@@ -185,6 +184,8 @@ public class RaceManager : NetworkBehaviour
         if(raceActive)
         {
             raceTime += Time.deltaTime;
+
+            InitializeNetworkPlayerData();
         }
     }
 

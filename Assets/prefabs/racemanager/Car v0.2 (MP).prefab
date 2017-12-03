@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 114819016586380082}
   - component: {fileID: 114051038455792672}
   - component: {fileID: 114152737910492928}
+  - component: {fileID: 114291338603361586}
   m_Layer: 0
   m_Name: Car v0.2 (MP)
   m_TagString: Player
@@ -1980,7 +1981,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd8d90ee3f5cd1b40ac1a13f29e85c5b, type: 3}
   m_Name: 
@@ -2010,6 +2011,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1150457024253104}
+--- !u!114 &114291338603361586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150457024253104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52def53fdf7f224418a5221b58ac38e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  currentLap: 0
+  currentWaypoint: 0
+  raceActive: 0
+  numberOfLaps: 0
+  numberOfWaypoints: 0
+  raceTime: 0
 --- !u!114 &114461249746003828
 MonoBehaviour:
   m_ObjectHideFlags: 1

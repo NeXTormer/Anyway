@@ -11,13 +11,21 @@ public class MainMenu : MonoBehaviour
     public GameObject MainMenuCanvas;
     public GameObject SingleplayerCanvas;
     public GameObject MultiplayerCanvas;
+    public GameObject LoginCanvas;
+    public GameObject SettingsCanvas;
+    public GameObject SelectCarCanvas;
 
     public InputField iphostname;
     public Text errorText;
-    
+    public Text playerInfoText;
+    public Text SteeringWheelEnabledText;
+    public InputField username;
+    public GameObject DefaultCarPreview;
 
     public NetworkManager manager;
 
+    private string m_Username = "DefaultUser";
+    private bool m_SteeringWheelActive = false;
 
     public void BtnSingleplayer()
     {
@@ -44,6 +52,56 @@ public class MainMenu : MonoBehaviour
     public void BtnExit()
     {
         Application.Quit();
+    }
+
+    public void BtnBackToMultiplayer()
+    {
+        SettingsCanvas.SetActive(false);
+        MultiplayerCanvas.SetActive(true);
+    }
+
+    public void BtnToggleSteeringWheel()
+    {
+        m_SteeringWheelActive = !m_SteeringWheelActive;
+        SteeringWheelEnabledText.text = "SteeringWheel: " + (m_SteeringWheelActive ? "1" : "0");   
+    }
+
+    public void BtnNextCar()
+    {
+
+    }
+
+    public void BtnPreviousCar()
+    {
+
+    }
+
+    public void BtnSelectCar()
+    {
+        MultiplayerCanvas.SetActive(false);
+        SelectCarCanvas.SetActive(true);
+        DefaultCarPreview.transform.rotation = Quaternion.identity;
+        DefaultCarPreview.transform.Rotate(new Vector3(0, -100, 0));
+    }
+
+    public void BtnLogin()
+    {
+        m_Username = username.text;
+        if(m_Username == "")
+        {
+            m_Username = "DefaultUser";
+        }
+
+        LoginCanvas.SetActive(false);
+        MultiplayerCanvas.SetActive(true);
+
+        playerInfoText.text = "Logged in as " + m_Username;
+    }
+
+    public void btnSettings()
+    {
+        MultiplayerCanvas.SetActive(false);
+        SettingsCanvas.SetActive(true);
     }
 
     public void BackToMainMenu()

@@ -10,6 +10,8 @@ public class CameraManager : MonoBehaviour
 
     public int currentCamera = 0;
 
+    private PlayerInputManager inputManager;
+
     public void Start()
     {
 		foreach(GameObject gobj in cameraPositions)
@@ -17,12 +19,14 @@ public class CameraManager : MonoBehaviour
             gobj.GetComponent<CameraInfo>().isActive = false;
         }
 
+        inputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
+
         cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = true;
 	}
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.V))
+        if(inputManager.ChangeCameraPosition())
         {
             cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = false;
             ChangeCamera();

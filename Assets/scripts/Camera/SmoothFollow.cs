@@ -28,11 +28,12 @@ class SmoothFollow : MonoBehaviour
 
 
     private CameraInfo caminfo;
-
+    private PlayerInputManager inputManager;
 
     public void Start()
     {
         caminfo = GetComponent<CameraInfo>();
+        inputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
     }
 
     public void FixedUpdate()

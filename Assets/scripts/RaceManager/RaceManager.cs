@@ -62,7 +62,20 @@ public class RaceManager : NetworkBehaviour
             networkData.raceTime = raceTime;
             networkData.uniqueID = data.player.GetInstanceID();
         }
-}
+    }   
+
+    private void UpdateNetworkPlayerData()
+    {
+        foreach (KeyValuePair<int, PlayerData> pair in m_PlayerData)
+        {
+            PlayerData data = pair.Value;
+            NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
+            networkData.currentLap = data.currentLap;
+            networkData.currentWaypoint = data.currentWaypoint;
+            networkData.raceActive = raceActive;
+            networkData.raceTime = raceTime;
+        }
+    }
 
     //Should be called before the game start, but after adding all players
     public void InitializeRace()
@@ -185,7 +198,7 @@ public class RaceManager : NetworkBehaviour
         {
             raceTime += Time.deltaTime;
 
-            InitializeNetworkPlayerData();
+            UpdateNetworkPlayerData();
         }
     }
 

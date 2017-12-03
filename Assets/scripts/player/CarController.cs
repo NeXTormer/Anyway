@@ -119,6 +119,7 @@ public class CarController : NetworkBehaviour
     private float steeringAngleOld = 0;
     private Rigidbody body;
     private float oldRotationY = 0;
+    private PlayerInputManager inputManager;
 
 
 	public void Start ()
@@ -126,16 +127,16 @@ public class CarController : NetworkBehaviour
         steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
         body = GetComponent<Rigidbody>();
         axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
-        
+        inputManager = GetComponent<PlayerInputManager>();
         currentTorque = motorTorqueMax;
     }
 	
 
     public void FixedUpdate()
-    { 
-        float motorTorque = currentTorque * Input.GetAxis("Vertical");
-        float steeringAngle = steeringAngleMax * Input.GetAxis("Horizontal");
-        float handBrakeTorque = handbrakeTorqueMax * Input.GetAxis("Jump");
+    {
+        float motorTorque = currentTorque * inputManager.gas;
+        float steeringAngle = steeringAngleMax * inputManager.steering;
+        float handBrakeTorque = handbrakeTorqueMax * inputManager.handBrake;
 
         speedDirection = this.transform.InverseTransformDirection(body.velocity.normalized);
 
@@ -283,7 +284,7 @@ public class CarController : NetworkBehaviour
     //when the forward slip nears 1 when accelerating the car moves very slowly. this adds some exta acceleration force for faster acceleration
     private void AccelerationHelper()
     {
-        if (Input.GetAxis("Vertical") > 0.5)
+        if (inputManager.gas > 0.5)
         {
             if (speed > accelerationHelperSettings.speed6)
             {

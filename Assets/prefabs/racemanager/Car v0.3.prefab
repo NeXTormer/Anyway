@@ -2024,7 +2024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52def53fdf7f224418a5221b58ac38e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
+  playerName: werner
   currentLap: 0
   currentWaypoint: 0
   uniqueID: 0

@@ -16,4 +16,13 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public int numberOfLaps = 0;
     [SyncVar] public int numberOfWaypoints = 0;
     [SyncVar] public float raceTime = 0; /* TODO: Optimize */
+
+
+    public void OnRaceInitializeData()
+    {
+        if(isLocalPlayer)
+        {
+            playerName = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>().playerName;
+        }
+    }
 }

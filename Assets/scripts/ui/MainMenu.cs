@@ -15,6 +15,12 @@ public class MainMenu : MonoBehaviour
     public GameObject SettingsCanvas;
     public GameObject SelectCarCanvas;
 
+    [Space]
+
+    public PlayerDataTransfer dataTransfer;
+
+    [Space]
+
     public InputField iphostname;
     public Text errorText;
     public Text playerInfoText;
@@ -96,6 +102,8 @@ public class MainMenu : MonoBehaviour
         MultiplayerCanvas.SetActive(true);
 
         playerInfoText.text = "Logged in as " + m_Username;
+
+        dataTransfer.playerName = m_Username;
     }
 
     public void BtnSettings()

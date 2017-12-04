@@ -61,6 +61,8 @@ public class RaceManager : NetworkBehaviour
             networkData.numberOfWaypoints = m_Waypoints.Length - 2;
             networkData.raceTime = raceTime;
             networkData.uniqueID = data.player.GetInstanceID();
+
+            data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
         }
     }   
 

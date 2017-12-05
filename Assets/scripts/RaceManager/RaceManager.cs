@@ -32,15 +32,25 @@ public class RaceManager : NetworkBehaviour
 
     [Header("Data")]
 
+    /* TODO: replace with better solution */
     public PlayerData[] playerdataView;
-    
+
+    public bool debugMode = false;
+
+    public bool autostartRace = true;
+    public int minPlayersToAutostart = 2;
+
+    public float defaultRaceCountdown = 5;
+
     public bool raceActive = false;
     public float raceTime = 0;
 
     private GameObject[] m_Players;
     private GameObject[] m_Waypoints;
     private Dictionary<int, PlayerData> m_PlayerData;
-
+    private float m_RaceCountdown = 0;
+    private bool m_RaceCountdownActive = false;
+    private bool m_StartedInitialization = false;
 
     private void Awake()
     {
@@ -61,6 +71,8 @@ public class RaceManager : NetworkBehaviour
             networkData.numberOfWaypoints = m_Waypoints.Length - 2;
             networkData.raceTime = raceTime;
             networkData.uniqueID = data.player.GetInstanceID();
+            networkData.titleText = "findenig";
+            networkData.debugMode = debugMode;
 
             data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
         }
@@ -68,6 +80,19 @@ public class RaceManager : NetworkBehaviour
 
     private void UpdateNetworkPlayerData()
     {
+        string title = "";
+        if(m_RaceCountdownActive)
+        {
+            if(m_RaceCountdown < defaultRaceCountdown)
+            {
+                title = "Race starting in: " + (defaultRaceCountdown - m_RaceCountdown).ToString("0.00");
+            }
+            else if(m_RaceCountdown > defaultRaceCountdown && m_RaceCountdown < defaultRaceCountdown + 1)
+            {
+                title = "-===- GO! -===-";
+            }   
+        }
+
         foreach (KeyValuePair<int, PlayerData> pair in m_PlayerData)
         {
             PlayerData data = pair.Value;
@@ -76,6 +101,7 @@ public class RaceManager : NetworkBehaviour
             networkData.currentWaypoint = data.currentWaypoint;
             networkData.raceActive = raceActive;
             networkData.raceTime = raceTime;
+            networkData.titleText = title;
         }
     }
 
@@ -121,7 +147,10 @@ public class RaceManager : NetworkBehaviour
     /* Adds player to race */
     public void AddPlayer(GameObject player)
     {
-        m_PlayerData.Add(player.GetInstanceID(), new PlayerData(player));
+        if(!m_PlayerData.ContainsKey(player.GetInstanceID()))
+        {
+            m_PlayerData.Add(player.GetInstanceID(), new PlayerData(player));
+        }
     }
 
     public void OnWaypointHit(GameObject player, GameObject waypoint)
@@ -188,6 +217,14 @@ public class RaceManager : NetworkBehaviour
         raceTime = 0;
     }
 
+    /* starts race countdown | starts race after countdown ends */
+    public void StartRaceCountdown()
+    {
+        Debug.Log("Started race countdown");
+        m_RaceCountdown = 0;
+        m_RaceCountdownActive = true;
+    }
+
     public void StopRace()
     {
         raceActive = false;
@@ -200,9 +237,37 @@ public class RaceManager : NetworkBehaviour
         {
             raceTime += Time.deltaTime;
 
-            UpdateNetworkPlayerData();
         }
+        if(m_RaceCountdownActive)
+        {
+            m_RaceCountdown += Time.deltaTime;
+
+            if(m_RaceCountdown >= defaultRaceCountdown)
+            {
+                StartRace();
+
+            }
+            if (m_RaceCountdown > (defaultRaceCountdown + 1))
+            {
+                m_RaceCountdownActive = false;
+            }
+        }
+
+        if(autostartRace)
+        {
+            if(!m_StartedInitialization)
+            {
+                if (NetworkManager.singleton.numPlayers >= minPlayersToAutostart)
+                {
+                    AddAllPlayers();
+                    InitializeRace();
+                    StartRaceCountdown();
+                    m_StartedInitialization = true;
+                }
+            }
+        }
+        
+
+        UpdateNetworkPlayerData();
     }
-
-
 }

@@ -10,6 +10,7 @@ using System;
 public class RaceUI : MonoBehaviour {
 
     public Text racetext;
+    public Text titleText;
 
     private GameObject player;
     private StringBuilder sb;
@@ -25,7 +26,7 @@ public class RaceUI : MonoBehaviour {
 
     void LateUpdate()
     {
-        if(data != null && data.raceActive)
+        if(data != null)
         {
             UpdateText();
         }
@@ -50,5 +51,7 @@ public class RaceUI : MonoBehaviour {
         sb.Append(data.raceTime.ToString("0.00"));
 
         racetext.text = sb.ToString();
+
+        titleText.text = data.titleText;
     }
 }

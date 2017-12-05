@@ -5009,11 +5009,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114291338603361586, guid: 790af4803bb6a5141930407fbd11e866,
-        type: 2}
-      propertyPath: playerName
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 790af4803bb6a5141930407fbd11e866, type: 2}
   m_IsPrefabParent: 0
@@ -10017,6 +10012,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfLaps: 2
   playerdataView: []
+  debugMode: 0
+  autostartRace: 1
+  minPlayersToAutostart: 1
+  defaultRaceCountdown: 10
   raceActive: 0
   raceTime: 0
 --- !u!4 &1231359792

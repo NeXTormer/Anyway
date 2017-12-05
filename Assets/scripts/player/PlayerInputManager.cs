@@ -7,6 +7,7 @@ public enum InputType
     STEERINGWHEEL, KEYBOARD
 }
 
+[RequireComponent(typeof(NetworkPlayerData))]
 public class PlayerInputManager : MonoBehaviour
 {
     [Header("Settings")]
@@ -34,17 +35,33 @@ public class PlayerInputManager : MonoBehaviour
     public float cameraZoomMax = 20;
     public float cameraZoomMin = 1;
 
-    private LogitechGSDK.DIJOYSTATE2ENGINES state;
+    private LogitechGSDK.DIJOYSTATE2ENGINES m_State;
 
     private bool m_NewChangePOV = false;
     private bool m_OldChangePOV = false;
     private bool m_ChangePOV = false;
 
+    private NetworkPlayerData m_Playerdata;
+
+    public void Start()
+    {
+        m_Playerdata = GetComponent<NetworkPlayerData>();
+    }
+
     public void FixedUpdate()
     {
         if(inputType == InputType.KEYBOARD)
         {
-            gas = Input.GetAxis(AXIS_GAS);
+            /* movement is disabled when debugMode is off and the race is actve */
+            if(!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
+            {
+                gas = Input.GetAxis(AXIS_GAS);
+            }
+            else
+            {
+                gas = 0;
+            }
+            
             steering = Input.GetAxis(AXIS_STEERING);
             handBrake = Input.GetAxis(AXIS_HANDBRAKE);
             brake = 0;
@@ -56,19 +73,28 @@ public class PlayerInputManager : MonoBehaviour
         {
             if (LogitechGSDK.LogiUpdate() && LogitechGSDK.LogiIsConnected(0))
             {
-                state = LogitechGSDK.LogiGetStateUnity(0);
+                m_State = LogitechGSDK.LogiGetStateUnity(0);
 
-                steering = state.lX / 32768;
-                gas = -((state.lY - 32768) / 32768);
-                brake = -((state.lRz - 32768) / 32768);
+                /* movement is disabled when debugMode is off and the race is actve */
+                if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
+                {
+                    gas = -((m_State.lY - 32768) / 32768);
+                }
+                else
+                {
+                    gas = 0;
+                }
 
-                cameraZoomValue = state.rgbButtons[22] == 128 ? cameraZoomValue + 0.1f : cameraZoomValue;
-                cameraZoomValue = state.rgbButtons[21] == 128 ? cameraZoomValue - 0.1f : cameraZoomValue;
+                steering = m_State.lX / 32768;
+                brake = -((m_State.lRz - 32768) / 32768);
+
+                cameraZoomValue = m_State.rgbButtons[22] == 128 ? cameraZoomValue + 0.1f : cameraZoomValue;
+                cameraZoomValue = m_State.rgbButtons[21] == 128 ? cameraZoomValue - 0.1f : cameraZoomValue;
                 if (cameraZoomValue < cameraZoomMin) cameraZoomValue = cameraZoomMin;
                 if (cameraZoomValue > cameraZoomMax) cameraZoomValue = cameraZoomMax;
 
                 m_OldChangePOV = m_NewChangePOV;
-                m_NewChangePOV = state.rgbButtons[2] == 128;
+                m_NewChangePOV = m_State.rgbButtons[2] == 128;
 
                 m_ChangePOV = !m_OldChangePOV == m_NewChangePOV;
 

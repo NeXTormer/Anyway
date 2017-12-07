@@ -10251,9 +10251,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfLaps: 2
   playerdataView: []
-  debugMode: 1
+  debugMode: 0
   autostartRace: 1
-  minPlayersToAutostart: 1
+  minPlayersToAutostart: 2
   defaultRaceCountdown: 10
   raceActive: 0
   raceTime: 0
@@ -10275,7 +10275,7 @@ Transform:
   - {fileID: 320332930}
   - {fileID: 1371516923}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1238883551
 Prefab:
@@ -13162,7 +13162,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1633502320 stripped
 Transform:

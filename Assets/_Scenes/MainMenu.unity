@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
+  useSteeringWheel: 0
 --- !u!4 &45732440
 Transform:
   m_ObjectHideFlags: 0

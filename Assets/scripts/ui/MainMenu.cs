@@ -165,8 +165,8 @@ public class MainMenu : MonoBehaviour
                             port = int.Parse(temp[1]);
                         }
                     }
-                    manager.networkAddress = "localhost";
-                    manager.networkPort = 7777;
+                    manager.networkAddress = ip;
+                    manager.networkPort = port;
 
                     manager.StartClient();
                 }

@@ -26,6 +26,7 @@ public class PlayerInputManager : MonoBehaviour
     public float gas;
     public float steering;
     public float brake;
+    public float clutch;
     public float handBrake;
 
     [Header("CameraZoom")]
@@ -42,15 +43,20 @@ public class PlayerInputManager : MonoBehaviour
     private bool m_ChangePOV = false;
 
     private NetworkPlayerData m_Playerdata;
+    private PlayerDataTransfer m_PlayerDataTransfer;
 
     public void Start()
     {
         m_Playerdata = GetComponent<NetworkPlayerData>();
+        m_PlayerDataTransfer = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
+
+        inputType = m_PlayerDataTransfer.useSteeringWheel ? InputType.STEERINGWHEEL : InputType.KEYBOARD;
     }
 
     public void FixedUpdate()
     {
-        if(inputType == InputType.KEYBOARD)
+
+        if (inputType == InputType.KEYBOARD)
         {
             /* movement is disabled when debugMode is off and the race is actve */
             if(!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
@@ -79,10 +85,12 @@ public class PlayerInputManager : MonoBehaviour
                 if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
                 {
                     gas = -((m_State.lY - 32768.0f) / (32768.0f * 2f));
+                    clutch = -((m_State.rglSlider[0] - 32768.0f) / (32768.0f * 2f));
                 }
                 else
                 {
                     gas = 0;
+                    clutch = 0;
                 }
 
                 steering = m_State.lX / 32768.0f;

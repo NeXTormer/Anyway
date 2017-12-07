@@ -135,8 +135,18 @@ public class CarController : NetworkBehaviour
     public void FixedUpdate()
     {
         float motorTorque = currentTorque * inputManager.gas;
+        if (inputManager.clutch > 0.5) motorTorque = -inputManager.clutch * currentTorque;
         float steeringAngle = steeringAngleMax * inputManager.steering;
-        float handBrakeTorque = handbrakeTorqueMax * inputManager.handBrake;
+
+        float handBrakeTorque;
+        if(inputManager.brake > 0.3)
+        {
+            handBrakeTorque = handbrakeTorqueMax * inputManager.brake;
+        }
+        else
+        {
+            handBrakeTorque = 0;
+        }
 
         speedDirection = this.transform.InverseTransformDirection(body.velocity.normalized);
 
@@ -191,6 +201,8 @@ public class CarController : NetworkBehaviour
             wheelpair.rightWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.rightWheelMesh.transform.localEulerAngles.x, wheelpair.rightWheel.steerAngle - wheelpair.rightWheelMesh.transform.localEulerAngles.z + 180, wheelpair.rightWheelMesh.transform.localEulerAngles.z);
             wheelpair.leftWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.leftWheelMesh.transform.localEulerAngles.x, wheelpair.leftWheel.steerAngle - wheelpair.leftWheelMesh.transform.localEulerAngles.z + 180, wheelpair.leftWheelMesh.transform.localEulerAngles.z);
         }
+
+
 
         //rotate steering wheel
         steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);

@@ -5,7 +5,10 @@ using UnityEngine.Networking;
 
 public class PlayerDataTransfer : MonoBehaviour {
 
+
     public string playerName = "";
+    public bool useSteeringWheel = false;
+
 
     public void Start()
     {

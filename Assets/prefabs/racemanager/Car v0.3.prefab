@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd8d90ee3f5cd1b40ac1a13f29e85c5b, type: 3}
   m_Name: 
@@ -2078,10 +2078,12 @@ MonoBehaviour:
   currentLap: 0
   currentWaypoint: 0
   uniqueID: 0
+  titleText: 
   raceActive: 0
   numberOfLaps: 0
   numberOfWaypoints: 0
   raceTime: 0
+  debugMode: 0
 --- !u!114 &114461249746003828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2164,7 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d08cf714a33c304ea9ad1daca38687c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputType: 1
+  inputType: 0
   AXIS_GAS: Vertical
   AXIS_STEERING: Horizontal
   AXIS_HANDBRAKE: Jump

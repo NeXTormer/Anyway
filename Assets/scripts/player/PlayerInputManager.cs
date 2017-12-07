@@ -78,15 +78,15 @@ public class PlayerInputManager : MonoBehaviour
                 /* movement is disabled when debugMode is off and the race is actve */
                 if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
                 {
-                    gas = -((m_State.lY - 32768) / 32768);
+                    gas = -((m_State.lY - 32768.0f) / (32768.0f * 2f));
                 }
                 else
                 {
                     gas = 0;
                 }
 
-                steering = m_State.lX / 32768;
-                brake = -((m_State.lRz - 32768) / 32768);
+                steering = m_State.lX / 32768.0f;
+                brake = -((m_State.lRz - 32768.0f) / (32768.0f * 2f));
 
                 cameraZoomValue = m_State.rgbButtons[22] == 128 ? cameraZoomValue + 0.1f : cameraZoomValue;
                 cameraZoomValue = m_State.rgbButtons[21] == 128 ? cameraZoomValue - 0.1f : cameraZoomValue;

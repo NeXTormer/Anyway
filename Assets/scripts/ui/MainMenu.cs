@@ -31,7 +31,6 @@ public class MainMenu : MonoBehaviour
     public NetworkManager manager;
 
     private string m_Username = "DefaultUser";
-    private bool m_SteeringWheelActive = false;
 
     public void BtnSingleplayer()
     {
@@ -68,8 +67,8 @@ public class MainMenu : MonoBehaviour
 
     public void BtnToggleSteeringWheel()
     {
-        m_SteeringWheelActive = !m_SteeringWheelActive;
-        SteeringWheelEnabledText.text = "SteeringWheel: " + (m_SteeringWheelActive ? "1" : "0");   
+        dataTransfer.useSteeringWheel = !dataTransfer.useSteeringWheel;
+        SteeringWheelEnabledText.text = "SteeringWheel: " + (dataTransfer.useSteeringWheel ? "1" : "0");   
     }
 
     public void BtnNextCar()

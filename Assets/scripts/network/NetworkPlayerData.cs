@@ -24,7 +24,9 @@ public class NetworkPlayerData : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
-            playerName = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>().playerName;
+            PlayerDataTransfer data = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
+
+            playerName = data.playerName;
         }
     }
 }

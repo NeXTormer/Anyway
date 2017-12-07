@@ -22,12 +22,10 @@ public class NetworkPlayerData : NetworkBehaviour {
 
     public void Start()
     {
-        if (isLocalPlayer)
+        if(isLocalPlayer)
         {
-            PlayerDataTransfer data = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
-
-            Debug.Log("Aquired Player Name: " + data.playerName);
-            playerName = data.playerName;
+            playerName = PlayerDataTransfer.instance.playerName;
+            Debug.Log("Aquired Player Data: " + playerName);
         }
     }
 
@@ -35,10 +33,8 @@ public class NetworkPlayerData : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
-            PlayerDataTransfer data = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
-
-            Debug.Log("Aquired Player Name: " + data.playerName);
-            playerName = data.playerName;
+            playerName = PlayerDataTransfer.instance.playerName;
+            Debug.Log("Aquired Player Data: " + playerName);
         }
     }
 }

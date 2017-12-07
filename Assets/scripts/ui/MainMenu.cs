@@ -14,11 +14,7 @@ public class MainMenu : MonoBehaviour
     public GameObject LoginCanvas;
     public GameObject SettingsCanvas;
     public GameObject SelectCarCanvas;
-
-    [Space]
-
-    public PlayerDataTransfer dataTransfer;
-
+    
     [Space]
 
     public InputField iphostname;
@@ -67,8 +63,8 @@ public class MainMenu : MonoBehaviour
 
     public void BtnToggleSteeringWheel()
     {
-        dataTransfer.useSteeringWheel = !dataTransfer.useSteeringWheel;
-        SteeringWheelEnabledText.text = "SteeringWheel: " + (dataTransfer.useSteeringWheel ? "1" : "0");   
+        PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
+        SteeringWheelEnabledText.text = "SteeringWheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "1" : "0");   
     }
 
     public void BtnNextCar()
@@ -102,7 +98,7 @@ public class MainMenu : MonoBehaviour
 
         playerInfoText.text = "Logged in as " + m_Username;
 
-        dataTransfer.playerName = m_Username;
+        PlayerDataTransfer.instance.playerName = m_Username;
     }
 
     public void BtnSettings()

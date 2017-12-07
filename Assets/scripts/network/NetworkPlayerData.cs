@@ -20,12 +20,24 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public bool debugMode = false;
 
 
+    public void Start()
+    {
+        if (isLocalPlayer)
+        {
+            PlayerDataTransfer data = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
+
+            Debug.Log("Aquired Player Name: " + data.playerName);
+            playerName = data.playerName;
+        }
+    }
+
     public void OnRaceInitializeData()
     {
         if(isLocalPlayer)
         {
             PlayerDataTransfer data = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
 
+            Debug.Log("Aquired Player Name: " + data.playerName);
             playerName = data.playerName;
         }
     }

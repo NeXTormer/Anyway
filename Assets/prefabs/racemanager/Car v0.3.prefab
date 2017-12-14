@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 114051038455792672}
   - component: {fileID: 114291338603361586}
   - component: {fileID: 114516989814438442}
+  - component: {fileID: 114576516514911684}
   - component: {fileID: 114152737910492928}
   m_Layer: 0
   m_Name: Car v0.3
@@ -978,7 +979,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
   m_LocalRotation: {x: -0, y: -0.99999994, z: -0, w: 0.00042370657}
-  m_LocalPosition: {x: -135.3, y: 440.73, z: 102}
+  m_LocalPosition: {x: 400.0032, y: -4.5526423, z: 370.75195}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430368040849242}
@@ -2194,6 +2195,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraContainer: {fileID: 1041456019525632}
   isActive: 0
+--- !u!114 &114576516514911684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150457024253104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a28cad0f5c22e478bb16877db33199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WheelFR: {fileID: 146878454575723584}
+  WheelFL: {fileID: 146222697687020182}
+  WheelBR: {fileID: 0}
+  WheelBL: {fileID: 146975321710458812}
+  WheelFRMesh: {fileID: 1068091149560056}
+  WheelFLMesh: {fileID: 1738948906337692}
+  WheelBRMesh: {fileID: 1867600020303740}
+  WheelBLMesh: {fileID: 1221531720879694}
+  wheelRotationModifier: -1
 --- !u!114 &114613551106178098
 MonoBehaviour:
   m_ObjectHideFlags: 1

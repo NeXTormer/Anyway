@@ -191,18 +191,7 @@ public class CarController : NetworkBehaviour
                 wheelpair.leftWheel.brakeTorque = handBrakeTorque;
             }
 
-            //Update the rotation of the wheel meshes to show the wheel movements
-
-            //motorrotation
-            wheelpair.rightWheelMesh.transform.Rotate(Vector3.right, wheelpair.rightWheel.rpm / 60 * 360 * wheelpair.wheelRotaionModifier * Time.deltaTime, Space.Self);
-            wheelpair.leftWheelMesh.transform.Rotate(Vector3.right, wheelpair.leftWheel.rpm / 60 * 360 * wheelpair.wheelRotaionModifier * Time.deltaTime, Space.Self);
-
-            //steeringrotation
-            wheelpair.rightWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.rightWheelMesh.transform.localEulerAngles.x, wheelpair.rightWheel.steerAngle - wheelpair.rightWheelMesh.transform.localEulerAngles.z + 180, wheelpair.rightWheelMesh.transform.localEulerAngles.z);
-            wheelpair.leftWheelMesh.transform.localEulerAngles = new Vector3(wheelpair.leftWheelMesh.transform.localEulerAngles.x, wheelpair.leftWheel.steerAngle - wheelpair.leftWheelMesh.transform.localEulerAngles.z + 180, wheelpair.leftWheelMesh.transform.localEulerAngles.z);
         }
-
-
 
         //rotate steering wheel
         steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);
@@ -219,7 +208,10 @@ public class CarController : NetworkBehaviour
 
         if(handBrakeTorque > 10)
         {
-            body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+            if(IsOnGround())
+            {
+                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+            }
         }
 
        
@@ -234,30 +226,8 @@ public class CarController : NetworkBehaviour
     //TODO: add support for more than two axles
     private void SteerHelper()
     {
-        WheelHit wheelhit;
-        axles[0].rightWheel.GetGroundHit(out wheelhit);
-        if(wheelhit.normal == Vector3.zero)
-        {
-            return;
-        }
 
-        axles[0].leftWheel.GetGroundHit(out wheelhit);
-        if (wheelhit.normal == Vector3.zero)
-        {
-            return;
-        }
-
-        axles[1].rightWheel.GetGroundHit(out wheelhit);
-        if (wheelhit.normal == Vector3.zero)
-        {
-            return;
-        }
-
-        axles[1].leftWheel.GetGroundHit(out wheelhit);
-        if (wheelhit.normal == Vector3.zero)
-        {
-            return;
-        }
+        if (!IsOnGround()) return;
 
         //avoid gimbal lock
         if(Mathf.Abs(oldRotationY - transform.eulerAngles.y) < 10.0f)
@@ -268,6 +238,36 @@ public class CarController : NetworkBehaviour
             
         }
         oldRotationY = transform.eulerAngles.y;
+    }
+
+    private bool IsOnGround()
+    {
+        WheelHit wheelhit;
+        axles[0].rightWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return false;
+        }
+
+        axles[0].leftWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return false;
+        }
+
+        axles[1].rightWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return false;
+        }
+
+        axles[1].leftWheel.GetGroundHit(out wheelhit);
+        if (wheelhit.normal == Vector3.zero)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     //TODO: add support for more than two axles

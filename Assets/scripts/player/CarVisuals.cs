@@ -39,8 +39,8 @@ class CarVisuals : NetworkBehaviour
         WheelBLMesh.transform.Rotate(Vector3.right, WheelBL.rpm / 60 * 360 * wheelRotationModifier * Time.deltaTime, Space.Self);
 
         /* Steering wheel */
-        WheelBRMesh.transform.localEulerAngles = new Vector3(WheelBRMesh.transform.localEulerAngles.x, WheelBR.steerAngle - WheelBRMesh.transform.localEulerAngles.z + 180, WheelBRMesh.transform.localEulerAngles.z);
-        WheelBLMesh.transform.localEulerAngles = new Vector3(WheelBLMesh.transform.localEulerAngles.x, WheelBL.steerAngle - WheelBLMesh.transform.localEulerAngles.z + 180, WheelBLMesh.transform.localEulerAngles.z);
+        //WheelBRMesh.transform.localEulerAngles = new Vector3(WheelBRMesh.transform.localEulerAngles.x, WheelBR.steerAngle - WheelBRMesh.transform.localEulerAngles.z + 180, WheelBRMesh.transform.localEulerAngles.z);
+        //WheelBLMesh.transform.localEulerAngles = new Vector3(WheelBLMesh.transform.localEulerAngles.x, WheelBL.steerAngle - WheelBLMesh.transform.localEulerAngles.z + 180, WheelBLMesh.transform.localEulerAngles.z);
 
 
     }

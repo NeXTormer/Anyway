@@ -2215,6 +2215,8 @@ MonoBehaviour:
   WheelBRMesh: {fileID: 1095851699791514}
   WheelBLMesh: {fileID: 1221531720879694}
   wheelRotationModifier: -1
+  WheelFRSteerAngle: 0
+  WheelFLSteerAngle: 0
 --- !u!114 &114613551106178098
 MonoBehaviour:
   m_ObjectHideFlags: 1

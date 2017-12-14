@@ -21,17 +21,29 @@ class CarVisuals : NetworkBehaviour
 
     public float wheelRotationModifier = -1;
 
+    [SyncVar]
+    public float WheelFRSteerAngle = 0;
+
+    [SyncVar]
+    public float WheelFLSteerAngle = 0.42f;
 
     public void FixedUpdate()
     {
+        if(isLocalPlayer)
+        {
+            WheelFRSteerAngle = WheelFR.steerAngle;
+            WheelFLSteerAngle = WheelFL.steerAngle;
+        }
+
+
         /* Front */
         /* Motor */
         WheelFRMesh.transform.Rotate(Vector3.right, WheelFR.rpm / 60 * 360 * wheelRotationModifier * Time.deltaTime, Space.Self);
         WheelFLMesh.transform.Rotate(Vector3.right, WheelFL.rpm / 60 * 360 * wheelRotationModifier * Time.deltaTime, Space.Self);
 
         /* Steering wheel */
-        WheelFRMesh.transform.localEulerAngles = new Vector3(WheelFRMesh.transform.localEulerAngles.x, WheelFR.steerAngle - WheelFRMesh.transform.localEulerAngles.z + 180, WheelFRMesh.transform.localEulerAngles.z);
-        WheelFLMesh.transform.localEulerAngles = new Vector3(WheelFLMesh.transform.localEulerAngles.x, WheelFL.steerAngle - WheelFLMesh.transform.localEulerAngles.z + 180, WheelFLMesh.transform.localEulerAngles.z);
+        WheelFRMesh.transform.localEulerAngles = new Vector3(WheelFRMesh.transform.localEulerAngles.x, WheelFRSteerAngle - WheelFRMesh.transform.localEulerAngles.z + 180, WheelFRMesh.transform.localEulerAngles.z);
+        WheelFLMesh.transform.localEulerAngles = new Vector3(WheelFLMesh.transform.localEulerAngles.x, WheelFLSteerAngle - WheelFLMesh.transform.localEulerAngles.z + 180, WheelFLMesh.transform.localEulerAngles.z);
 
         /* Back */
         /* Motor */

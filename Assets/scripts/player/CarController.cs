@@ -206,8 +206,6 @@ public class CarController : NetworkBehaviour
         //rotate steering wheel
         steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);
 
-        //speed variable for display in the inspector
-        speed = body.velocity.magnitude;
 
 
         //add downforce relative to speed
@@ -230,6 +228,11 @@ public class CarController : NetworkBehaviour
         {
             body.velocity = maxSpeed * body.velocity.normalized;
         }
+
+        
+        speed = body.velocity.magnitude;
+
+        inputManager.PlayLEDs((int) speed, 3, (int) maxSpeed);
 
     }
 

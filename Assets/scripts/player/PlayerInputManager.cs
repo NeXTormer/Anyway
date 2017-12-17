@@ -166,4 +166,12 @@ public class PlayerInputManager : MonoBehaviour
     {
         return Input.GetKeyDown(KEY_HANDBRAKE);
     }
+
+    public void PlayLEDs(int currentValue, int firstLEDValue, int almostmaxLEDValue)
+    {
+        if(inputType == InputType.STEERINGWHEEL)
+        {
+            LogitechGSDK.LogiPlayLeds(0, currentValue, firstLEDValue, almostmaxLEDValue);
+        }
+    }
 }

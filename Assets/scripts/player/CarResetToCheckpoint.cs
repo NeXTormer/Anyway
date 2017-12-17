@@ -7,6 +7,7 @@ class CarResetToCheckpoint : MonoBehaviour
     private Waypoint[] m_Waypoints;
     private NetworkPlayerData m_PlayerData;
 
+
     public void Start()
     {
         GameObject[] tmp = GameObject.FindGameObjectsWithTag("Waypoint").OrderBy(x => x.name).ToArray();

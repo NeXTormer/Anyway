@@ -13,6 +13,11 @@ public class PlayerInputManager : MonoBehaviour
     [Header("Settings")]
     public InputType inputType = InputType.KEYBOARD;
 
+    [Space]
+
+    [Tooltip("how long [s] the reset button has to be pressed in order to reset.")]
+    public float carResetPressTime = 1.5f;
+
     [Header("Axes")]
     public string AXIS_GAS = "Vertical";
     public string AXIS_STEERING = "Horizontal";
@@ -44,6 +49,10 @@ public class PlayerInputManager : MonoBehaviour
     private bool m_NewChangePOV = false;
     private bool m_OldChangePOV = false;
     private bool m_ChangePOV = false;
+    private bool m_ResetCarTempBool = false;
+    private bool m_ResetCarValue;
+
+    private float m_ResetCarTimer = 0;
 
     private NetworkPlayerData m_Playerdata;
     private PlayerDataTransfer m_PlayerDataTransfer;
@@ -112,11 +121,35 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KEY_RESETCAR))
+        {
+            m_ResetCarTempBool = true;
+            m_ResetCarTimer = Time.time;
+        }
+
+        if(Input.GetKey(KEY_RESETCAR))
+        {
+            if (m_ResetCarTempBool)
+            {
+                if (Time.time - m_ResetCarTimer > carResetPressTime)
+                {
+                    m_ResetCarValue = true;
+                    m_ResetCarTempBool = false;
+                }
+            }
+        }
+        else
+        {
+            m_ResetCarValue = false;
+        }
     }
 
     public bool ResetCar()
     {
-        return Input.GetKeyDown(KEY_RESETCAR);
+        bool tmp = m_ResetCarValue;
+        m_ResetCarValue = false;
+        
+        return tmp;
     }
 
     public bool ChangeCameraPosition()

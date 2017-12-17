@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+public struct WaypointData
+{
+
+}
+
 public class NetworkPlayerData : NetworkBehaviour {
 
     /* Player specific */

@@ -139,7 +139,11 @@ public class CarController : NetworkBehaviour
         float steeringAngle = steeringAngleMax * inputManager.steering;
 
         float handBrakeTorque;
-        if(inputManager.brake > 0.3)
+        if (inputManager.HandBrakeDown())
+        {
+            handBrakeTorque = float.MaxValue;
+        }
+        else if (inputManager.brake > 0.3)
         {
             handBrakeTorque = handbrakeTorqueMax * inputManager.brake;
         }
@@ -156,16 +160,22 @@ public class CarController : NetworkBehaviour
         {
             if (speedDirection.z < -0.1)
             {
-                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
-                handBrakeTorque = handbrakeTorqueMax;
+                if(IsOnGround())
+                {
+                    body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                    handBrakeTorque = handbrakeTorqueMax;
+                }
             }
         }
         else if (motorTorque > 1)
         {
             if (speedDirection.z > 0.1)
             {
-                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
-                handBrakeTorque = handbrakeTorqueMax;
+                if(IsOnGround())
+                {
+                    body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                    handBrakeTorque = handbrakeTorqueMax;
+                }
             }
         }
         

@@ -26,7 +26,6 @@ public class PlayerData
 [AddComponentMenu("RaceManager/RaceManager")]
 public class RaceManager : NetworkBehaviour
 {
-
     [Header("Settings")]
     public int numberOfLaps = 1;
 
@@ -110,14 +109,7 @@ public class RaceManager : NetworkBehaviour
     {
         Debug.Log("Initializing RaceManager");
 
-        Waypoint[] tempwaypoints = GetComponentsInChildren<Waypoint>();
-
-        m_Waypoints = new GameObject[tempwaypoints.Length];
-
-        for (int i = 0; i < tempwaypoints.Length; i++)
-        {
-            m_Waypoints[i] = tempwaypoints[i].gameObject;
-        }
+        m_Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
 
         foreach (GameObject pl in m_Players)
         {

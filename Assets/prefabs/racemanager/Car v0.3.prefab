@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 114291338603361586}
   - component: {fileID: 114516989814438442}
   - component: {fileID: 114576516514911684}
+  - component: {fileID: 114827352052105202}
   - component: {fileID: 114152737910492928}
   m_Layer: 0
   m_Name: Car v0.3
@@ -979,7 +980,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
   m_LocalRotation: {x: -0, y: -0.99999994, z: -0, w: 0.00042370657}
-  m_LocalPosition: {x: -135.30775, y: 440.4959, z: 105.92286}
+  m_LocalPosition: {x: -14.655967, y: 384.12323, z: 82.57011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430368040849242}
@@ -1990,6 +1991,7 @@ MonoBehaviour:
   componentsToDisable:
   - {fileID: 114962083803731178}
   - {fileID: 114516989814438442}
+  - {fileID: 114827352052105202}
   gameObjectsToDisable:
   - {fileID: 1041456019525632}
   - {fileID: 1156878533851530}
@@ -2173,6 +2175,9 @@ MonoBehaviour:
   AXIS_HANDBRAKE: Jump
   AXIS_CAMERAZOOM: Mouse ScrollWheel
   KEY_CHANGEPOV: 118
+  KEY_HANDBRAKE: 32
+  KEY_PAUSEMENU: 27
+  KEY_RESETCAR: 114
   gas: 0
   steering: 0
   brake: 0
@@ -2285,6 +2290,17 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 15
   m_InterpolateMovement: 1
+--- !u!114 &114827352052105202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150457024253104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98fefcda63181b4ea0763bd3d6f7552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114962083803731178
 MonoBehaviour:
   m_ObjectHideFlags: 1

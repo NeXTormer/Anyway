@@ -21,6 +21,9 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Keys")]
     public KeyCode KEY_CHANGEPOV = KeyCode.V;
+    public KeyCode KEY_HANDBRAKE = KeyCode.Space;
+    public KeyCode KEY_PAUSEMENU = KeyCode.Escape;
+    public KeyCode KEY_RESETCAR = KeyCode.R;
 
     [Header("Values")]
     public float gas;
@@ -111,15 +114,23 @@ public class PlayerInputManager : MonoBehaviour
 
     }
 
+    public bool ResetCar()
+    {
+        return Input.GetKeyDown(KEY_RESETCAR);
+    }
+
     public bool ChangeCameraPosition()
     {
-        if(inputType == InputType.KEYBOARD)
-        {
-            return Input.GetKeyDown(KEY_CHANGEPOV);
-        }
-        else
-        {
-            return m_ChangePOV;
-        }
+        return Input.GetKeyDown(KEY_CHANGEPOV);
+    }
+
+    public bool TogglePauseMenu()
+    {
+        return Input.GetKeyDown(KEY_PAUSEMENU);
+    }
+
+    public bool HandBrakeDown()
+    {
+        return Input.GetKeyDown(KEY_HANDBRAKE);
     }
 }

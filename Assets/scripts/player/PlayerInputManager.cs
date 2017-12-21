@@ -74,6 +74,7 @@ public class PlayerInputManager : MonoBehaviour
             if(!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
             {
                 gas = Input.GetAxis(AXIS_GAS);
+                Debug.Log(gas);
             }
             else
             {

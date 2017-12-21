@@ -12557,12 +12557,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e475f1490f14e5344a7ff87e0f273687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfLaps: 2
+  numberOfLaps: 10
   playerdataView: []
-  debugMode: 0
+  debugMode: 1
   autostartRace: 1
-  minPlayersToAutostart: 2
-  defaultRaceCountdown: 10
+  minPlayersToAutostart: 1
+  defaultRaceCountdown: 0
   raceActive: 0
   raceTime: 0
 --- !u!4 &1231359792

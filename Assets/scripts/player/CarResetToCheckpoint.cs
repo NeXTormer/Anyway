@@ -24,6 +24,7 @@ class CarResetToCheckpoint : MonoBehaviour
     public void FixedUpdate()
     {
         if(m_InputManager.ResetCar())
+        //if(Input.GetKeyDown(KeyCode.R))
         {
             if (m_PlayerData.raceActive)
             {

@@ -33,6 +33,6 @@ select max(s.score), g.name, u.name from scores s, users u, games g where s.game
 select avg(s.score), g.name, u.name from scores s, users u, games g where s.game_id = g.id and s.user_id = u.id and g.name = "anyway" group by u.name;
 select max(s.score), g.name, u.name from scores s, users u, games g where s.game_id = g.id and s.user_id = u.id and g.name = "anyway" group by u.name;
 
-
-
 show tables;
+
+use gamedata;

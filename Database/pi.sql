@@ -10,6 +10,8 @@ desc players;
 desc games;
 desc scores;
 
+alter table scores add date datetime;
+
 insert into players (name, regdate) values ("holz", now());
 insert into players (name, regdate) values ("werner", now());
 
@@ -45,6 +47,6 @@ SELECT id FROM players WHERE name = "holz";
 
 use gamedata;
 
-select score from scores s, players p, games g where s.player_id = p.id and s.game_id = 1 and s.game_id = g.id and p.name = "holz";
+select score from scores s, players p, games g where s.player_id = p.id and s.game_id = 1 and s.game_id = g.id and p.name = "GameZter";
 select * from scores;
 select * from players;

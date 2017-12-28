@@ -2,12 +2,12 @@
 {
 	Properties
 	{
-		_Color("Color", Color) = (1,1,1)
+		m_Color("Color", Color) = (1,1,1)
 	}
 	
 	SubShader
 	{
-		//Color[_Color]
+		//Color[m_Color]
 		Pass { }
 	}
 }

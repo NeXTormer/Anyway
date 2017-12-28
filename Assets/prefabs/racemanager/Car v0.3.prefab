@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 114576516514911684}
   - component: {fileID: 114827352052105202}
   - component: {fileID: 114152737910492928}
+  - component: {fileID: 114264782186904636}
   m_Layer: 0
   m_Name: Car v0.3
   m_TagString: Player
@@ -980,7 +981,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
   m_LocalRotation: {x: -0, y: -0.99999994, z: -0, w: 0.00042370657}
-  m_LocalPosition: {x: -14.655967, y: 384.12323, z: 82.57011}
+  m_LocalPosition: {x: -21.552008, y: 384.12323, z: 86.09826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430368040849242}
@@ -2066,6 +2067,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1150457024253104}
+--- !u!114 &114264782186904636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150457024253104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74ccb2b367a479d870bee9b67613f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkPlayerData: {fileID: 114291338603361586}
+  gameobjects:
+  - {fileID: 1700812867607024}
+  - {fileID: 1129372196771918}
+  - {fileID: 1326109706238700}
+  - {fileID: 1565023831754000}
+  - {fileID: 1791350555869286}
 --- !u!114 &114291338603361586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2082,6 +2101,7 @@ MonoBehaviour:
   currentWaypoint: 0
   uniqueID: 0
   titleText: 
+  color: {r: 0.36078432, g: 0.6509804, b: 1, a: 1}
   raceActive: 0
   numberOfLaps: 0
   numberOfWaypoints: 0

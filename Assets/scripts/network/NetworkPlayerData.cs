@@ -16,6 +16,7 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public int currentWaypoint = 0;
     [SyncVar] public int uniqueID = 0;
     [SyncVar] public string titleText = "";
+    [SyncVar] public Color color = new Color32(0x69, 0x42, 0x00, 0xFF);
 
     /* Race specific */
     [SyncVar] public bool raceActive = false;

@@ -21,6 +21,7 @@ public class PlayerData
     public GameObject player;
     public int currentLap;
     public int currentWaypoint;
+
 }
 
 [AddComponentMenu("RaceManager/RaceManager")]
@@ -51,14 +52,17 @@ public class RaceManager : NetworkBehaviour
     private bool m_RaceCountdownActive = false;
     private bool m_StartedInitialization = false;
 
+    private List<Color> m_Colors;
+
     private void Awake()
     {
         m_PlayerData = new Dictionary<int, PlayerData>();
+        InitializeColors();
     }
 
     private void InitializeNetworkPlayerData()
     {
-        foreach(KeyValuePair<int, PlayerData> pair in m_PlayerData)
+        foreach(var pair in m_PlayerData)
         {
             PlayerData data = pair.Value;
             NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
@@ -72,6 +76,7 @@ public class RaceManager : NetworkBehaviour
             networkData.uniqueID = data.player.GetInstanceID();
             networkData.titleText = "findenig";
             networkData.debugMode = debugMode;
+            networkData.color = SelectRandomColor();
 
             data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
         }
@@ -128,6 +133,19 @@ public class RaceManager : NetworkBehaviour
 
         /* Initialize NetworkPlayerData on all players in dictionary */
         InitializeNetworkPlayerData();
+    }
+
+    private void InitializeColors()
+    {
+        m_Colors = new List<Color>();
+        
+        m_Colors.Add(new Color32(0x5C, 0xA6, 0xFF, 0xFF));
+        m_Colors.Add(new Color32(0xD1, 0x5E, 0xFF, 0xFF));
+        m_Colors.Add(new Color32(0xFF, 0xE4, 0x5E, 0xFF));
+        m_Colors.Add(new Color32(0xFF, 0x5E, 0x5E, 0xFF));
+        m_Colors.Add(new Color32(0x1E, 0xFF, 0x61, 0xFF));
+        m_Colors.Add(new Color32(0x77, 0x77, 0x77, 0xFF));
+        m_Colors.Add(new Color32(0xFF, 0x8C, 0x35, 0xFF));
     }
 
     /* Adds players to array of potential players, but not the race */
@@ -261,5 +279,16 @@ public class RaceManager : NetworkBehaviour
         
 
         UpdateNetworkPlayerData();
+    }
+
+    private Color SelectRandomColor()
+    {
+        var random = new System.Random();
+        int i = random.Next(0, m_Colors.Count);
+        Color c = m_Colors[i];
+   
+        m_Colors.Remove(c);
+
+        return c;
     }
 }

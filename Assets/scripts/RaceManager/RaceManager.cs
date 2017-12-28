@@ -283,6 +283,11 @@ public class RaceManager : NetworkBehaviour
 
     private Color SelectRandomColor()
     {
+        if (m_Colors.Count == 0)
+        {
+            InitializeColors();
+        }
+
         var random = new System.Random();
         int i = random.Next(0, m_Colors.Count);
         Color c = m_Colors[i];

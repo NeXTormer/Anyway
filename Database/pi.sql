@@ -21,7 +21,7 @@ select * from scores;
 select * from games;
 
 insert into scores (score, player_id, game_id) values (14524, 1, 1);
-insert into scores (score, player_id, game_id) values (42.5, 3, 4);
+insert into scores (score, player_id, game_id) values (42.5, 3, 2);
 
 INSERT INTO scores (score, player_id, game_id) VALUES (?, ?, ?);
 
@@ -47,6 +47,31 @@ SELECT id FROM players WHERE name = "holz";
 
 use gamedata;
 
-select score from scores s, players p, games g where s.player_id = p.id and s.game_id = 1 and s.game_id = g.id and p.name = "GameZter";
+select p.name, score, s.date from scores s, players p, games g where s.player_id = p.id and s.game_id = 1 and s.game_id = g.id and p.name = "schubwerner";
 select * from scores;
 select * from players;
+
+
+select max(score), p.name, s.date from players p, games g, scores s where g.name = 'spacegame' and s.game_id = g.id and s.player_id = p.id group by p.name order by score desc;
+
+SELECT p.name, s.score, s.date FROM players p, games g, scores s WHERE g.name = "spacegame" AND s.game_id = g.id AND s.player_id = p.id ORDER BY score DESC;
+
+
+
+desc scores;
+
+
+SELECT id FROM games WHERE name = "spacegame";
+
+INSERT INTO scores (score, player_id, game_id, date) VALUES (2323, 6, 2, now());
+
+
+
+
+
+
+
+
+
+
+

@@ -21,6 +21,7 @@ public class PlayerData
     public GameObject player;
     public int currentLap;
     public int currentWaypoint;
+    public float lapStartTime = 0;
 
 }
 
@@ -201,6 +202,14 @@ public class RaceManager : NetworkBehaviour
                         //right waypoint, player has finished one lap
                         data.currentWaypoint = 0;
 
+                        /* Player has finished a lap -> data (laptime, timestamp, username) is sent to the database */
+
+                        float laptime = Time.time - data.lapStartTime;
+                        string username = data.name;
+
+                        data.lapStartTime = Time.time;
+
+                        WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/schubisdn/42/test");
                     }
                     else
                     {
@@ -225,6 +234,11 @@ public class RaceManager : NetworkBehaviour
     {
         raceActive = true;
         raceTime = 0;
+
+        foreach (var pair in m_PlayerData)
+        {
+            pair.Value.lapStartTime = Time.time;
+        }
     }
 
     /* starts race countdown | starts race after countdown ends */

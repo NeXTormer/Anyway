@@ -12985,9 +12985,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfLaps: 10
   playerdataView: []
-  debugMode: 1
+  debugMode: 0
   autostartRace: 1
-  minPlayersToAutostart: 1
+  minPlayersToAutostart: 2
   defaultRaceCountdown: 10
   raceActive: 0
   raceTime: 0

@@ -205,11 +205,11 @@ public class RaceManager : NetworkBehaviour
                         /* Player has finished a lap -> data (laptime, timestamp, username) is sent to the database */
 
                         float laptime = Time.time - data.lapStartTime;
-                        string username = data.name;
-
+                        string username = player.GetComponent<NetworkPlayerData>().playerName;
                         data.lapStartTime = Time.time;
 
-                        WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/schubisdn/42/test");
+
+                        WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + username + "/" + laptime + "/anyway");
                     }
                     else
                     {
@@ -222,6 +222,7 @@ public class RaceManager : NetworkBehaviour
                     {
                         Debug.Log("Started Race (Lap -1 -> Lap 0)");
                         data.currentLap = 0;
+                        data.lapStartTime = Time.time;
 
                         //player started the first lap
                     }

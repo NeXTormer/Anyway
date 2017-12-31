@@ -11,7 +11,7 @@ public struct WaypointData
 public class NetworkPlayerData : NetworkBehaviour {
 
     /* Player specific */
-    [SyncVar] public string playerName = "";
+    [SyncVar] public string playerName = "[E]";
     [SyncVar] public int currentLap = 0;
     [SyncVar] public int currentWaypoint = 0;
     [SyncVar] public int uniqueID = 0;
@@ -26,13 +26,15 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public bool debugMode = false;
 
 
-    public void Start()
+    private int m_Count = 0;
+
+    void FixedUpdate()
     {
-        if(isLocalPlayer)
-        {
-            playerName = PlayerDataTransfer.instance.playerName;
-            Debug.Log("Aquired Player Data: " + playerName);
-        }
+        //if (m_Count > 2000) return;
+        if (!isLocalPlayer) return;
+        
+        playerName = PlayerDataTransfer.instance.playerName;
+        m_Count++;
     }
 
     public void OnRaceInitializeData()

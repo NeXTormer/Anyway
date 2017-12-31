@@ -138,15 +138,16 @@ public class RaceManager : NetworkBehaviour
 
     private void InitializeColors()
     {
-        m_Colors = new List<Color>();
-        
-        m_Colors.Add(new Color32(0x5C, 0xA6, 0xFF, 0xFF));
-        m_Colors.Add(new Color32(0xD1, 0x5E, 0xFF, 0xFF));
-        m_Colors.Add(new Color32(0xFF, 0xE4, 0x5E, 0xFF));
-        m_Colors.Add(new Color32(0xFF, 0x5E, 0x5E, 0xFF));
-        m_Colors.Add(new Color32(0x1E, 0xFF, 0x61, 0xFF));
-        m_Colors.Add(new Color32(0x77, 0x77, 0x77, 0xFF));
-        m_Colors.Add(new Color32(0xFF, 0x8C, 0x35, 0xFF));
+        m_Colors = new List<Color>
+        {
+            new Color32(0x5C, 0xA6, 0xFF, 0xFF),
+            new Color32(0xD1, 0x5E, 0xFF, 0xFF),
+            new Color32(0xFF, 0xE4, 0x5E, 0xFF),
+            new Color32(0xFF, 0x5E, 0x5E, 0xFF),
+            new Color32(0x1E, 0xFF, 0x61, 0xFF),
+            new Color32(0x77, 0x77, 0x77, 0xFF),
+            new Color32(0xFF, 0x8C, 0x35, 0xFF)
+        };
     }
 
     /* Adds players to array of potential players, but not the race */
@@ -210,6 +211,7 @@ public class RaceManager : NetworkBehaviour
 
 
                         WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + username + "/" + laptime + "/anyway");
+                        Debug.Log("WWW: " + username + ", " + laptime);
                     }
                     else
                     {

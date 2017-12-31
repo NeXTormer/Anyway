@@ -10,6 +10,9 @@ Downloadable APKs can be found under the [releases](https://github.com/NeXTormer
 
 # Anyway
 
+## Score Database
+
+The score database can be viewed [here](http://faoiltiarna.ddns.net/scores/1000/anyway).
 
 ## Planned features
 * Car racing game

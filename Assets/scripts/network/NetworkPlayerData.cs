@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public struct WaypointData
-{
-
-}
-
 public class NetworkPlayerData : NetworkBehaviour {
 
     /* Player specific */
@@ -25,15 +20,20 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public float raceTime = 0; /* TODO: Optimize */
     [SyncVar] public bool debugMode = false;
 
+    [Header("Settings")]
+
+    public Username username;
 
     private int m_Count = 0;
 
-    void FixedUpdate()
+    void Start()
     {
-        //if (m_Count > 2000) return;
         if (!isLocalPlayer) return;
-        
+
+        username.PlayerName = PlayerDataTransfer.instance.playerName;
         playerName = PlayerDataTransfer.instance.playerName;
+
+
         m_Count++;
     }
 
@@ -42,6 +42,7 @@ public class NetworkPlayerData : NetworkBehaviour {
         if(isLocalPlayer)
         {
             playerName = PlayerDataTransfer.instance.playerName;
+            username.PlayerName = PlayerDataTransfer.instance.playerName;
             Debug.Log("Aquired Player Data: " + playerName);
         }
     }

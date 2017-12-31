@@ -168,12 +168,12 @@ public class RaceManager : NetworkBehaviour
     public void OnWaypointHit(GameObject player, GameObject waypoint)
     {
 
-        if(raceActive)
+        if (raceActive)
         {
 
             if (m_PlayerData.ContainsKey(player.GetInstanceID()))
             {
-                
+
                 PlayerData data = m_PlayerData[player.GetInstanceID()];
                 Waypoint wp = waypoint.GetComponent<Waypoint>();
 
@@ -203,15 +203,6 @@ public class RaceManager : NetworkBehaviour
                         //right waypoint, player has finished one lap
                         data.currentWaypoint = 0;
 
-                        /* Player has finished a lap -> data (laptime, timestamp, username) is sent to the database */
-
-                        float laptime = Time.time - data.lapStartTime;
-                        string username = player.GetComponent<NetworkPlayerData>().playerName;
-                        data.lapStartTime = Time.time;
-
-
-                        WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + username + "/" + laptime + "/anyway");
-                        Debug.Log("WWW: " + username + ", " + laptime);
                     }
                     else
                     {
@@ -224,14 +215,14 @@ public class RaceManager : NetworkBehaviour
                     {
                         Debug.Log("Started Race (Lap -1 -> Lap 0)");
                         data.currentLap = 0;
-                        data.lapStartTime = Time.time;
 
                         //player started the first lap
                     }
                 }
             }
-        }    
+        }
     }
+
 
     public void StartRace()
     {

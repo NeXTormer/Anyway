@@ -63,8 +63,8 @@ public class MainMenu : MonoBehaviour
 
     public void BtnToggleSteeringWheel()
     {
-        PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
-        SteeringWheelEnabledText.text = "SteeringWheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "1" : "0");   
+        //PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
+        //SteeringWheelEnabledText.text = "SteeringWheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "1" : "0");   
     }
 
     public void BtnNextCar()

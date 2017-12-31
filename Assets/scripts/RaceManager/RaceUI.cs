@@ -16,6 +16,9 @@ public class RaceUI : MonoBehaviour {
     private StringBuilder sb;
     private NetworkPlayerData data;
 
+    private int m_OldLap = -1;
+    private float m_LapStartTime = 0;
+
     void Awake()
     {
         sb = new StringBuilder(60);
@@ -29,6 +32,24 @@ public class RaceUI : MonoBehaviour {
         if(data != null)
         {
             UpdateText();
+
+            if (data.currentLap != m_OldLap && data.raceActive)
+            {
+                Debug.Log("PETERSCHUB: " + m_OldLap + " | " + data.currentLap);
+
+                m_OldLap = data.currentLap;
+
+                if (m_LapStartTime != 0)
+                {
+                    float laptime = Time.time - m_LapStartTime;
+
+                    WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + PlayerDataTransfer.instance.playerName + "/" + laptime + "/anyway");
+                    Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + laptime);
+                }
+
+                m_LapStartTime = Time.time;
+            }
+
         }
     }
 
@@ -37,7 +58,7 @@ public class RaceUI : MonoBehaviour {
         /* TODO: performance? */
         sb = new StringBuilder(70);
         sb.Append("Name: ");
-        sb.AppendLine(data.playerName);
+        sb.AppendLine(PlayerDataTransfer.instance.playerName);
         sb.Append("Waypoint: ");
         sb.Append(data.currentWaypoint);
         sb.Append(" / ");

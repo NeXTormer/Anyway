@@ -625,6 +625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4395676928294890}
   - component: {fileID: 20057934218476606}
+  - component: {fileID: 114730633400768096}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -951,7 +952,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150457024253104}
   m_LocalRotation: {x: -0, y: -0.99999994, z: -0, w: 0.00042370657}
-  m_LocalPosition: {x: 107.34527, y: 384.12323, z: 44.74139}
+  m_LocalPosition: {x: 101.2505, y: 384.12323, z: -25.707441}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430368040849242}
@@ -2036,7 +2037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16be9fd75a611c45b360fcf11483d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: '[undef]'
 --- !u!114 &114264782186904636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2078,7 +2078,6 @@ MonoBehaviour:
   raceTime: 0
   debugMode: 0
   username: {fileID: 114255864607548098}
-  playerDataTransfer: {fileID: 0}
 --- !u!114 &114461249746003828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2248,6 +2247,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114730633400768096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1995337596592914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: c5b502d55b631c14a852a2caacd1285d, type: 2}
 --- !u!114 &114819016586380082
 MonoBehaviour:
   m_ObjectHideFlags: 1

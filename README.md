@@ -1,3 +1,7 @@
+# Score Database
+
+The score database can be viewed [here](http://faoiltiarna.ddns.net/).
+
 # SpaceGame
 
 Space shoother for Android.
@@ -9,10 +13,6 @@ Space shoother for Android.
 Downloadable APKs can be found under the [releases](https://github.com/NeXTormer/SpaceGamev2/releases) tab.
 
 # Anyway
-
-## Score Database
-
-The score database can be viewed [here](http://faoiltiarna.ddns.net/scores/1000/anyway).
 
 ## Planned features
 * Car racing game

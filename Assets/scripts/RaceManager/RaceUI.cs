@@ -57,7 +57,6 @@ public class RaceUI : MonoBehaviour {
     {
         /* TODO: performance? */
         sb = new StringBuilder(70);
-        sb.Append("Name: ");
         sb.AppendLine(PlayerDataTransfer.instance.playerName);
         sb.Append("Waypoint: ");
         sb.Append(data.currentWaypoint);

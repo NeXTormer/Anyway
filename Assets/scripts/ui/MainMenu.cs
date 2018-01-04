@@ -24,9 +24,14 @@ public class MainMenu : MonoBehaviour
     public InputField username;
     public GameObject DefaultCarPreview;
 
-    public NetworkManager manager;
+    private NetworkManager m_Manager;
 
     private string m_Username = "DefaultUser";
+
+    public void Start()
+    {
+        m_Manager = NetworkManager.singleton;
+    }
 
     public void BtnSingleplayer()
     {
@@ -118,20 +123,20 @@ public class MainMenu : MonoBehaviour
     public void HostAndPlay()
     {
 
-        if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+        if (!m_Manager.IsClientConnected() && !NetworkServer.active && m_Manager.matchMaker == null)
         {
-            manager.StartHost();
-            manager.ServerChangeScene("map1");
+            m_Manager.StartHost();
+            m_Manager.ServerChangeScene("map1");
         }
         
     }
 
     public void JoinGame()
     {
-        bool noConnection = (manager.client == null || manager.client.connection == null ||
-                             manager.client.connection.connectionId == -1);
+        bool noConnection = (m_Manager.client == null || m_Manager.client.connection == null ||
+                             m_Manager.client.connection.connectionId == -1);
 
-        if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+        if (!m_Manager.IsClientConnected() && !NetworkServer.active && m_Manager.matchMaker == null)
         {
             if (noConnection)
             {
@@ -161,10 +166,10 @@ public class MainMenu : MonoBehaviour
                             port = int.Parse(temp[1]);
                         }
                     }
-                    manager.networkAddress = ip;
-                    manager.networkPort = port;
+                    m_Manager.networkAddress = ip;
+                    m_Manager.networkPort = port;
 
-                    manager.StartClient();
+                    m_Manager.StartClient();
                 }
             }
         }

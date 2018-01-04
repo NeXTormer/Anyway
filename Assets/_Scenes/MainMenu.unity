@@ -645,7 +645,6 @@ MonoBehaviour:
   SteeringWheelEnabledText: {fileID: 562985348}
   username: {fileID: 820949374}
   DefaultCarPreview: {fileID: 1836759471}
-  manager: {fileID: 1109335444}
 --- !u!1 &135490992
 GameObject:
   m_ObjectHideFlags: 0

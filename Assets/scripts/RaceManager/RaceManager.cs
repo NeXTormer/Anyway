@@ -22,6 +22,7 @@ public class PlayerData
     public int currentLap;
     public int currentWaypoint;
     public float lapStartTime = 0;
+    public Color32 color;
 
 }
 
@@ -69,6 +70,9 @@ public class RaceManager : NetworkBehaviour
         foreach(var pair in m_PlayerData)
         {
             PlayerData data = pair.Value;
+
+            data.color = SelectRandomColor();
+
             NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
             networkData.playerName = data.name;
             networkData.currentLap = data.currentLap;
@@ -80,11 +84,30 @@ public class RaceManager : NetworkBehaviour
             networkData.uniqueID = data.player.GetInstanceID();
             networkData.titleText = "findenig";
             networkData.debugMode = debugMode;
-            networkData.color = SelectRandomColor();
+            networkData.color = data.color;
 
             data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
         }
     }   
+
+    private void InitializeNetworkDataOnPlayer(int instanceid)
+    {
+        PlayerData data = m_PlayerData[instanceid];
+        NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
+        networkData.playerName = data.name;
+        networkData.currentLap = data.currentLap;
+        networkData.currentWaypoint = data.currentWaypoint;
+        networkData.raceActive = raceActive;
+        networkData.numberOfLaps = numberOfLaps;
+        networkData.numberOfWaypoints = m_Waypoints.Length - 2;
+        networkData.raceTime = raceTime;
+        networkData.uniqueID = data.player.GetInstanceID();
+        networkData.titleText = "findenig";
+        networkData.debugMode = debugMode;
+        networkData.color = SelectRandomColor();
+
+        data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
+    }
 
     private void UpdateNetworkPlayerData()
     {
@@ -103,13 +126,20 @@ public class RaceManager : NetworkBehaviour
 
         foreach (KeyValuePair<int, PlayerData> pair in m_PlayerData)
         {
-            PlayerData data = pair.Value;
-            NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
-            networkData.currentLap = data.currentLap;
-            networkData.currentWaypoint = data.currentWaypoint;
-            networkData.raceActive = raceActive;
-            networkData.raceTime = raceTime;
-            networkData.titleText = title;
+            try
+            {
+                PlayerData data = pair.Value;
+                NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
+                networkData.currentLap = data.currentLap;
+                networkData.currentWaypoint = data.currentWaypoint;
+                networkData.raceActive = raceActive;
+                networkData.raceTime = raceTime;
+                networkData.titleText = title;
+            }
+            catch(NullReferenceException ex)
+            {
+                m_PlayerData.Remove(pair.Key);
+            }
         }
     }
 
@@ -139,6 +169,16 @@ public class RaceManager : NetworkBehaviour
         InitializeNetworkPlayerData();
     }
 
+    //should be called after adding new players during the game
+    //don't call without having called InitializeRace() at some point before
+    private void UpdateRace()
+    {
+        foreach (GameObject pl in m_Players)
+        {
+            AddPlayer(pl);
+        }
+    }
+
     private void InitializeColors()
     {
         m_Colors = new List<Color>
@@ -162,9 +202,11 @@ public class RaceManager : NetworkBehaviour
     /* Adds player to race */
     public void AddPlayer(GameObject player)
     {
+        //inizializenetworkplayerdata for palyer if he is not yet present
         if(!m_PlayerData.ContainsKey(player.GetInstanceID()))
         {
             m_PlayerData.Add(player.GetInstanceID(), new PlayerData(player));
+            InitializeNetworkDataOnPlayer(player.GetInstanceID());
         }
     }
 
@@ -257,7 +299,6 @@ public class RaceManager : NetworkBehaviour
         if (raceActive)
         {
             raceTime += Time.deltaTime;
-
         }
         if(m_RaceCountdownActive)
         {
@@ -274,13 +315,15 @@ public class RaceManager : NetworkBehaviour
             }
         }
 
+        AddAllPlayers();
+        UpdateRace();
+
         if(autostartRace)
         {
             if(!m_StartedInitialization)
             {
                 if (NetworkManager.singleton.numPlayers >= minPlayersToAutostart)
                 {
-                    AddAllPlayers();
                     InitializeRace();
                     StartRaceCountdown();
                     m_StartedInitialization = true;
@@ -307,4 +350,5 @@ public class RaceManager : NetworkBehaviour
 
         return c;
     }
+
 }

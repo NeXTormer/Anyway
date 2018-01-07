@@ -11,9 +11,9 @@ public class ColorChanger : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (networkPlayerData.raceTime < 10)
+        //if (networkPlayerData.raceTime < 10)
         {
-            m_Timer += Time.deltaTime;
+            //m_Timer += Time.deltaTime;
             foreach (var gameobject in gameobjects)
             {
                 var rend = gameobject.GetComponent<MeshRenderer>();

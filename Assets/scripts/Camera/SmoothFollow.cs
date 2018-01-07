@@ -27,18 +27,18 @@ class SmoothFollow : MonoBehaviour
     public float damping = 2;
 
 
-    private CameraInfo caminfo;
-    private PlayerInputManager inputManager;
+    private CameraInfo m_CamInfo;
+    private PlayerInputManager m_InputManager;
 
     public void Start()
     {
-        caminfo = GetComponent<CameraInfo>();
-        inputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
+        m_CamInfo = GetComponent<CameraInfo>();
+        m_InputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
     }
 
     public void FixedUpdate()
     {
-        if(caminfo.isActive)
+        if(m_CamInfo.isActive)
         {
             float zoom = (-8) * Input.GetAxis("Mouse ScrollWheel");
             
@@ -56,10 +56,10 @@ class SmoothFollow : MonoBehaviour
 
             Vector3 targetPos = this.transform.position;
             
-            caminfo.cameraContainer.transform.position = Vector3.Lerp(caminfo.cameraContainer.transform.position, this.transform.position, Time.deltaTime * damping);
+            m_CamInfo.cameraContainer.transform.position = Vector3.Lerp(m_CamInfo.cameraContainer.transform.position, this.transform.position, Time.deltaTime * damping);
 
 
-            caminfo.cameraContainer.transform.LookAt(player.transform);
+            m_CamInfo.cameraContainer.transform.LookAt(player.transform);
 
         }
     }

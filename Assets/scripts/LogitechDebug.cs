@@ -46,14 +46,16 @@ public class LogitechSteeringWheel : MonoBehaviour {
         GUI.Label(new Rect(10, 400, 800, 400), forcesLabel);
     }
 
-	// Update is called once per frame
-	void Update () {
-		//All the test functions are called on the first device plugged in(index = 0)
-		if(LogitechGSDK.LogiUpdate() && LogitechGSDK.LogiIsConnected(0)){
+    // Update is called once per frame
+    void Update()
+    {
+        //All the test functions are called on the first device plugged in(index = 0)
+        if (LogitechGSDK.LogiUpdate() && LogitechGSDK.LogiIsConnected(0))
+        {
             //CONTROLLER PROPERTIES
             StringBuilder deviceName = new StringBuilder(256);
             LogitechGSDK.LogiGetFriendlyProductName(0, deviceName, 256);
-			propertiesEdit = "Current Controller : "+ deviceName + "\n";
+            propertiesEdit = "Current Controller : " + deviceName + "\n";
             propertiesEdit += "Current controller properties : \n\n";
             LogitechGSDK.LogiControllerPropertiesData actualProperties = new LogitechGSDK.LogiControllerPropertiesData();
             LogitechGSDK.LogiGetCurrentControllerProperties(0, ref actualProperties);
@@ -66,11 +68,11 @@ public class LogitechSteeringWheel : MonoBehaviour {
             propertiesEdit += "wheelRange = " + actualProperties.wheelRange + "\n";
             propertiesEdit += "gameSettingsEnabled = " + actualProperties.gameSettingsEnabled + "\n";
             propertiesEdit += "allowGameSettings = " + actualProperties.allowGameSettings + "\n";
-                
+
             //CONTROLLER STATE
             actualState = "Steering wheel current state : \n\n";
             LogitechGSDK.DIJOYSTATE2ENGINES rec;
-            
+
             rec = LogitechGSDK.LogiGetStateUnity(0);
             actualState += "x-axis position :" + rec.lX + "\n"; //steering wheel left -32k 1.5 rotation | right +32k 1.5 rotation
             actualState += "y-axis position :" + rec.lY + "\n"; //gas up 32k down -32k
@@ -105,7 +107,7 @@ public class LogitechSteeringWheel : MonoBehaviour {
                 //Button 22, 21 zoom
                 //Button 2 Camera Position
             }
-            
+
             /* THIS AXIS ARE NEVER REPORTED BY LOGITECH CONTROLLERS 
              * 
              * actualState += "x-axis velocity :" + rec.lVX + "\n";
@@ -138,27 +140,28 @@ public class LogitechSteeringWheel : MonoBehaviour {
             string shifterString = "";
             if (shifterTipe == 1) shifterString = "Gated";
             else if (shifterTipe == 0) shifterString = "Sequential";
-            else  shifterString = "Unknown";
+            else shifterString = "Unknown";
             actualState += "\nSHIFTER MODE:" + shifterString;
 
-  
+
 
 
             // FORCES AND EFFECTS 
             activeForces = "Active forces and effects :\n";
 
             //Spring Force -> S
-            if (Input.GetKeyUp(KeyCode.S)){
-               if (LogitechGSDK.LogiIsPlaying(0, LogitechGSDK.LOGI_FORCE_SPRING))
-               {
-                   LogitechGSDK.LogiStopSpringForce(0);
-                   activeForceAndEffect[0] = "";
-               }
-               else
-               {
-                   LogitechGSDK.LogiPlaySpringForce(0, 50, 50, 50);
-                   activeForceAndEffect[0] = "Spring Force\n ";
-               }
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                if (LogitechGSDK.LogiIsPlaying(0, LogitechGSDK.LOGI_FORCE_SPRING))
+                {
+                    LogitechGSDK.LogiStopSpringForce(0);
+                    activeForceAndEffect[0] = "";
+                }
+                else
+                {
+                    LogitechGSDK.LogiPlaySpringForce(0, 50, 50, 50);
+                    activeForceAndEffect[0] = "Spring Force\n ";
+                }
             }
 
             //Constant Force -> C
@@ -218,7 +221,7 @@ public class LogitechSteeringWheel : MonoBehaviour {
                 }
 
             }
-            
+
             //Bumpy Road Effect-> B
             if (Input.GetKeyUp(KeyCode.B))
             {
@@ -323,16 +326,14 @@ public class LogitechSteeringWheel : MonoBehaviour {
                 activeForces += activeForceAndEffect[i];
             }
 
-		}
-		else if(!LogitechGSDK.LogiIsConnected(0))
-		{
-			 actualState = "PLEASE PLUG IN A STEERING WHEEL OR A FORCE FEEDBACK CONTROLLER";
-		}
-		else{
-			actualState = "THIS WINDOW NEEDS TO BE IN FOREGROUND IN ORDER FOR THE SDK TO WORK PROPERLY";
-		}
-	}
-
-    
-
+        }
+        else if (!LogitechGSDK.LogiIsConnected(0))
+        {
+            actualState = "PLEASE PLUG IN A STEERING WHEEL OR A FORCE FEEDBACK CONTROLLER";
+        }
+        else
+        {
+            actualState = "THIS WINDOW NEEDS TO BE IN FOREGROUND IN ORDER FOR THE SDK TO WORK PROPERLY";
+        }
+    }
 }

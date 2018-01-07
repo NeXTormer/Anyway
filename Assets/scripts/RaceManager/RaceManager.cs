@@ -46,7 +46,6 @@ public class RaceManager : NetworkBehaviour
 
     public bool raceActive = false;
     public float raceTime = 0;
-    
 
     private GameObject[] m_Players;
     private GameObject[] m_Waypoints;
@@ -54,7 +53,6 @@ public class RaceManager : NetworkBehaviour
     private float m_RaceCountdown = 0;
     private bool m_RaceCountdownActive = false;
     private bool m_StartedInitialization = false;
-    private bool m_FFAMode = false;
 
     private List<Color> m_Colors;
 
@@ -62,7 +60,6 @@ public class RaceManager : NetworkBehaviour
     {
         m_PlayerData = new Dictionary<int, PlayerData>();
         InitializeColors();
-        m_FFAMode = PlayerDataTransfer.instance.ffaMode;
     }
 
     private void InitializeNetworkPlayerData()
@@ -90,6 +87,12 @@ public class RaceManager : NetworkBehaviour
         }
     }   
 
+    /// <summary>
+    ///     Initializes the NetworkPlayerData component on a specific player
+    /// </summary>
+    /// <param name="instanceid">
+    ///     Id of the player.
+    /// </param>
     private void InitializeNetworkDataOnPlayer(int instanceid)
     {
         PlayerData data = m_PlayerData[instanceid];
@@ -143,7 +146,9 @@ public class RaceManager : NetworkBehaviour
         }
     }
 
-    //Should be called before the game start, but after adding all players
+    /// <summary>
+    ///     Should be called before the game start, but after adding all players
+    /// </summary>
     public void InitializeRace()
     {
         Debug.Log("Initializing RaceManager");
@@ -168,9 +173,10 @@ public class RaceManager : NetworkBehaviour
         /* Initialize NetworkPlayerData on all players in dictionary */
         InitializeNetworkPlayerData();
     }
-
-    //should be called after adding new players during the game
-    //don't call without having called InitializeRace() at some point before
+    /// <summary>
+    ///     should be called after adding new players during the game
+    ///     don't call without having called InitializeRace() at some point before
+    /// </summary>
     private void UpdateRace()
     {
         foreach (GameObject pl in m_Players)
@@ -193,13 +199,14 @@ public class RaceManager : NetworkBehaviour
         };
     }
 
-    /* Adds players to array of potential players, but not the race */
+    /// <summary>
+    ///     Adds players to array of potential players, but not the race
+    /// </summary>
     public void AddAllPlayers()
     {
         m_Players = GameObject.FindGameObjectsWithTag("Player");
     }
 
-    /* Adds player to race */
     public void AddPlayer(GameObject player)
     {
         //inizializenetworkplayerdata for palyer if he is not yet present
@@ -280,7 +287,9 @@ public class RaceManager : NetworkBehaviour
         }
     }
 
-    /* starts race countdown | starts race after countdown ends */
+    /// <summary>
+    ///     Starts the race countdown. Race is started automatically after the countdown has finished.
+    /// </summary>
     public void StartRaceCountdown()
     {
         Debug.Log("Started race countdown");
@@ -293,7 +302,6 @@ public class RaceManager : NetworkBehaviour
         raceActive = false;
     }
     
-	
 	void FixedUpdate()
     {
         if (raceActive)
@@ -350,5 +358,4 @@ public class RaceManager : NetworkBehaviour
 
         return c;
     }
-
 }

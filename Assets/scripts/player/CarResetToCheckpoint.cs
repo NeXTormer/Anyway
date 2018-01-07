@@ -7,7 +7,6 @@ class CarResetToCheckpoint : MonoBehaviour
     private Waypoint[] m_Waypoints;
     private NetworkPlayerData m_PlayerData;
 
-
     public void Start()
     {
         GameObject[] tmp = GameObject.FindGameObjectsWithTag("Waypoint").OrderBy(x => x.name).ToArray();
@@ -61,6 +60,5 @@ class CarResetToCheckpoint : MonoBehaviour
         this.gameObject.transform.position = tr.position;
         this.transform.rotation = tr.rotation;
         this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-
     }
 }

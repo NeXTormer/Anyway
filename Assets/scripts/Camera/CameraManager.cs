@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
 
     public int currentCamera = 0;
 
-    private PlayerInputManager inputManager;
+    private PlayerInputManager m_Inputmanager;
 
     public void Start()
     {
@@ -19,14 +19,14 @@ public class CameraManager : MonoBehaviour
             gobj.GetComponent<CameraInfo>().isActive = false;
         }
 
-        inputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
+        m_Inputmanager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
 
         cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = true;
 	}
 
     public void Update()
     {
-        if(inputManager.ChangeCameraPosition())
+        if(m_Inputmanager.ChangeCameraPosition())
         {
             cameraPositions[currentCamera].GetComponent<CameraInfo>().isActive = false;
             ChangeCamera();

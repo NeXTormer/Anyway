@@ -9,8 +9,6 @@ using System;
 [RequireComponent(typeof(NetworkPlayerData))]
 public class RaceUI : MonoBehaviour
 {
-
-
     public Text usernameText;
     public Text timeText;
     public Text lapText;
@@ -18,28 +16,28 @@ public class RaceUI : MonoBehaviour
 
     public Text titleText;
 
-    private GameObject player;
-    private NetworkPlayerData data;
+    private GameObject m_Player;
+    private NetworkPlayerData m_Data;
 
     private int m_OldLap = -1;
     private float m_LapStartTime = 0;
 
     void Awake()
     {
-        player = this.transform.root.gameObject;
-        data = player.GetComponent<NetworkPlayerData>();
+        m_Player = this.transform.root.gameObject;
+        m_Data = m_Player.GetComponent<NetworkPlayerData>();
     }
 
 
     void LateUpdate()
     {
-        if(data != null)
+        if(m_Data != null)
         {
             UpdateText();
 
-            if (data.currentLap != m_OldLap && data.raceActive)
+            if (m_Data.currentLap != m_OldLap && m_Data.raceActive)
             {
-                m_OldLap = data.currentLap;
+                m_OldLap = m_Data.currentLap;
 
                 if (m_LapStartTime != 0)
                 {
@@ -58,10 +56,10 @@ public class RaceUI : MonoBehaviour
     public void UpdateText()
     {
         usernameText.text = PlayerDataTransfer.instance.playerName;
-        timeText.text = data.raceTime.ToString("0.00");
-        lapText.text = data.currentLap + " / " + data.numberOfLaps;
-        wpText.text = data.currentWaypoint + " / " + data.numberOfWaypoints;
+        timeText.text = m_Data.raceTime.ToString("0.00");
+        lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
+        wpText.text = m_Data.currentWaypoint + " / " + m_Data.numberOfWaypoints;
 
-        titleText.text = data.titleText;
+        titleText.text = m_Data.titleText;
     }
 }

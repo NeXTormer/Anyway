@@ -116,43 +116,43 @@ public class CarController : NetworkBehaviour
 
     public float currentTorque = 0;
 
-    private float steeringAngleOld = 0;
-    private Rigidbody body;
-    private float oldRotationY = 0;
-    private PlayerInputManager inputManager;
+    private float m_OldSteeringAngle = 0;
+    private Rigidbody m_Body;
+    private float m_OldRotationY = 0;
+    private PlayerInputManager m_InputManager;
 
 
 	public void Start ()
     {
-        steeringAngleOld = steeringWheel.transform.localEulerAngles.z;
-        body = GetComponent<Rigidbody>();
+        m_OldSteeringAngle = steeringWheel.transform.localEulerAngles.z;
+        m_Body = GetComponent<Rigidbody>();
         axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
-        inputManager = GetComponent<PlayerInputManager>();
+        m_InputManager = GetComponent<PlayerInputManager>();
         currentTorque = motorTorqueMax;
     }
 	
 
     public void FixedUpdate()
     {
-        float motorTorque = currentTorque * inputManager.gas;
-        if (inputManager.clutch > 0.5) motorTorque = -inputManager.clutch * currentTorque;
-        float steeringAngle = steeringAngleMax * inputManager.steering;
+        float motorTorque = currentTorque * m_InputManager.gas;
+        if (m_InputManager.clutch > 0.5) motorTorque = -m_InputManager.clutch * currentTorque;
+        float steeringAngle = steeringAngleMax * m_InputManager.steering;
 
         float handBrakeTorque;
-        if (inputManager.HandBrakeDown())
+        if (m_InputManager.HandBrakeDown())
         {
             handBrakeTorque = float.MaxValue;
         }
-        else if (inputManager.brake > 0.3)
+        else if (m_InputManager.brake > 0.3)
         {
-            handBrakeTorque = handbrakeTorqueMax * inputManager.brake;
+            handBrakeTorque = handbrakeTorqueMax * m_InputManager.brake;
         }
         else
         {
             handBrakeTorque = 0;
         }
 
-        speedDirection = this.transform.InverseTransformDirection(body.velocity.normalized);
+        speedDirection = this.transform.InverseTransformDirection(m_Body.velocity.normalized);
 
 
         //apply an extra brake force when driving backwards with a forward velocity
@@ -162,7 +162,7 @@ public class CarController : NetworkBehaviour
             {
                 if(IsOnGround())
                 {
-                    body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                    m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
                     handBrakeTorque = handbrakeTorqueMax;
                 }
             }
@@ -173,7 +173,7 @@ public class CarController : NetworkBehaviour
             {
                 if(IsOnGround())
                 {
-                    body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                    m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
                     handBrakeTorque = handbrakeTorqueMax;
                 }
             }
@@ -204,12 +204,12 @@ public class CarController : NetworkBehaviour
         }
 
         //rotate steering wheel
-        steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - steeringAngleOld) * steeringWheelModifier);
+        steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, (steeringAngle - m_OldSteeringAngle) * steeringWheelModifier);
 
 
 
         //add downforce relative to speed
-        body.AddForce(this.transform.up * -1 * downwardsForce * speed);
+        m_Body.AddForce(this.transform.up * -1 * downwardsForce * speed);
 
         TractionControl();
         AccelerationHelper();
@@ -218,39 +218,41 @@ public class CarController : NetworkBehaviour
         {
             if(IsOnGround())
             {
-                body.velocity = body.velocity.magnitude * brakeHelper * body.velocity.normalized;
+                m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
             }
         }
 
        
 
-        if(body.velocity.magnitude > maxSpeed)
+        if(m_Body.velocity.magnitude > maxSpeed)
         {
-            body.velocity = maxSpeed * body.velocity.normalized;
+            m_Body.velocity = maxSpeed * m_Body.velocity.normalized;
         }
 
         
-        speed = body.velocity.magnitude;
+        speed = m_Body.velocity.magnitude;
 
-        inputManager.PlayLEDs((int) speed, 3, (int) maxSpeed);
+        m_InputManager.PlayLEDs((int) speed, 3, (int) (maxSpeed - 1));
 
     }
 
-    //TODO: add support for more than two axles
+    /// <summary>
+    ///     Assists with steering by changing the direction of the velocity vector.
+    /// </summary>
     private void SteerHelper()
     {
 
         if (!IsOnGround()) return;
 
         //avoid gimbal lock
-        if(Mathf.Abs(oldRotationY - transform.eulerAngles.y) < 10.0f)
+        if(Mathf.Abs(m_OldRotationY - transform.eulerAngles.y) < 10.0f)
         {
-            float adjust = ((transform.eulerAngles.y - oldRotationY)) * steerHelper;
+            float adjust = ((transform.eulerAngles.y - m_OldRotationY)) * steerHelper;
             Quaternion rotation = Quaternion.AngleAxis(adjust, Vector3.up);
-            body.velocity = rotation * body.velocity;
+            m_Body.velocity = rotation * m_Body.velocity;
             
         }
-        oldRotationY = transform.eulerAngles.y;
+        m_OldRotationY = transform.eulerAngles.y;
     }
 
     private bool IsOnGround()
@@ -283,7 +285,9 @@ public class CarController : NetworkBehaviour
         return true;
     }
 
-    //TODO: add support for more than two axles
+    /// <summary>
+    ///     Adjusts the torque for each wheel based on the current slip in order to prevent wheelspin.
+    /// </summary>
     private void TractionControl()
     {
         WheelHit wheelhit;
@@ -306,42 +310,50 @@ public class CarController : NetworkBehaviour
         }
     }
 
-    //when the forward slip nears 1 when accelerating the car moves very slowly. this adds some exta acceleration force for faster acceleration
+    /// <summary>
+    ///     Applies some extra force to the car when the slip nears 1 to speed up the acceleration of the car.
+    /// </summary>
     private void AccelerationHelper()
     {
-        if (inputManager.gas > 0.5)
+        if (m_InputManager.gas > 0.5)
         {
             if (speed > accelerationHelperSettings.speed6)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration6);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration6);
             }
             else if (speed > accelerationHelperSettings.speed5)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration5);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration5);
             }
             else if (speed > accelerationHelperSettings.speed4)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration4);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration4);
             }
             else if (speed > accelerationHelperSettings.speed3)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration3);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration3);
             }
             else if (speed > accelerationHelperSettings.speed2)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration2);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration2);
             }
             else if (speed > accelerationHelperSettings.speed1)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration1);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration1);
             }
             else if (speed < accelerationHelperSettings.speed1)
             {
-                body.velocity = body.velocity.normalized * (body.velocity.magnitude + accelerationHelperSettings.acceleration0);
+                m_Body.velocity = m_Body.velocity.normalized * (m_Body.velocity.magnitude + accelerationHelperSettings.acceleration0);
             }
         }
     }
 
+    /// <summary>
+    ///     Adjusts the torque of the motor based on the current slip of a wheel.
+    /// </summary>
+    /// <param name="slip">
+    ///     Current wheel slip.
+    /// </param>
     private void AdjustTorque(float slip)
     {
         slip *= motorDirectionModifier;

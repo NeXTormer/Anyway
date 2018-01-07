@@ -63,6 +63,8 @@ public class PlayerInputManager : MonoBehaviour
         m_PlayerDataTransfer = GameObject.FindGameObjectWithTag("PlayerDataTransfer").GetComponent<PlayerDataTransfer>();
 
         inputType = m_PlayerDataTransfer.useSteeringWheel ? InputType.STEERINGWHEEL : InputType.KEYBOARD;
+
+        Debug.Log(LogitechGSDK.LogiSteeringInitialize(false));
     }
 
     public void FixedUpdate()

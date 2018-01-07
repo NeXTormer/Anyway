@@ -37,6 +37,9 @@ public class NetworkPlayerData : NetworkBehaviour {
         m_Count++;
     }
 
+    /// <summary>
+    /// Message sent by the RaceManager when the player data has been initialized.
+    /// </summary>
     public void OnRaceInitializeData()
     {
         if(isLocalPlayer)

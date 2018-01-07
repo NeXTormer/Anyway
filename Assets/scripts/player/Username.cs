@@ -9,7 +9,10 @@ public class Username : NetworkBehaviour
 
     public string PlayerName
     {
-        get { return m_Username; }
+        get
+        {
+            return m_Username;
+        }
         set
         {
             m_Username = value;

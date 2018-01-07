@@ -8,20 +8,19 @@ public class StaticCamera : MonoBehaviour
 {
     public GameObject player;
 
-    private CameraInfo camerainfo;
-
+    private CameraInfo m_CameraInfo;
 
 	void Start()
     {
-        camerainfo = GetComponent<CameraInfo>();
+        m_CameraInfo = GetComponent<CameraInfo>();
 	}
 
     void LateUpdate()
     {
-        if (camerainfo.isActive)
+        if (m_CameraInfo.isActive)
         {
-            camerainfo.cameraContainer.transform.position = this.transform.position;
-            camerainfo.cameraContainer.transform.rotation = this.transform.rotation;
+            m_CameraInfo.cameraContainer.transform.position = this.transform.position;
+            m_CameraInfo.cameraContainer.transform.rotation = this.transform.rotation;
         }
 	}
 }

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Used to transfer settings and username from the main menu over to the game scene.
+/// </summary>
 public class PlayerDataTransfer : MonoBehaviour {
 
     public string playerName = "";

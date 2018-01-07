@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
+[AddComponentMenu("Network/Network Component Disabler")]
 class NetworkComponentDisabler : NetworkBehaviour
 {
 

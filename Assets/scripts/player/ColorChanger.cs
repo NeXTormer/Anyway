@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Player/Car Color Changer")]
 public class ColorChanger : MonoBehaviour
 {
     public NetworkPlayerData networkPlayerData;

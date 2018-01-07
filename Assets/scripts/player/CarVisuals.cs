@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[AddComponentMenu("Network/Networked Car Visuals")]
 class CarVisuals : NetworkBehaviour
 {
     public WheelCollider WheelFR;

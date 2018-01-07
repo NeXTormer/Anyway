@@ -71,11 +71,7 @@ public struct AccelerationHelperSpeedsLegacy
     public float acceleration6;
 }
 
-/*
- * 
- *      DEPRECATED - COMPATIBILITY VERSION
- * 
- **/
+/* DEPRECATED - COMPATIBILITY VERSION */
 
 [HelpURL("https://nextormer.github.io")]
 [AddComponentMenu("Player/CarControllerLegacy")]

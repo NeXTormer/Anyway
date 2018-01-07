@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[AddComponentMenu("Network/Network Player Data")]
 public class NetworkPlayerData : NetworkBehaviour {
 
     /* Player specific */

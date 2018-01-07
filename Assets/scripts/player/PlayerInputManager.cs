@@ -8,6 +8,7 @@ public enum InputType
 }
 
 [RequireComponent(typeof(NetworkPlayerData))]
+[AddComponentMenu("Player/Player Input Manager")]
 public class PlayerInputManager : MonoBehaviour
 {
     [Header("Settings")]

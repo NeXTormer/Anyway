@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(NetworkManager))]
 [EditorBrowsable(EditorBrowsableState.Never)]
+[AddComponentMenu("Network/Custom NetworkManager HUD")]
 public class NetworkManagerHUD : MonoBehaviour
 {
     public NetworkManager manager;

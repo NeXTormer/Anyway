@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
 
+[AddComponentMenu("Player/Reset Car to Checkpoint")]
 class CarResetToCheckpoint : MonoBehaviour
 {
     private PlayerInputManager m_InputManager;

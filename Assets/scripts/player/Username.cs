@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[AddComponentMenu("Network/Username")]
 public class Username : NetworkBehaviour
 {
     [SyncVar] private string m_Username = "[undef]";

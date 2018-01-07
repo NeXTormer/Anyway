@@ -181,9 +181,4 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
-
-    public void OnFailedToConnect(NetworkConnectionError error)
-    {
-        errorText.text = error.ToString();
-    }
 }

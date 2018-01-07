@@ -4,6 +4,7 @@ public class PlayerDataTransfer : MonoBehaviour {
 
     public string playerName = "";
     public bool useSteeringWheel = false;
+    public bool ffaMode = true;
 
     public static PlayerDataTransfer instance;
 

@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
     public Text errorText;
     public Text playerInfoText;
     public Text SteeringWheelEnabledText;
+    public Text FFAToggleText;
     public InputField username;
     public GameObject DefaultCarPreview;
 
@@ -68,8 +69,14 @@ public class MainMenu : MonoBehaviour
 
     public void BtnToggleSteeringWheel()
     {
-        //PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
-        //SteeringWheelEnabledText.text = "SteeringWheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "1" : "0");   
+        PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
+        SteeringWheelEnabledText.text = "Steeringwheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "Enabled" : "Disabled");   
+    }
+
+    public void BtnToggleFFA()
+    {
+        PlayerDataTransfer.instance.ffaMode = !PlayerDataTransfer.instance.ffaMode;
+        FFAToggleText.text = "FFA Mode: " + (PlayerDataTransfer.instance.ffaMode ? "Enabled" : "Disabled");
     }
 
     public void BtnNextCar()

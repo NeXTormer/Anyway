@@ -45,6 +45,7 @@ public class RaceManager : NetworkBehaviour
 
     public bool raceActive = false;
     public float raceTime = 0;
+    
 
     private GameObject[] m_Players;
     private GameObject[] m_Waypoints;
@@ -52,6 +53,7 @@ public class RaceManager : NetworkBehaviour
     private float m_RaceCountdown = 0;
     private bool m_RaceCountdownActive = false;
     private bool m_StartedInitialization = false;
+    private bool m_FFAMode = false;
 
     private List<Color> m_Colors;
 
@@ -59,6 +61,7 @@ public class RaceManager : NetworkBehaviour
     {
         m_PlayerData = new Dictionary<int, PlayerData>();
         InitializeColors();
+        m_FFAMode = PlayerDataTransfer.instance.ffaMode;
     }
 
     private void InitializeNetworkPlayerData()
@@ -251,7 +254,7 @@ public class RaceManager : NetworkBehaviour
 	
 	void FixedUpdate()
     {
-        if(raceActive)
+        if (raceActive)
         {
             raceTime += Time.deltaTime;
 

@@ -50,7 +50,10 @@ public class RaceUI : MonoBehaviour
 
                     WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + PlayerDataTransfer.instance.playerName + "/" + f_LapTime + "/anyway");
                     Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + f_LapTime);
-                    lapTime.GetComponent<Text>().text = "" + f_LapTime.ToString("0.00");
+                    int minutes = (int) f_LapTime / 60;
+                    int seconds = (int) f_LapTime % 60;
+                    int ms = (int) ((f_LapTime % 1) * 100);
+                    lapTime.GetComponent<Text>().text = minutes + ":" + seconds + ":" + ms;
                     lapTime.SetActive(false);
                     lapTime.SetActive(true);
                 }
@@ -64,7 +67,12 @@ public class RaceUI : MonoBehaviour
     public void UpdateText()
     {
         usernameText.text = PlayerDataTransfer.instance.playerName;
-        timeText.text = m_Data.raceTime.ToString("0.00");
+
+        int minutes = (int) m_Data.raceTime / 60;
+        int seconds = (int) m_Data.raceTime % 60;
+        int ms = (int) ((m_Data.raceTime % 1) * 100);
+
+        timeText.text = minutes + ":" + seconds.ToString("00") + ":" + ms.ToString("00");
         lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
         wpText.text = m_Data.currentWaypoint + " / " + m_Data.numberOfWaypoints;
 

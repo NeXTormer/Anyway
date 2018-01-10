@@ -13,8 +13,9 @@ public class RaceUI : MonoBehaviour
     public Text timeText;
     public Text lapText;
     public Text wpText;
-
     public Text titleText;
+
+    public GameObject lapTime;
 
     private GameObject m_Player;
     private NetworkPlayerData m_Data;
@@ -28,6 +29,10 @@ public class RaceUI : MonoBehaviour
         m_Data = m_Player.GetComponent<NetworkPlayerData>();
     }
 
+    void Start()
+    {
+        lapTime.SetActive(false);    
+    }
 
     void LateUpdate()
     {
@@ -41,10 +46,13 @@ public class RaceUI : MonoBehaviour
 
                 if (m_LapStartTime != 0)
                 {
-                    float laptime = Time.time - m_LapStartTime;
+                    float f_LapTime = Time.time - m_LapStartTime;
 
-                    WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + PlayerDataTransfer.instance.playerName + "/" + laptime + "/anyway");
-                    Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + laptime);
+                    WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + PlayerDataTransfer.instance.playerName + "/" + f_LapTime + "/anyway");
+                    Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + f_LapTime);
+                    lapTime.GetComponent<Text>().text = "" + f_LapTime.ToString("0.00");
+                    lapTime.SetActive(false);
+                    lapTime.SetActive(true);
                 }
 
                 m_LapStartTime = Time.time;

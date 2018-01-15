@@ -49,6 +49,7 @@ public class RaceUI : MonoBehaviour
                     float f_LapTime = Time.time - m_LapStartTime;
 
                     WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/9F412BDFA1D49B0D80/" + PlayerDataTransfer.instance.playerName + "/" + f_LapTime + "/anyway");
+                    
                     Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + f_LapTime);
                     int minutes = (int) f_LapTime / 60;
                     int seconds = (int) f_LapTime % 60;
@@ -68,11 +69,15 @@ public class RaceUI : MonoBehaviour
     {
         usernameText.text = PlayerDataTransfer.instance.playerName;
 
-        int minutes = (int) m_Data.raceTime / 60;
-        int seconds = (int) m_Data.raceTime % 60;
-        int ms = (int) ((m_Data.raceTime % 1) * 100);
+        bool started = m_Data.currentLap != -1;
 
-        timeText.text = minutes + ":" + seconds.ToString("00") + ":" + ms.ToString("00");
+        float f_racetime = Time.time - m_LapStartTime;
+
+        int minutes = (int) f_racetime / 60;
+        int seconds = (int) f_racetime % 60;
+        int ms = (int) ((f_racetime % 1) * 100);
+
+        timeText.text = started ? minutes + ":" + seconds.ToString("00") + ":" + ms.ToString("00") : "00:00:00";
         lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
         wpText.text = m_Data.currentWaypoint + " / " + m_Data.numberOfWaypoints;
 

@@ -48,7 +48,7 @@ public class RaceUI : MonoBehaviour
                 {
                     float f_LapTime = Time.time - m_LapStartTime;
 
-                    WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/filavandrel/" + PlayerDataTransfer.instance.playerName + "/" + f_LapTime + "/anyway");
+                    WWW get = new WWW("http://faoiltiarna.ddns.net/addscore/9F412BDFA1D49B0D80/" + PlayerDataTransfer.instance.playerName + "/" + f_LapTime + "/anyway");
                     Debug.Log("WWW: " + PlayerDataTransfer.instance.playerName + ", " + f_LapTime);
                     int minutes = (int) f_LapTime / 60;
                     int seconds = (int) f_LapTime % 60;

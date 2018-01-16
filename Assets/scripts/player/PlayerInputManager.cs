@@ -17,7 +17,7 @@ public class PlayerInputManager : MonoBehaviour
     [Space]
 
     [Tooltip("how long [s] the reset button has to be pressed in order to reset.")]
-    public float carResetPressTime = 1.5f;
+    public float carResetPressTime = 0.5f;
 
     [Header("Axes")]
     public string AXIS_GAS = "Vertical";

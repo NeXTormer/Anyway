@@ -19,6 +19,7 @@ public class RaceUI : MonoBehaviour
 
     private GameObject m_Player;
     private NetworkPlayerData m_Data;
+    private Rigidbody m_Body;
 
     private int m_OldLap = -1;
     private float m_LapStartTime = 0;
@@ -31,7 +32,8 @@ public class RaceUI : MonoBehaviour
 
     void Start()
     {
-        lapTime.SetActive(false);    
+        lapTime.SetActive(false);
+        m_Body = this.transform.root.gameObject.GetComponent<Rigidbody>();
     }
 
     void LateUpdate()
@@ -78,7 +80,8 @@ public class RaceUI : MonoBehaviour
         int ms = (int) ((f_racetime % 1) * 100);
 
         timeText.text = started ? minutes + ":" + seconds.ToString("00") + ":" + ms.ToString("00") : "00:00:00";
-        lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
+        //lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
+        lapText.text = m_Body.velocity.magnitude.ToString("0");
         wpText.text = m_Data.currentWaypoint + " / " + m_Data.numberOfWaypoints;
 
         titleText.text = m_Data.titleText;

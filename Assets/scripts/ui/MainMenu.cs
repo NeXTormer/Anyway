@@ -8,22 +8,22 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
 
-    public GameObject MainMenuCanvas;
-    public GameObject SingleplayerCanvas;
-    public GameObject MultiplayerCanvas;
-    public GameObject LoginCanvas;
-    public GameObject SettingsCanvas;
-    public GameObject SelectCarCanvas;
-    
-    [Space]
+    [Header("Panels")]
+    public GameObject LoginPanel;
+    public GameObject MainPanel;
 
+    [Header("Camera Positions")]
+    public GameObject loginCameraPosition;
+    public GameObject mainCameraPosition;
+
+    [Header("Camera")]
+    public GameObject camera;
+
+    [Header("Inputs")]
     public InputField iphostname;
-    public Text errorText;
-    public Text playerInfoText;
-    public Text SteeringWheelEnabledText;
-    public Text FFAToggleText;
     public InputField username;
-    public GameObject DefaultCarPreview;
+    public Toggle steeringhweel;
+    public Text playerInfoText;
 
     private NetworkManager m_Manager;
 
@@ -32,69 +32,23 @@ public class MainMenu : MonoBehaviour
     public void Start()
     {
         m_Manager = NetworkManager.singleton;
+        PlayerDataTransfer.instance.useSteeringWheel = steeringhweel.isOn;
+
+        camera.transform.position = loginCameraPosition.transform.position;
+        camera.transform.rotation = loginCameraPosition.transform.rotation;
+
+        MainPanel.SetActive(false);
+        LoginPanel.SetActive(true);
     }
 
-    public void BtnSingleplayer()
-    {
-        MainMenuCanvas.SetActive(false);
-        SingleplayerCanvas.SetActive(true);
-    }
-
-    public void BtnMultiplayer()
-    {
-        MainMenuCanvas.SetActive(false);
-        MultiplayerCanvas.SetActive(true);
-    }
-
-    public void BtnTempScene()
-    {
-        SceneManager.LoadScene("temp", LoadSceneMode.Single);
-    }
-
-    public void BtnLvl1()
-    {
-        SceneManager.LoadScene("map1", LoadSceneMode.Single);
-    }
-
-    public void BtnExit()
+    public void ExitApplication()
     {
         Application.Quit();
     }
 
-    public void BtnBackToMultiplayer()
+    public void ChangeSteeringWheel()
     {
-        SettingsCanvas.SetActive(false);
-        MultiplayerCanvas.SetActive(true);
-    }
-
-    public void BtnToggleSteeringWheel()
-    {
-        PlayerDataTransfer.instance.useSteeringWheel = !PlayerDataTransfer.instance.useSteeringWheel;
-        SteeringWheelEnabledText.text = "Steeringwheel: " + (PlayerDataTransfer.instance.useSteeringWheel ? "Enabled" : "Disabled");   
-    }
-
-    public void BtnToggleFFA()
-    {
-        PlayerDataTransfer.instance.ffaMode = !PlayerDataTransfer.instance.ffaMode;
-        FFAToggleText.text = "FFA Mode: " + (PlayerDataTransfer.instance.ffaMode ? "Enabled" : "Disabled");
-    }
-
-    public void BtnNextCar()
-    {
-
-    }
-
-    public void BtnPreviousCar()
-    {
-
-    }
-
-    public void BtnSelectCar()
-    {
-        MultiplayerCanvas.SetActive(false);
-        SelectCarCanvas.SetActive(true);
-        DefaultCarPreview.transform.rotation = Quaternion.identity;
-        DefaultCarPreview.transform.Rotate(new Vector3(0, -100, 0));
+        PlayerDataTransfer.instance.useSteeringWheel = steeringhweel.isOn;
     }
 
     public void BtnLogin()
@@ -105,27 +59,17 @@ public class MainMenu : MonoBehaviour
             m_Username = "DefaultUser";
         }
 
-        LoginCanvas.SetActive(false);
-        MultiplayerCanvas.SetActive(true);
+        camera.transform.position = mainCameraPosition.transform.position;
+        camera.transform.rotation = mainCameraPosition.transform.rotation;
+
+        LoginPanel.SetActive(false);
+        MainPanel.SetActive(true);
 
         playerInfoText.text = "Logged in as " + m_Username;
 
         PlayerDataTransfer.instance.playerName = m_Username;
     }
 
-    public void BtnSettings()
-    {
-        MultiplayerCanvas.SetActive(false);
-        SettingsCanvas.SetActive(true);
-    }
-
-    public void BackToMainMenu()
-    {
-        SingleplayerCanvas.SetActive(false);
-        MultiplayerCanvas.SetActive(false);
-
-        MainMenuCanvas.SetActive(true);
-    }
 
     public void HostAndPlay()
     {

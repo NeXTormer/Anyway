@@ -56,7 +56,7 @@ public class RaceUI : MonoBehaviour
                     int minutes = (int) f_LapTime / 60;
                     int seconds = (int) f_LapTime % 60;
                     int ms = (int) ((f_LapTime % 1) * 100);
-                    lapTime.GetComponent<Text>().text = minutes + ":" + seconds + ":" + ms;
+                    lapTime.GetComponent<Text>().text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + ms.ToString("00");
                     lapTime.SetActive(false);
                     lapTime.SetActive(true);
                 }

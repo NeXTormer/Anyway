@@ -1,6 +1,6 @@
 # Score Database
 
-The score database can be viewed [here](http://faoiltiarna.ddns.net/).
+The score database can be viewed [here](https://games.htl-klu.at/anyway/).
 
 # SpaceGame
 

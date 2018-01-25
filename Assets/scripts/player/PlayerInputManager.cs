@@ -65,7 +65,7 @@ public class PlayerInputManager : MonoBehaviour
 
         inputType = m_PlayerDataTransfer.useSteeringWheel ? InputType.STEERINGWHEEL : InputType.KEYBOARD;
 
-        Debug.Log(LogitechGSDK.LogiSteeringInitialize(false));
+        Debug.Log("Logitech Steering Wheel: " + LogitechGSDK.LogiSteeringInitialize(false));
     }
 
     public void FixedUpdate()

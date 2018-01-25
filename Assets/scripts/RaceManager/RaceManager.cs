@@ -95,21 +95,28 @@ public class RaceManager : NetworkBehaviour
     /// </param>
     private void InitializeNetworkDataOnPlayer(int instanceid)
     {
-        PlayerData data = m_PlayerData[instanceid];
-        NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
-        networkData.playerName = data.name;
-        networkData.currentLap = data.currentLap;
-        networkData.currentWaypoint = data.currentWaypoint;
-        networkData.raceActive = raceActive;
-        networkData.numberOfLaps = numberOfLaps;
-        networkData.numberOfWaypoints = m_Waypoints.Length - 2;
-        networkData.raceTime = raceTime;
-        networkData.uniqueID = data.player.GetInstanceID();
-        networkData.titleText = "findenig";
-        networkData.debugMode = debugMode;
-        networkData.color = SelectRandomColor();
+        try
+        {
+            PlayerData data = m_PlayerData[instanceid];
+            NetworkPlayerData networkData = data.player.GetComponent<NetworkPlayerData>();
+            networkData.playerName = data.name;
+            networkData.currentLap = data.currentLap;
+            networkData.currentWaypoint = data.currentWaypoint;
+            networkData.raceActive = raceActive;
+            networkData.numberOfLaps = numberOfLaps;
+            networkData.numberOfWaypoints = m_Waypoints.Length - 2;
+            networkData.raceTime = raceTime;
+            networkData.uniqueID = data.player.GetInstanceID();
+            networkData.titleText = "findenig";
+            networkData.debugMode = debugMode;
+            networkData.color = SelectRandomColor();
 
-        data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
+            data.player.GetComponent<NetworkPlayerData>().SendMessage("OnRaceInitializeData");
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.Log("NullReferenceException in InitializeNetworkDataOnPlayer.");
+        }
     }
 
     private void UpdateNetworkPlayerData()

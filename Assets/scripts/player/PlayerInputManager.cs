@@ -76,15 +76,33 @@ public class PlayerInputManager : MonoBehaviour
             /* movement is disabled when debugMode is off and the race is actve */
             if(!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
             {
-                gas = Input.GetAxis(AXIS_GAS);
-                //Debug.Log(gas);
+                if(Input.touchSupported)
+                {
+                    foreach(var touch in Input.touches)
+                    {
+                        gas = 1.0f;
+                    }
+                }
+                else
+                {
+                    gas = Input.GetAxis(AXIS_GAS);
+                    Debug.Log(gas);
+                }
             }
             else
             {
                 gas = 0;
             }
-            
-            steering = Input.GetAxis(AXIS_STEERING);
+
+            if(Input.touchSupported)
+            {
+                steering = Input.gyro.rotationRateUnbiased.z;
+            }
+            else
+            {
+                steering = Input.GetAxis(AXIS_STEERING);
+            }
+
             handBrake = Input.GetAxis(AXIS_HANDBRAKE);
             brake = 0;
 

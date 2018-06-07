@@ -1203,7 +1203,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &290853405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,7 +4312,7 @@ GameObject:
   - component: {fileID: 1213986656}
   - component: {fileID: 1213986655}
   m_Layer: 5
-  m_Name: MultiplayerCanvas
+  m_Name: MultiplayerCanvas (Old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 1239466498}
   - component: {fileID: 1239466497}
   m_Layer: 5
-  m_Name: LoginCanvas
+  m_Name: LoginCanvas (Old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7304,7 +7304,7 @@ GameObject:
   - component: {fileID: 1975256691}
   - component: {fileID: 1975256690}
   m_Layer: 5
-  m_Name: SettingsCanvas
+  m_Name: SettingsCanvas (Old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

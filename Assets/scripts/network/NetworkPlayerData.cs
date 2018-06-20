@@ -18,7 +18,7 @@ public class NetworkPlayerData : NetworkBehaviour {
     [SyncVar] public bool raceActive = false;
     [SyncVar] public int numberOfLaps = 0;
     [SyncVar] public int numberOfWaypoints = 0;
-    [SyncVar] public float raceTime = 0; /* TODO: Optimize */
+    [SyncVar] public float raceTime = 0; 
     [SyncVar] public bool debugMode = false;
 
     [Header("Settings")]

@@ -263,7 +263,7 @@ public class LogitechSteeringWheel : MonoBehaviour {
                 }
                 else
                 {
-                    LogitechGSDK.LogiPlaySurfaceEffect(0, LogitechGSDK.LOGI_PERIODICTYPE_SQUARE, 50, 1000);
+                    LogitechGSDK.LogiPlaySurfaceEffect(0, LogitechGSDK.LOGI_PERIODICTYPE_SINE, 50, 1000);
                     activeForceAndEffect[6] = "Surface Effect\n";
                 }
             }

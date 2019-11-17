@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,28 +74,28 @@ public class PlayerInputManager : MonoBehaviour
         if (inputType == InputType.KEYBOARD)
         {
             /* movement is disabled when debugMode is off and the race is actve */
-            if(!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
+            if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
             {
                 gas = Input.GetAxis(AXIS_GAS);
-                //Debug.Log(gas);
             }
             else
             {
                 gas = 0;
             }
-            
+
             steering = Input.GetAxis(AXIS_STEERING);
             handBrake = Input.GetAxis(AXIS_HANDBRAKE);
             brake = 0;
 
             cameraZoom = Input.GetAxis(AXIS_CAMERAZOOM);
-            
+
         }
         else
         {
             if (LogitechGSDK.LogiUpdate() && LogitechGSDK.LogiIsConnected(0))
             {
                 m_State = LogitechGSDK.LogiGetStateUnity(0);
+
 
                 /* movement is disabled when debugMode is off and the race is actve */
                 if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
@@ -125,13 +125,13 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KEY_RESETCAR))
+        if (Input.GetKeyDown(KEY_RESETCAR))
         {
             m_ResetCarTempBool = true;
             m_ResetCarTimer = Time.time;
         }
 
-        if(Input.GetKey(KEY_RESETCAR))
+        if (Input.GetKey(KEY_RESETCAR))
         {
             if (m_ResetCarTempBool)
             {
@@ -152,7 +152,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         bool tmp = m_ResetCarValue;
         m_ResetCarValue = false;
-        
+
         return tmp;
     }
 
@@ -171,11 +171,63 @@ public class PlayerInputManager : MonoBehaviour
         return Input.GetKeyDown(KEY_HANDBRAKE);
     }
 
-    public void PlayLEDs(int currentValue, int firstLEDValue, int almostmaxLEDValue)
+    public void OnApplicationQuit()
     {
         if(inputType == InputType.STEERINGWHEEL)
         {
+            LogitechGSDK.LogiStopDamperForce(0);
+            LogitechGSDK.LogiStopSpringForce(0);
+            LogitechGSDK.LogiStopSlipperyRoadEffect(0);
+            LogitechGSDK.LogiStopSoftstopForce(0);
+            LogitechGSDK.LogiStopConstantForce(0);
+        }
+    }
+
+
+    public void PlayLEDs(int currentValue, int firstLEDValue, int almostmaxLEDValue)
+    {
+        if (inputType == InputType.STEERINGWHEEL)
+        {
             LogitechGSDK.LogiPlayLeds(0, currentValue, firstLEDValue, almostmaxLEDValue);
+        }
+    }
+
+    public void PlayDamperForce(float velocity)
+    {
+        if (inputType == InputType.STEERINGWHEEL)
+        {
+            LogitechGSDK.LogiPlayDamperForce(0, (int) Mathf.Abs(velocity));
+        }
+    }
+
+    public void PlayAirEffect(bool airborne)
+    {
+        if (inputType == InputType.STEERINGWHEEL)
+        {
+            if(airborne)
+            {
+                LogitechGSDK.LogiPlayCarAirborne(0);
+            }
+            else
+            {
+                LogitechGSDK.LogiStopCarAirborne(0);
+            }
+        }
+    }
+
+    public void PlayConstantForce(int force)
+    {
+        if (inputType == InputType.STEERINGWHEEL)
+        {
+            LogitechGSDK.LogiPlayConstantForce(0, force);
+        }
+    }
+
+    public void PlaySpringForce(int offsetPercentage, int magnitudePercentage, int coefficientPercentage)
+    {
+        if (inputType == InputType.STEERINGWHEEL)
+        {
+            LogitechGSDK.LogiPlaySpringForce(0, offsetPercentage, magnitudePercentage, coefficientPercentage);
         }
     }
 }

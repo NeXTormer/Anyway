@@ -120,6 +120,7 @@ public class CarController : NetworkBehaviour
     private Rigidbody m_Body;
     private float m_OldRotationY = 0;
     private PlayerInputManager m_InputManager;
+    private Vector3 m_OldVelocity = new Vector3(0, 0, 0);
 
 
 	public void Start ()
@@ -129,6 +130,7 @@ public class CarController : NetworkBehaviour
         axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
         m_InputManager = GetComponent<PlayerInputManager>();
         currentTorque = motorTorqueMax;
+        
     }
 	
 
@@ -233,7 +235,17 @@ public class CarController : NetworkBehaviour
         speed = m_Body.velocity.magnitude;
 
         m_InputManager.PlayLEDs((int) speed, 3, (int) (maxSpeed - 1));
+        //m_InputManager.PlayDamperForce(m_Body.velocity.magnitude * 0.4f); damper should be inverted: slow speed -> high damper, high speed -> low damper but high spring force
 
+
+        Vector3 diff = m_OldVelocity - m_Body.velocity;
+        if (diff.z < 0.1 && diff.z > 0) diff.z = 0;
+        if (diff.z > -0.1 && diff.z < 0) diff.z = 0;
+
+        m_InputManager.PlayConstantForce((int)(diff.z * 88));
+        Debug.Log("Velocity DIff: " + diff.z * 88);
+
+        m_OldVelocity = m_Body.velocity;
     }
 
     /// <summary>

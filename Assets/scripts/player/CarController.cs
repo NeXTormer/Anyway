@@ -164,8 +164,8 @@ public class CarController : NetworkBehaviour
             {
                 if(IsOnGround())
                 {
-                    m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
-                    handBrakeTorque = handbrakeTorqueMax;
+                    //m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
+                    //handBrakeTorque = handbrakeTorqueMax;
                 }
             }
         }
@@ -175,8 +175,8 @@ public class CarController : NetworkBehaviour
             {
                 if(IsOnGround())
                 {
-                    m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
-                    handBrakeTorque = handbrakeTorqueMax;
+                    //m_Body.velocity = m_Body.velocity.magnitude * brakeHelper * m_Body.velocity.normalized;
+                    //handBrakeTorque = handbrakeTorqueMax;
                 }
             }
         }
@@ -213,8 +213,8 @@ public class CarController : NetworkBehaviour
         //add downforce relative to speed
         m_Body.AddForce(this.transform.up * -1 * downwardsForce * speed);
 
-        TractionControl();
-        AccelerationHelper();
+        //TractionControl();
+        //AccelerationHelper();
 
         if(handBrakeTorque > 10)
         {

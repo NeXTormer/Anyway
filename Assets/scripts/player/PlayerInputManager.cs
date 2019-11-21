@@ -84,7 +84,7 @@ public class PlayerInputManager : MonoBehaviour
             }
 
             steering = Input.GetAxis(AXIS_STEERING);
-            handBrake = Input.GetAxis(AXIS_HANDBRAKE);
+            handBrake = Input.GetKey(KeyCode.Space) ? 1 : 0;
             brake = 0;
 
             cameraZoom = Input.GetAxis(AXIS_CAMERAZOOM);

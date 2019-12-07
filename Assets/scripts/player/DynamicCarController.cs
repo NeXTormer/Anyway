@@ -79,7 +79,7 @@ public class DynamicCarController : MonoBehaviour
         steeringWheelAngle = m_InputManager.steering * maxSteeringWheelAngle;
 
         float brakeTorque = m_InputManager.brake * brakeTorqueMax;
-
+        if (brakeTorque < 10.0f) brakeTorque = 0.0f;
         
         foreach (Axle a in axles)
         {
@@ -101,8 +101,6 @@ public class DynamicCarController : MonoBehaviour
             {
                 a.leftWheel.motorTorque = motorTorque * a.wheelRotaionModifier;
                 a.rightWheel.motorTorque = motorTorque * a.wheelRotaionModifier;
-                Debug.Log("WERNER motor torque: " + a.leftWheel.motorTorque);
-
             }
             a.leftWheel.steerAngle = steeringAngle * a.steeringModifier;
             a.rightWheel.steerAngle = steeringAngle * a.steeringModifier;

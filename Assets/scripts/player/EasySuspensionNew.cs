@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class EasySuspension : MonoBehaviour
+public class EasySuspensionNew : MonoBehaviour
 {
 	[Range(0.1f, 20f)]
 	[Tooltip("Natural frequency of the suspension springs. Describes bounciness of the suspension.")]

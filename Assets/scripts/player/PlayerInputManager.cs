@@ -88,13 +88,13 @@ public class PlayerInputManager : MonoBehaviour
         if (inputType == InputType.KEYBOARD)
         {
             /* movement is disabled when debugMode is off and the race is actve */
-            if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive))
+            //if (!(!m_Playerdata.debugMode && !m_Playerdata.raceActive)) //maybe uncomment later, or not, idc
             {
                 gas = Input.GetAxis(AXIS_GAS);
             }
-            else
+            //else
             {
-                gas = 0;
+                //gas = 0;
             }
 
             steering = Input.GetAxis(AXIS_STEERING);

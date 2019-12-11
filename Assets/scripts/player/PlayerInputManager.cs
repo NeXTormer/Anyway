@@ -65,7 +65,21 @@ public class PlayerInputManager : MonoBehaviour
 
         inputType = m_PlayerDataTransfer.useSteeringWheel ? InputType.STEERINGWHEEL : InputType.KEYBOARD;
 
-        Debug.Log("Logitech Steering Wheel: " + LogitechGSDK.LogiSteeringInitialize(false));
+
+        if(inputType == InputType.STEERINGWHEEL)
+        {
+            Debug.Log("Logitech Steering Wheel: " + LogitechGSDK.LogiSteeringInitialize(false));
+
+            LogitechGSDK.LogiStopBumpyRoadEffect(0);
+            LogitechGSDK.LogiStopCarAirborne(0);
+            LogitechGSDK.LogiStopSpringForce(0);
+            LogitechGSDK.LogiStopConstantForce(0);
+            LogitechGSDK.LogiStopDamperForce(0);
+            LogitechGSDK.LogiStopBumpyRoadEffect(0);
+            LogitechGSDK.LogiStopSlipperyRoadEffect(0);
+            LogitechGSDK.LogiStopSurfaceEffect(0);
+            LogitechGSDK.LogiStopCarAirborne(0);
+        }
     }
 
     public void FixedUpdate()
@@ -180,6 +194,16 @@ public class PlayerInputManager : MonoBehaviour
             LogitechGSDK.LogiStopSlipperyRoadEffect(0);
             LogitechGSDK.LogiStopSoftstopForce(0);
             LogitechGSDK.LogiStopConstantForce(0);
+            LogitechGSDK.LogiStopBumpyRoadEffect(0);
+            LogitechGSDK.LogiStopCarAirborne(0);
+            LogitechGSDK.LogiStopSpringForce(0);
+            LogitechGSDK.LogiStopConstantForce(0);
+            LogitechGSDK.LogiStopDamperForce(0);
+            LogitechGSDK.LogiStopBumpyRoadEffect(0);
+            LogitechGSDK.LogiStopSlipperyRoadEffect(0);
+            LogitechGSDK.LogiStopSurfaceEffect(0);
+            LogitechGSDK.LogiStopCarAirborne(0);
+            Debug.Log("STOPPED ALL ACTIVE FORCES ON STEERING WHEEL");
         }
     }
 
@@ -192,11 +216,11 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void PlayDamperForce(float velocity)
+    public void PlayDamperForce(float strength)
     {
         if (inputType == InputType.STEERINGWHEEL)
         {
-            LogitechGSDK.LogiPlayDamperForce(0, (int) Mathf.Abs(velocity));
+            LogitechGSDK.LogiPlayDamperForce(0, (int) Mathf.Abs(strength));
         }
     }
 

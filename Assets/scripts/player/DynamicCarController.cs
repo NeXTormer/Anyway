@@ -108,6 +108,30 @@ public class DynamicCarController : MonoBehaviour
         }
 
 
+        float velocity = Mathf.Abs(m_Rigidbody.velocity.magnitude * 3.6f);
+       
+        if(velocity < 25.0f)
+        {
+            float inverseVelocity = 25 - velocity;
+            m_InputManager.PlayDamperForce(inverseVelocity * 3);
+        }
+
+        int springMagnitude = (int) (velocity * 0.55f);
+        int springCoefficient = 55;
+        if(velocity > 10)
+        {
+            m_InputManager.PlaySpringForce(0, (int)velocity, 50);
+        }
+        else
+        {
+            LogitechGSDK.LogiStopSpringForce(0);
+        }
+        
+        
+        
+
+        
+
 
 
     }

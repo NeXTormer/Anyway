@@ -81,7 +81,7 @@ public class RaceUI : MonoBehaviour
 
         timeText.text = started ? minutes + ":" + seconds.ToString("00") + ":" + ms.ToString("00") : "00:00:00";
         //lapText.text = m_Data.currentLap + " / " + m_Data.numberOfLaps;
-        lapText.text = m_Body.velocity.magnitude.ToString("0");
+        lapText.text = (m_Body.velocity.magnitude * 3.6f).ToString("0");
         wpText.text = m_Data.currentWaypoint + " / " + m_Data.numberOfWaypoints;
 
         titleText.text = m_Data.titleText;

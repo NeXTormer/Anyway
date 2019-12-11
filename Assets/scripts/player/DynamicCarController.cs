@@ -67,6 +67,7 @@ public class DynamicCarController : MonoBehaviour
 	void Start () 
     {
         m_InputManager = GetComponent<PlayerInputManager>();
+        m_Rigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate () 

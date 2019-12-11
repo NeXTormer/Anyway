@@ -3970,7 +3970,7 @@ GameObject:
   - component: {fileID: 1116041661}
   - component: {fileID: 1116041660}
   m_Layer: 0
-  m_Name: SteeringWheelDebug
+  m_Name: SteeringWheelDebugG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

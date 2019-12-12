@@ -8,7 +8,7 @@ public class BumpyRoad : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.GetComponent<PlayerInputManager>().enabled)
+        if(other.GetComponentInParent<PlayerInputManager>().enabled)
         {
             if(LogitechGSDK.LogiIsConnected(0))
             {
@@ -23,7 +23,7 @@ public class BumpyRoad : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        //if(other.GetComponent<PlayerInputManager>().enabled)
+        if(other.GetComponentInParent<PlayerInputManager>().enabled)
         {
             if (LogitechGSDK.LogiIsConnected(0))
             {

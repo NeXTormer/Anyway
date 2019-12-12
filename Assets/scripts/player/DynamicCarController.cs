@@ -51,6 +51,8 @@ public class DynamicCarController : MonoBehaviour
     public int stepsBelow = 5;
     public int stepsAbove = 1;
 
+    public Transform centerOfMass;
+
 
     [Header("Steering Wheel")]
     [Tooltip("Mesh of the steering wheel to move it when steering")]
@@ -68,6 +70,9 @@ public class DynamicCarController : MonoBehaviour
     {
         m_InputManager = GetComponent<PlayerInputManager>();
         m_Rigidbody = GetComponent<Rigidbody>();
+
+        axles[0].rightWheel.attachedRigidbody.centerOfMass = centerOfMass.localPosition;
+        //Debug.Log("CENTER OF MASS: " + m_Rigidbody.centerOfMass);
     }
 
     void FixedUpdate () 
@@ -126,13 +131,5 @@ public class DynamicCarController : MonoBehaviour
         {
             LogitechGSDK.LogiStopSpringForce(0);
         }
-        
-        
-        
-
-        
-
-
-
     }
 }

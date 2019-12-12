@@ -147,6 +147,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114646589713766136, guid: 790af4803bb6a5141930407fbd11e866,
+        type: 2}
+      propertyPath: axles.Array.data[1].steeringModifier
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 790af4803bb6a5141930407fbd11e866, type: 2}
   m_IsPrefabParent: 0

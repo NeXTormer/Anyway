@@ -131,5 +131,21 @@ public class DynamicCarController : MonoBehaviour
         {
             LogitechGSDK.LogiStopSpringForce(0);
         }
+        
+        foreach(Axle a in axles)
+        {
+            if(a.steeringModifier > 0.5f)
+            {
+                if(!a.rightWheel.isGrounded && !a.leftWheel.isGrounded)
+                {
+                    LogitechGSDK.LogiPlayCarAirborne(0);
+                }
+                else
+                {
+                    LogitechGSDK.LogiStopCarAirborne(0);
+                }
+            }
+        }
+
     }
 }

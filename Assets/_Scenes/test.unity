@@ -147,9 +147,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114576516514911684, guid: 790af4803bb6a5141930407fbd11e866,
+        type: 2}
+      propertyPath: steeringWheel
+      value: 
+      objectReference: {fileID: 89143458}
+    - target: {fileID: 114576516514911684, guid: 790af4803bb6a5141930407fbd11e866,
+        type: 2}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 89143459}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 790af4803bb6a5141930407fbd11e866, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &89143458 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452484175402634, guid: 790af4803bb6a5141930407fbd11e866,
+    type: 2}
+  m_PrefabInternal: {fileID: 89143457}
+--- !u!114 &89143459 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114516989814438442, guid: 790af4803bb6a5141930407fbd11e866,
+    type: 2}
+  m_PrefabInternal: {fileID: 89143457}
+  m_Script: {fileID: 11500000, guid: 3d08cf714a33c304ea9ad1daca38687c, type: 3}
 --- !u!1 &181543858
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,6 +83,8 @@ public class DynamicCarController : MonoBehaviour
         
         float steeringAngle = steeringAngleMax * m_InputManager.steering;
         steeringWheelAngle = m_InputManager.steering * maxSteeringWheelAngle;
+        steeringWheel.transform.localEulerAngles = new Vector3(steeringWheel.transform.localEulerAngles.x, steeringWheel.transform.localEulerAngles.y, steeringWheelAngle);
+
 
         float brakeTorque = m_InputManager.brake * brakeTorqueMax;
         if (brakeTorque < 10.0f) brakeTorque = 0.0f;
@@ -138,11 +140,17 @@ public class DynamicCarController : MonoBehaviour
             {
                 if(!a.rightWheel.isGrounded && !a.leftWheel.isGrounded)
                 {
-                    LogitechGSDK.LogiPlayCarAirborne(0);
+                    if(m_InputManager.forceFeedBackEnabled)
+                    {
+                        LogitechGSDK.LogiPlayCarAirborne(0);
+                    }
                 }
                 else
                 {
-                    LogitechGSDK.LogiStopCarAirborne(0);
+                    if(m_InputManager.forceFeedBackEnabled)
+                    {
+                        LogitechGSDK.LogiStopCarAirborne(0);
+                    }
                 }
             }
         }

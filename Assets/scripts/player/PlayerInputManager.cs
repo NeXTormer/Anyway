@@ -13,6 +13,7 @@ public class PlayerInputManager : MonoBehaviour
 {
     [Header("Settings")]
     public InputType inputType = InputType.KEYBOARD;
+    public bool forceFeedBackEnabled = true;
 
     [Space]
 
@@ -116,6 +117,8 @@ public class PlayerInputManager : MonoBehaviour
                 {
                     gas = -((m_State.lY - 32768.0f) / (32768.0f * 2f));
                     clutch = -((m_State.rglSlider[0] - 32768.0f) / (32768.0f * 2f));
+                    if (Mathf.Abs(gas) < 0.005f) gas = 0.0f;
+                    if (Mathf.Abs(clutch) < 0.005f) clutch = 0.0f;
                 }
                 else
                 {
@@ -125,6 +128,7 @@ public class PlayerInputManager : MonoBehaviour
 
                 steering = m_State.lX / 32768.0f;
                 brake = -((m_State.lRz - 32768.0f) / (32768.0f * 2f));
+                if (Mathf.Abs(brake) < 0.005f) brake = 0.0f;
 
                 cameraZoomValue = m_State.rgbButtons[22] == 128 ? cameraZoomValue + 0.1f : cameraZoomValue;
                 cameraZoomValue = m_State.rgbButtons[21] == 128 ? cameraZoomValue - 0.1f : cameraZoomValue;

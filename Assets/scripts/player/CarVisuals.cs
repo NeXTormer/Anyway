@@ -28,6 +28,10 @@ class CarVisuals : NetworkBehaviour
     [SyncVar]
     public float WheelFLSteerAngle = 0.42f;
 
+
+    private PlayerInputManager inputManager;
+ 
+
     public void FixedUpdate()
     {
         if(isLocalPlayer)

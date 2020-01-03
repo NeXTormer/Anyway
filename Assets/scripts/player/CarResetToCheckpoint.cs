@@ -21,7 +21,7 @@ class CarResetToCheckpoint : MonoBehaviour
         m_InputManager = this.transform.gameObject.GetComponent<PlayerInputManager>();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         //if(m_InputManager.ResetCar())
         if(Input.GetKeyDown(KeyCode.R))

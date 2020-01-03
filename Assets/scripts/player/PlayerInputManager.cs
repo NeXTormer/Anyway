@@ -50,11 +50,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private bool m_NewChangePOV = false;
     private bool m_OldChangePOV = false;
-    private bool m_ChangePOV = false;
-    private bool m_ResetCarTempBool = false;
     private bool m_ResetCarValue;
-
-    private float m_ResetCarTimer = 0;
 
     private NetworkPlayerData m_Playerdata;
     private PlayerDataTransfer m_PlayerDataTransfer;
@@ -86,6 +82,11 @@ public class PlayerInputManager : MonoBehaviour
     public void FixedUpdate()
     {
 
+        
+    }
+
+    public void Update()
+    {
         if (inputType == InputType.KEYBOARD)
         {
             /* movement is disabled when debugMode is off and the race is actve */
@@ -137,32 +138,26 @@ public class PlayerInputManager : MonoBehaviour
 
                 m_OldChangePOV = m_NewChangePOV;
                 m_NewChangePOV = m_State.rgbButtons[2] == 128;
-
-                m_ChangePOV = !m_OldChangePOV == m_NewChangePOV;
-
             }
         }
 
-        if (Input.GetKeyDown(KEY_RESETCAR))
-        {
-            m_ResetCarTempBool = true;
-            m_ResetCarTimer = Time.time;
-        }
 
-        if (Input.GetKey(KEY_RESETCAR))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (m_ResetCarTempBool)
+            if (inputType == InputType.STEERINGWHEEL)
             {
-                if (Time.time - m_ResetCarTimer > carResetPressTime)
+                forceFeedBackEnabled = !forceFeedBackEnabled;
+                Debug.Log("Force Feedback: " + forceFeedBackEnabled);
+
+                if (forceFeedBackEnabled)
                 {
-                    m_ResetCarValue = true;
-                    m_ResetCarTempBool = false;
+                    LogitechGSDK.LogiStopCarAirborne(0);
+                }
+                else
+                {
+                    LogitechGSDK.LogiPlayCarAirborne(0);
                 }
             }
-        }
-        else
-        {
-            m_ResetCarValue = false;
         }
     }
 
@@ -177,6 +172,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool ChangeCameraPosition()
     {
         return Input.GetKeyDown(KEY_CHANGEPOV);
+        
     }
 
     public bool TogglePauseMenu()

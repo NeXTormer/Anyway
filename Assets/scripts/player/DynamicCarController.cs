@@ -64,6 +64,8 @@ public class DynamicCarController : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
     private PlayerInputManager m_InputManager;
+    private bool m_AirborneStateChanged = false;
+    private bool m_IsCarAirborne = false;
 
 
 	void Start () 
@@ -133,25 +135,40 @@ public class DynamicCarController : MonoBehaviour
         {
             LogitechGSDK.LogiStopSpringForce(0);
         }
-        
+
+
+
+        //way to complicated 
+        bool isCarAirborneOld = m_IsCarAirborne;
+        bool airborneStateChanged = false;
         foreach(Axle a in axles)
         {
             if(a.steeringModifier > 0.5f)
             {
-                if(!a.rightWheel.isGrounded && !a.leftWheel.isGrounded)
+                if(a.rightWheel.isGrounded && a.leftWheel.isGrounded)
                 {
-                    if(m_InputManager.forceFeedBackEnabled)
-                    {
-                        LogitechGSDK.LogiPlayCarAirborne(0);
-                    }
+                    m_IsCarAirborne = false;
                 }
                 else
                 {
-                    if(m_InputManager.forceFeedBackEnabled)
-                    {
-                        LogitechGSDK.LogiStopCarAirborne(0);
-                    }
+                    m_IsCarAirborne = true;
                 }
+            }
+        }
+        if(isCarAirborneOld == m_IsCarAirborne)
+        {
+            airborneStateChanged = false;
+        }
+        else
+        {
+            airborneStateChanged = true;
+            if(m_IsCarAirborne)
+            {
+                LogitechGSDK.LogiPlayCarAirborne(0);
+            }
+            else
+            {
+                LogitechGSDK.LogiStopCarAirborne(0);
             }
         }
 

@@ -13,14 +13,14 @@ public class SmootherFollow : MonoBehaviour {
     public void Start()
     {
         m_CamInfo = GetComponent<CameraInfo>();
-        m_InputManager = this.transform.root.gameObject.GetComponent<PlayerInputManager>();
+        m_InputManager = transform.root.gameObject.GetComponent<PlayerInputManager>();
     }
 
     public void FixedUpdate()
     {
         if (m_CamInfo.isActive)
         {
-            m_CamInfo.cameraContainer.transform.position = Vector3.Lerp(m_CamInfo.cameraContainer.transform.position, this.transform.position, Time.deltaTime * smoothing);
+            m_CamInfo.cameraContainer.transform.position = Vector3.Lerp(m_CamInfo.cameraContainer.transform.position, transform.position, Time.deltaTime * smoothing);
             m_CamInfo.cameraContainer.transform.LookAt(player.transform);
         }
     }

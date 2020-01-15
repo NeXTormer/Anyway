@@ -13,24 +13,29 @@ public class CollisionResponse : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (LogitechGSDK.LogiIsConnected(0))
+        Waypoint wp = other.GetComponent<Waypoint>();
+        if(wp == null)
         {
-            if(collisionType == CollisionType.FRONT)
+            if (LogitechGSDK.LogiIsConnected(0))
             {
-                //Debug.Log("FRONT COLLISION");
-                LogitechGSDK.LogiPlayFrontalCollisionForce(0, 100);
-            }
-            else if(collisionType == CollisionType.LEFT)
-            {
-                LogitechGSDK.LogiPlaySideCollisionForce(0, 100);
-                //Debug.Log("LEFT COLLISION");
-            }
-            else if(collisionType == CollisionType.RIGHT)
-            {
-                LogitechGSDK.LogiPlaySideCollisionForce(0, -100);
-                //Debug.Log("RIGHT COLLISION");
+                if (collisionType == CollisionType.FRONT)
+                {
+                    //Debug.Log("FRONT COLLISION");
+                    LogitechGSDK.LogiPlayFrontalCollisionForce(0, 100);
+                }
+                else if (collisionType == CollisionType.LEFT)
+                {
+                    LogitechGSDK.LogiPlaySideCollisionForce(0, 100);
+                    //Debug.Log("LEFT COLLISION");
+                }
+                else if (collisionType == CollisionType.RIGHT)
+                {
+                    LogitechGSDK.LogiPlaySideCollisionForce(0, -100);
+                    //Debug.Log("RIGHT COLLISION");
+                }
             }
         }
+        
     }
 
 }

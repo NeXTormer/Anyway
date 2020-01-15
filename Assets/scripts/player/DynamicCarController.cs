@@ -126,7 +126,6 @@ public class DynamicCarController : MonoBehaviour
         }
 
         int springMagnitude = (int) (velocity * 0.55f);
-        int springCoefficient = 55;
         if(velocity > 10)
         {
             m_InputManager.PlaySpringForce(0, (int)velocity, 50);
